@@ -1,7 +1,7 @@
 {
-  "name": "@folio-sample-modules/catalog",
+  "name": "@folio-sample-modules/items",
   "version": "0.0.1-test",
-  "description": "Catalog management",
+  "description": "Items management",
   "repository": "folio-org/stripes-components",
   "publishConfig" : {
     "registry" : "https://repository.folio.org/repository/npm-folio/"
@@ -13,8 +13,8 @@
   "main": "index.js",
   "stripes": {
     "type": "app",
-    "displayName": "Catalog",
-    "route": "/catalog"
+    "displayName": "Items",
+    "route": "/items"
   },
   "scripts": {
     "lint": "eslint *.js || true"
