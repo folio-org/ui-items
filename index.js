@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'; // eslint-disable-line
 import Match from 'react-router/Match'; // eslint-disable-line
 import Miss from 'react-router/Miss'; // eslint-disable-line
-import Catalog from './Catalog';
+import Items from './Items';
 
-class CatalogRouting extends Component {
+class ItemsRouting extends Component {
 
   static propTypes = {
     connect: PropTypes.func.isRequired,
@@ -13,7 +13,7 @@ class CatalogRouting extends Component {
 
   constructor(props) {
     super(props);
-    this.connectedApp = props.connect(Catalog);
+    this.connectedApp = props.connect(Items);
   }
 
   NoMatch() {
@@ -36,4 +36,4 @@ class CatalogRouting extends Component {
   }
 }
 
-export default CatalogRouting;
+export default ItemsRouting;
