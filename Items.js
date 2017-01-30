@@ -13,14 +13,14 @@ import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
-class Catalog extends React.Component {
+class Items extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       recordFilters: ['Bibliographic', 'Item', 'Holdings'],
       itemFilters: ['Books', 'DVDs', 'E-Books', 'Microfilm'],
-      catalogResults: [
+      itemsResults: [
         { title: 'Biology Today',
           id: '199930490002',
           author: {
@@ -197,14 +197,14 @@ class Catalog extends React.Component {
             <div style={{ textAlign: 'center' }}>
               <strong>Results</strong>
               <div>
-                <em>{this.state.catalogResults.length} Results Found</em>
+                <em>{this.state.itemsResults.length} Results Found</em>
               </div>
             </div>
           }
           lastMenu={resultMenu}
         >
           <MultiColumnList
-            contentData={this.state.catalogResults}
+            contentData={this.state.itemsResults}
             selectedRow={this.state.selectedItem}
             rowMetadata={['title']}
             headerMetadata={{ title: { _id: '001' } }}
@@ -219,4 +219,4 @@ class Catalog extends React.Component {
   }
 }
 
-export default Catalog;
+export default Items;
