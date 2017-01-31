@@ -17,32 +17,34 @@ class Items extends React.Component {
   constructor(props) {
     super(props);
 
+    this.itemsResults = [
+      { title: 'Biology Today',
+        id: '199930490002',
+        author: {
+          firstName: 'James',
+          lastName: 'Whitcomb',
+        },
+      },
+      { title: 'Financial Matters',
+        id: '199930490034',
+        author: {
+          firstName: 'Philip',
+          lastName: 'Marston',
+        },
+      },
+      { title: 'Modern Microbiotics',
+        id: '199930490064',
+        author: {
+          firstName: 'Eric',
+          lastName: 'Martin',
+        },
+      },
+    ];
+
+    const query = props.location.query || {};
     this.state = {
       recordFilters: ['Bibliographic', 'Item', 'Holdings'],
       itemFilters: ['Books', 'DVDs', 'E-Books', 'Microfilm'],
-      itemsResults: [
-        { title: 'Biology Today',
-          id: '199930490002',
-          author: {
-            firstName: 'James',
-            lastName: 'Whitcomb',
-          },
-        },
-        { title: 'Financial Matters',
-          id: '199930490034',
-          author: {
-            firstName: 'Philip',
-            lastName: 'Marston',
-          },
-        },
-        { title: 'Modern Microbiotics',
-          id: '199930490064',
-          author: {
-            firstName: 'Eric',
-            lastName: 'Martin',
-          },
-        },
-      ],
       selectedItem: { title: 'Biology Today' },
     };
 
@@ -197,14 +199,14 @@ class Items extends React.Component {
             <div style={{ textAlign: 'center' }}>
               <strong>Results</strong>
               <div>
-                <em>{this.state.itemsResults.length} Results Found</em>
+                <em>{this.itemsResults.length} Results Found</em>
               </div>
             </div>
           }
           lastMenu={resultMenu}
         >
           <MultiColumnList
-            contentData={this.state.itemsResults}
+            contentData={this.itemsResults}
             selectedRow={this.state.selectedItem}
             rowMetadata={['title']}
             headerMetadata={{ title: { _id: '001' } }}
