@@ -14,32 +14,17 @@ import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; /
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
 class Items extends React.Component {
+  static manifest = Object.freeze({
+    items: {
+      type: 'okapi',
+      records: 'items',
+      path: 'item-storage/items?query=?{query}',
+      staticFallback: { path: 'item-storage/items' },
+    }
+  });
+
   constructor(props) {
     super(props);
-
-    this.itemsResults = [
-      { title: 'Biology Today',
-        id: '199930490002',
-        author: {
-          firstName: 'James',
-          lastName: 'Whitcomb',
-        },
-      },
-      { title: 'Financial Matters',
-        id: '199930490034',
-        author: {
-          firstName: 'Philip',
-          lastName: 'Marston',
-        },
-      },
-      { title: 'Modern Microbiotics',
-        id: '199930490064',
-        author: {
-          firstName: 'Eric',
-          lastName: 'Martin',
-        },
-      },
-    ];
 
     const query = props.location.query || {};
     this.state = {
@@ -98,12 +83,15 @@ class Items extends React.Component {
   }
 
   render() {
+    const { data } = this.props;
+    const items = data.items || [];
+
     /* searchHeader is a 'custom pane header'*/
     const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} value={this.state.searchTerm} />;
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      author: item => <td key={item.id}>{item.author.firstName} {item.author.lastName}</td>,
+      author: item => <td key={item.id}>{item.author}</td>,
     };
 
     return (
@@ -199,20 +187,20 @@ class Items extends React.Component {
             <div style={{ textAlign: 'center' }}>
               <strong>Results</strong>
               <div>
-                <em>{this.itemsResults.length} Results Found</em>
+                <em>{items.length} Result{items.length === 1 ? '' : 's'} Found</em>
               </div>
             </div>
           }
           lastMenu={resultMenu}
         >
           <MultiColumnList
-            contentData={this.itemsResults}
+            contentData={items}
             selectedRow={this.state.selectedItem}
             rowMetadata={['title']}
             headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.selectRow}
-            visibleColumns={['title', 'author']}
+            visibleColumns={['author', 'date', 'title']}
             fullWidth
           />
         </Pane>
