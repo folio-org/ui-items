@@ -48,13 +48,13 @@ class Items extends React.Component {
       selectedItem: { title: 'Biology Today' },
     };
 
-    this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.onChangeRecordFilter = this.onChangeRecordFilter.bind(this);
     this.onChangeItemFilter = this.onChangeItemFilter.bind(this);
     this.selectRow = this.selectRow.bind(this);
   }
 
   // record types filter handler
-  onChangeFilter(e) {
+  onChangeRecordFilter(e) {
     const recordFilters = this.state.recordFilters;
     if (e.target.checked) {
       recordFilters.push(e.target.name);
@@ -116,7 +116,7 @@ class Items extends React.Component {
               label="Bibliographic"
               name="Bibliographic"
               checked={this.isActiveFilter('Bibliographic', this.state.recordFilters)}
-              onChange={this.onChangeFilter}
+              onChange={this.onChangeRecordFilter}
               marginBottom0
               hover
               fullWidth
@@ -127,7 +127,7 @@ class Items extends React.Component {
               label="Item"
               name="Item"
               checked={this.isActiveFilter('Item', this.state.recordFilters)}
-              onChange={this.onChangeFilter}
+              onChange={this.onChangeRecordFilter}
               marginBottom0
               hover
               fullWidth
@@ -138,7 +138,7 @@ class Items extends React.Component {
               label="Holdings"
               name="Holdings"
               checked={this.isActiveFilter('Holdings', this.state.recordFilters)}
-              onChange={this.onChangeFilter}
+              onChange={this.onChangeRecordFilter}
               marginBottom0
               hover
               fullWidth
