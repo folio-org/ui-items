@@ -14,7 +14,8 @@
   "stripes": {
     "type": "app",
     "displayName": "Items",
-    "route": "/items"
+    "route": "/items",
+    "home": "/items?sort=title"
   },
   "scripts": {
     "lint": "eslint *.js || true"
