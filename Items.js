@@ -30,7 +30,7 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: 'item-storage/items?query=?{query}',
+      path: 'item-storage/items?query=(author=?{query}* or date=?{query} or title=?{query}*)',
       staticFallback: { path: 'item-storage/items' },
     },
   });
@@ -254,6 +254,7 @@ class Items extends React.Component {
             headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.selectRow}
+            onHeaderClick={this.onSortHandler}
             visibleColumns={['author', 'date', 'title']}
             fullWidth
             sortOrder={this.state.sortOrder}
