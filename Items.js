@@ -30,7 +30,7 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: 'item-storage/items?query=(author=?{query}* or date=?{query} or title=?{query}*)',
+      path: 'item-storage/items?query=(author=?{query:-}* or date=?{query:-*} or title=?{query:-}*) ?{sort:+sortby} ?{sort:-}',
       staticFallback: { path: 'item-storage/items' },
     },
   });
