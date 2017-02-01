@@ -1,4 +1,4 @@
-import React from 'react'; // eslint-disable-line
+import React, { PropTypes } from 'react'; // eslint-disable-line
 import {Row, Col} from 'react-bootstrap'; // eslint-disable-line
 
 import Pane from '@folio/stripes-components/lib/Pane'; // eslint-disable-line
@@ -14,13 +14,25 @@ import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; /
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
 class Items extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  };
+
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+      query: PropTypes.object,
+    }).isRequired,
+  };
+
   static manifest = Object.freeze({
     items: {
       type: 'okapi',
       records: 'items',
       path: 'item-storage/items?query=?{query}',
       staticFallback: { path: 'item-storage/items' },
-    }
+    },
   });
 
   constructor(props) {
@@ -31,11 +43,16 @@ class Items extends React.Component {
       recordFilters: ['Bibliographic', 'Item', 'Holdings'],
       itemFilters: ['Books', 'DVDs', 'E-Books', 'Microfilm'],
       selectedItem: { title: 'Biology Today' },
+      searchTerm: query.query || '',
+      sortOrder: query.sort || '',
     };
 
     this.onChangeRecordFilter = this.onChangeRecordFilter.bind(this);
     this.onChangeItemFilter = this.onChangeItemFilter.bind(this);
     this.selectRow = this.selectRow.bind(this);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+    this.onClearSearch = this.onClearSearch.bind(this);
+    this.onSortHandler = this.onSortHandler.bind(this);
   }
 
   // record types filter handler
@@ -62,6 +79,27 @@ class Items extends React.Component {
     this.setState(stateObject);
   }
 
+  onChangeSearch(e) {
+    const query = e.target.value;
+    console.log(`User searched for '${query}' at '${this.props.location.pathname}'`);
+
+    this.setState({ searchTerm: query });
+    this.updateSearch(query, this.state.sortOrder);
+  }
+
+  onClearSearch() {
+    console.log('User cleared search');
+    this.setState({ searchTerm: '' });
+    this.context.router.transitionTo(this.props.location.pathname);
+  }
+
+  onSortHandler(e, meta) {
+    const sortOrder = meta.name;
+    console.log('User sorted by', sortOrder);
+    this.setState({ sortOrder });
+    this.updateSearch(this.state.searchTerm, sortOrder);
+  }
+
   // determines whether filter checkboxes are checked.
   isActiveFilter(name, arr) { // eslint-disable-line class-methods-use-this
     const ind = arr.indexOf(name);
@@ -80,6 +118,22 @@ class Items extends React.Component {
   // row selection handler
   selectRow(e, meta) {
     this.setState({ selectedItem: meta });
+  }
+
+  // We need to explicitly pass changed values into this function,
+  // as state-change only happens after event is handled.
+  updateSearch(query, sortOrder) {
+    console.log(`updateSearch('${query}', '${sortOrder}')`);
+    let transitionLoc = this.props.location.pathname;
+    const params = {};
+    if (query) params.query = query;
+    if (sortOrder) params.sort = sortOrder;
+    const keys = Object.keys(params);
+    if (keys.length) {
+      // eslint-disable-next-line prefer-template
+      transitionLoc += '?' + keys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+    }
+    this.context.router.transitionTo(transitionLoc);
   }
 
   render() {
@@ -202,6 +256,7 @@ class Items extends React.Component {
             onRowClick={this.selectRow}
             visibleColumns={['author', 'date', 'title']}
             fullWidth
+            sortOrder={this.state.sortOrder}
           />
         </Pane>
       </Paneset>
