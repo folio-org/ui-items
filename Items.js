@@ -258,6 +258,7 @@ class Items extends React.Component {
             visibleColumns={['author', 'date', 'title']}
             fullWidth
             sortOrder={this.state.sortOrder}
+            isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
           />
         </Pane>
       </Paneset>
