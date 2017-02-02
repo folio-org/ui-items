@@ -100,6 +100,12 @@ class Items extends React.Component {
     this.updateSearch(this.state.searchTerm, sortOrder);
   }
 
+  // Results Handler
+  // row selection handler
+  onSelectRow(e, meta) {
+    this.setState({ selectedItem: meta });
+  }
+
   // determines whether filter checkboxes are checked.
   isActiveFilter(name, arr) { // eslint-disable-line class-methods-use-this
     const ind = arr.indexOf(name);
@@ -112,12 +118,6 @@ class Items extends React.Component {
     if (ind !== -1) {
       arr.splice(ind, 1);
     }
-  }
-
-  // Results Handler
-  // row selection handler
-  onSelectRow(e, meta) {
-    this.setState({ selectedItem: meta });
   }
 
   // We need to explicitly pass changed values into this function,
