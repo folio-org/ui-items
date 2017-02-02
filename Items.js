@@ -49,10 +49,10 @@ class Items extends React.Component {
 
     this.onChangeRecordFilter = this.onChangeRecordFilter.bind(this);
     this.onChangeItemFilter = this.onChangeItemFilter.bind(this);
-    this.onSelectRow = this.onSelectRow.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
+    this.onSelectRow = this.onSelectRow.bind(this);
   }
 
   // record types filter handler
