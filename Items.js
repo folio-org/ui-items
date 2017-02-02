@@ -236,7 +236,7 @@ class Items extends React.Component {
         </Pane>
         {/* Results Pane */}
         <Pane
-          defaultWidth="32%"
+          defaultWidth="40%"
           paneTitle={
             <div style={{ textAlign: 'center' }}>
               <strong>Results</strong>
