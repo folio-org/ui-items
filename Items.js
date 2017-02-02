@@ -49,7 +49,7 @@ class Items extends React.Component {
 
     this.onChangeRecordFilter = this.onChangeRecordFilter.bind(this);
     this.onChangeItemFilter = this.onChangeItemFilter.bind(this);
-    this.selectRow = this.selectRow.bind(this);
+    this.onSelectRow = this.onSelectRow.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSortHandler = this.onSortHandler.bind(this);
@@ -116,7 +116,7 @@ class Items extends React.Component {
 
   // Results Handler
   // row selection handler
-  selectRow(e, meta) {
+  onSelectRow(e, meta) {
     this.setState({ selectedItem: meta });
   }
 
@@ -253,7 +253,7 @@ class Items extends React.Component {
             rowMetadata={['title']}
             headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
-            onRowClick={this.selectRow}
+            onRowClick={this.onSelectRow}
             onHeaderClick={this.onSortHandler}
             visibleColumns={['author', 'date', 'title']}
             fullWidth
