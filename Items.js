@@ -52,7 +52,7 @@ class Items extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
-    this.onSortHandler = this.onSortHandler.bind(this);
+    this.onSort = this.onSort.bind(this);
   }
 
   // record types filter handler
@@ -93,7 +93,7 @@ class Items extends React.Component {
     this.context.router.transitionTo(this.props.location.pathname);
   }
 
-  onSortHandler(e, meta) {
+  onSort(e, meta) {
     const sortOrder = meta.name;
     console.log('User sorted by', sortOrder);
     this.setState({ sortOrder });
@@ -254,7 +254,7 @@ class Items extends React.Component {
             headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
-            onHeaderClick={this.onSortHandler}
+            onHeaderClick={this.onSort}
             visibleColumns={['author', 'date', 'title']}
             fullWidth
             sortOrder={this.state.sortOrder}
