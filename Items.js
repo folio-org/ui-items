@@ -42,7 +42,7 @@ class Items extends React.Component {
     this.state = {
       recordFilters: ['Bibliographic', 'Item', 'Holdings'],
       itemFilters: ['Books', 'DVDs', 'E-Books', 'Microfilm'],
-      selectedItem: { title: 'Biology Today' },
+      selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
     };
