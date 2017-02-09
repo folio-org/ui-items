@@ -30,7 +30,7 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: 'item-storage/items?query=(author=?{query:-}* or date=?{query:-*} or title=?{query:-}*) ?{sort:+sortby} ?{sort:-}',
+      path: 'item-storage/items?query=(materialType=?{query:-*} or barcode=?{query:-}* or title=?{query:-}*) ?{sort:+sortby} ?{sort:-}',
       staticFallback: { path: 'item-storage/items' },
     },
   });
@@ -145,7 +145,8 @@ class Items extends React.Component {
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      author: item => <td key={item.id}>{item.author}</td>,
+      materialType: x => x.materialType.name,
+      status: x => x.status.name,
     };
 
     return (
@@ -255,7 +256,7 @@ class Items extends React.Component {
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
-            visibleColumns={['author', 'date', 'title']}
+            visibleColumns={['materialType', 'status', 'barcode', 'title']}
             fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
