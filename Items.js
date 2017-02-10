@@ -152,14 +152,14 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterControlGroup label="Record Types">
-            <FilterCheckbox name="Bibliographic" filters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeRecordFilter}/>
-            <FilterCheckbox name="Item" filters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeRecordFilter}/>
-            <FilterCheckbox name="Holdings" filters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Bibliographic" filters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Item" filters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Holdings" filters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeRecordFilter}/>
           </FilterControlGroup>
           <FilterControlGroup label="Item Types">
-            <FilterCheckbox name="Book" filters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeItemFilter}/>
-            <FilterCheckbox name="DVD" filters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeItemFilter}/>
-            <FilterCheckbox name="Microfilm" filters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="Book" filters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="DVD" filters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="Microfilm" filters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeFilter={this.onChangeItemFilter}/>
           </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
