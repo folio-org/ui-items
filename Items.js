@@ -42,8 +42,14 @@ class Items extends React.Component {
 
     const query = props.location.query || {};
     this.state = {
-      recordFilters: ['Bibliographic', 'Item', 'Holdings'],
-      itemFilters: ['Book', 'DVD', 'Microfilm'],
+      filters: {
+        'record.Bibliographic': true,
+        'record.Item': true,
+        'record.Holdings': true,
+        'item.Book': true,
+        'item.DVD': true,
+        'item.Microfilm': true,
+      },
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
@@ -57,24 +63,24 @@ class Items extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
   }
 
-  onChangeFilter(e, filters) {
-    if (e.target.checked) {
-      filters.push(e.target.name);
-    } else {
-      this.removeFilter(e.target.name, filters);
-    }
-    const stateObject = { filters };
-    this.setState(stateObject);
+  onChangeFilter(e, group) {
+    const filters = Object.assign({}, this.state.filters);
+    const fullName = `${group}.${e.target.name}`;
+    filters[fullName] = e.target.checked;
+    console.log("setting state", filters);
+    this.setState({ filters });
   }
 
   // record types filter handler
   onChangeRecordFilter(e) {
-    this.onChangeFilter(e, this.state.recordFilters);
+    console.log("onChangeRecordFilter", e);
+    this.onChangeFilter(e, 'record');
   }
 
  // item types filter handler
   onChangeItemFilter(e) {
-    this.onChangeFilter(e, this.state.itemFilters);
+    console.log("onChangeItemFilter", e);
+    this.onChangeFilter(e, 'item');
   }
 
   onChangeSearch(e) {
@@ -102,14 +108,6 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     this.setState({ selectedItem: meta });
-  }
-
-  // used to remove a selected filter from the state's filter list...
-  removeFilter(name, arr) { // eslint-disable-line class-methods-use-this
-    const ind = arr.indexOf(name);
-    if (ind !== -1) {
-      arr.splice(ind, 1);
-    }
   }
 
   // We need to explicitly pass changed values into this function,
@@ -146,14 +144,14 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterControlGroup label="Record Types">
-            <FilterCheckbox group="record" name="Bibliographic" filters={this.state.recordFilters} onChangeFilter={this.onChangeRecordFilter}/>
-            <FilterCheckbox group="record" name="Item" filters={this.state.recordFilters} onChangeFilter={this.onChangeRecordFilter}/>
-            <FilterCheckbox group="record" name="Holdings" filters={this.state.recordFilters} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Bibliographic" filters={this.state.filters} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Item" filters={this.state.filters} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Holdings" filters={this.state.filters} onChangeFilter={this.onChangeRecordFilter}/>
           </FilterControlGroup>
           <FilterControlGroup label="Item Types">
-            <FilterCheckbox group="item" name="Book" filters={this.state.itemFilters} onChangeFilter={this.onChangeItemFilter}/>
-            <FilterCheckbox group="item" name="DVD" filters={this.state.itemFilters} onChangeFilter={this.onChangeItemFilter}/>
-            <FilterCheckbox group="item" name="Microfilm" filters={this.state.itemFilters} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="Book" filters={this.state.filters} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="DVD" filters={this.state.filters} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="Microfilm" filters={this.state.filters} onChangeFilter={this.onChangeItemFilter}/>
           </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
