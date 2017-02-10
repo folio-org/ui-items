@@ -4,7 +4,7 @@ import Icon from '@folio/stripes-components/lib/Icon'; // eslint-disable-line
 
 class FilterCheckbox extends React.Component {
   render() {
-    const { name, isActiveFilter, filters, onChangeFilter } = this.props;
+    const { group, name, isActiveFilter, filters, onChangeFilter } = this.props;
 
     return <Checkbox
       id={`${name}ItemFilter`}
