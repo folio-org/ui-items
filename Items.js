@@ -55,32 +55,18 @@ class Items extends React.Component {
       sortOrder: query.sort || '',
     };
 
-    this.onChangeRecordFilter = this.onChangeRecordFilter.bind(this);
-    this.onChangeItemFilter = this.onChangeItemFilter.bind(this);
+    this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
   }
 
-  onChangeFilter(e, group) {
+  onChangeFilter(e) {
     const filters = Object.assign({}, this.state.filters);
-    const fullName = `${group}.${e.target.name}`;
-    filters[fullName] = e.target.checked;
+    filters[e.target.name] = e.target.checked;
     console.log("setting state", filters);
     this.setState({ filters });
-  }
-
-  // record types filter handler
-  onChangeRecordFilter(e) {
-    console.log("onChangeRecordFilter", e);
-    this.onChangeFilter(e, 'record');
-  }
-
- // item types filter handler
-  onChangeItemFilter(e) {
-    console.log("onChangeItemFilter", e);
-    this.onChangeFilter(e, 'item');
   }
 
   onChangeSearch(e) {
@@ -144,14 +130,14 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterControlGroup label="Record Types">
-            <FilterCheckbox group="record" name="Bibliographic" filters={this.state.filters} onChangeFilter={this.onChangeRecordFilter}/>
-            <FilterCheckbox group="record" name="Item" filters={this.state.filters} onChangeFilter={this.onChangeRecordFilter}/>
-            <FilterCheckbox group="record" name="Holdings" filters={this.state.filters} onChangeFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox group="record" name="Bibliographic" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="record" name="Item" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="record" name="Holdings" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
           </FilterControlGroup>
           <FilterControlGroup label="Item Types">
-            <FilterCheckbox group="item" name="Book" filters={this.state.filters} onChangeFilter={this.onChangeItemFilter}/>
-            <FilterCheckbox group="item" name="DVD" filters={this.state.filters} onChangeFilter={this.onChangeItemFilter}/>
-            <FilterCheckbox group="item" name="Microfilm" filters={this.state.filters} onChangeFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox group="item" name="Book" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="item" name="DVD" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="item" name="Microfilm" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
           </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
