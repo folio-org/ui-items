@@ -13,6 +13,8 @@ import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
+import FilterCheckbox from './FilterCheckbox';
+
 class Items extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -41,7 +43,7 @@ class Items extends React.Component {
     const query = props.location.query || {};
     this.state = {
       recordFilters: ['Bibliographic', 'Item', 'Holdings'],
-      itemFilters: ['Books', 'DVDs', 'Microfilm'],
+      itemFilters: ['Book', 'DVD', 'Microfilm'],
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
@@ -189,39 +191,9 @@ class Items extends React.Component {
             />
           </FilterControlGroup>
           <FilterControlGroup label="Item Types">
-            <Checkbox
-              id="BookItemFilter"
-              label="Books"
-              name="Books"
-              checked={this.isActiveFilter('Books', this.state.itemFilters)}
-              onChange={this.onChangeItemFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
-            <Checkbox
-              id="DVDItemFilter"
-              label="DVDs"
-              name="DVDs"
-              checked={this.isActiveFilter('DVDs', this.state.itemFilters)}
-              onChange={this.onChangeItemFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
-            <Checkbox
-              id="MicrofilmItemFilter"
-              label="Microfilm"
-              name="Microfilm"
-              checked={this.isActiveFilter('Microfilm', this.state.itemFilters)}
-              onChange={this.onChangeItemFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
+            <FilterCheckbox name="Book" itemFilters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox name="DVD" itemFilters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeItemFilter}/>
+            <FilterCheckbox name="Microfilm" itemFilters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeItemFilter}/>
           </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
