@@ -41,7 +41,7 @@ class Items extends React.Component {
     const query = props.location.query || {};
     this.state = {
       recordFilters: ['Bibliographic', 'Item', 'Holdings'],
-      itemFilters: ['Books', 'DVDs', 'E-Books', 'Microfilm'],
+      itemFilters: ['Books', 'DVDs', 'Microfilm'],
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
@@ -205,17 +205,6 @@ class Items extends React.Component {
               label="DVDs"
               name="DVDs"
               checked={this.isActiveFilter('DVDs', this.state.itemFilters)}
-              onChange={this.onChangeItemFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
-            <Checkbox
-              id="EbookItemFilter"
-              label="E-Books"
-              name="E-Books"
-              checked={this.isActiveFilter('E-Books', this.state.itemFilters)}
               onChange={this.onChangeItemFilter}
               marginBottom0
               hover
