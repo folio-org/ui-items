@@ -156,39 +156,9 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterControlGroup label="Record Types">
-            <Checkbox
-              id="RecordBibliographicFilter"
-              label="Bibliographic"
-              name="Bibliographic"
-              checked={this.isActiveFilter('Bibliographic', this.state.recordFilters)}
-              onChange={this.onChangeRecordFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
-            <Checkbox
-              id="RecordItemFilter"
-              label="Item"
-              name="Item"
-              checked={this.isActiveFilter('Item', this.state.recordFilters)}
-              onChange={this.onChangeRecordFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
-            <Checkbox
-              id="RecordHoldingFilter"
-              label="Holdings"
-              name="Holdings"
-              checked={this.isActiveFilter('Holdings', this.state.recordFilters)}
-              onChange={this.onChangeRecordFilter}
-              marginBottom0
-              hover
-              fullWidth
-              checkedIcon={<Icon icon="eye" />}
-            />
+            <FilterCheckbox name="Bibliographic" itemFilters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox name="Item" itemFilters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeRecordFilter}/>
+            <FilterCheckbox name="Holdings" itemFilters={this.state.recordFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeRecordFilter}/>
           </FilterControlGroup>
           <FilterControlGroup label="Item Types">
             <FilterCheckbox name="Book" itemFilters={this.state.itemFilters} isActiveFilter={this.isActiveFilter} onChangeItemFilter={this.onChangeItemFilter}/>
