@@ -57,28 +57,24 @@ class Items extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
   }
 
+  onChangeFilter(e, filters) {
+    if (e.target.checked) {
+      filters.push(e.target.name);
+    } else {
+      this.removeFilter(e.target.name, filters);
+    }
+    const stateObject = { filters };
+    this.setState(stateObject);
+  }
+
   // record types filter handler
   onChangeRecordFilter(e) {
-    const recordFilters = this.state.recordFilters;
-    if (e.target.checked) {
-      recordFilters.push(e.target.name);
-    } else {
-      this.removeFilter(e.target.name, recordFilters);
-    }
-    const stateObject = { recordFilters };
-    this.setState(stateObject);
+    this.onChangeFilter(e, this.state.recordFilters);
   }
 
  // item types filter handler
   onChangeItemFilter(e) {
-    const itemFilters = this.state.itemFilters;
-    if (e.target.checked) {
-      itemFilters.push(e.target.name);
-    } else {
-      this.removeFilter(e.target.name, itemFilters);
-    }
-    const stateObject = { itemFilters };
-    this.setState(stateObject);
+    this.onChangeFilter(e, this.state.itemFilters);
   }
 
   onChangeSearch(e) {
