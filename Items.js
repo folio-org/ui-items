@@ -12,7 +12,27 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // 
 import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 
-import FilterGroup from './FilterGroup';
+import FilterGroups from './FilterGroups';
+
+const filterConfig = [
+  {
+    label: 'Record Types',
+    group: 'record',
+    fields: [
+      ['Bibliographic', true],
+      ['Item', true],
+      ['Holdings', true],
+    ],
+  }, {
+    label: 'Item Types',
+    group: 'item',
+    fields: [
+      ['Book', true],
+      ['DVD', true],
+      ['Microfilm', true],
+    ],
+  },
+];
 
 class Items extends React.Component {
   static contextTypes = {
@@ -41,6 +61,7 @@ class Items extends React.Component {
 
     const query = props.location.query || {};
     this.state = {
+      // ### Should derive initial state of `filters' from filterConfig
       filters: {
         'record.Bibliographic': true,
         'record.Item': true,
@@ -128,14 +149,7 @@ class Items extends React.Component {
       <Paneset>
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
-          <FilterGroup
-            label="Record Types" group="record" names={['Bibliographic', 'Item', 'Holdings']}
-            filters={this.state.filters} onChangeFilter={this.onChangeFilter}
-          />
-          <FilterGroup
-            label="Item Types" group="item" names={['Book', 'DVD', 'Microfilm']}
-            filters={this.state.filters} onChangeFilter={this.onChangeFilter}
-          />
+          <FilterGroups config={filterConfig} filters={this.state.filters} onChangeFilter={this.onChangeFilter} />
         </Pane>
         {/* Results Pane */}
         <Pane
