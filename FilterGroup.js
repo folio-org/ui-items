@@ -15,4 +15,12 @@ const FilterGroup = (props) => {
   </FilterControlGroup>);
 };
 
+FilterGroup.propTypes = {
+  label: PropTypes.string.isRequired,
+  group: PropTypes.string.isRequired,
+  names: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filters: PropTypes.object.isRequired,
+  onChangeFilter: PropTypes.func.isRequired,
+};
+
 export default FilterGroup;
