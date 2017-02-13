@@ -12,5 +12,6 @@
     "no-console": "off",
     "react/forbid-prop-types": [ 1, { 'forbid' : [ 'any', 'array' ] } ],
     "no-unused-vars": [ 1, { argsIgnorePattern: "^_" } ]
+    "max-len": "off",
   }
 }
