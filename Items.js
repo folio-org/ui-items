@@ -11,7 +11,6 @@ import TextField from '@folio/stripes-components/lib/TextField'; // eslint-disab
 import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // eslint-disable-line
 import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
-import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
 import FilterGroup from './FilterGroup';
 
