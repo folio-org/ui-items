@@ -23,10 +23,7 @@ FilterGroups.propTypes = {
       label: PropTypes.string.isRequired,
       group: PropTypes.string.isRequired,
       fields: PropTypes.arrayOf(
-        PropTypes.arrayOf(
-          PropTypes.string.isRequired,
-          PropTypes.bool.isRequired,
-        ).isRequired,
+        PropTypes.array.isRequired,
       ).isRequired,
     }),
   ).isRequired,
