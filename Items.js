@@ -65,7 +65,7 @@ class Items extends React.Component {
   onChangeFilter(e) {
     const filters = Object.assign({}, this.state.filters);
     filters[e.target.name] = e.target.checked;
-    console.log("setting state", filters);
+    console.log('setting state', filters);
     this.setState({ filters });
   }
 
@@ -129,10 +129,14 @@ class Items extends React.Component {
       <Paneset>
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
-          <FilterGroup label="Record Types" group="record" names={['Bibliographic', 'Item', 'Holdings']}
-            filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
-          <FilterGroup label="Item Types" group="item" names={['Book', 'DVD', 'Microfilm']}
-            filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+          <FilterGroup
+            label="Record Types" group="record" names={['Bibliographic', 'Item', 'Holdings']}
+            filters={this.state.filters} onChangeFilter={this.onChangeFilter}
+          />
+          <FilterGroup
+            label="Item Types" group="item" names={['Book', 'DVD', 'Microfilm']}
+            filters={this.state.filters} onChangeFilter={this.onChangeFilter}
+          />
         </Pane>
         {/* Results Pane */}
         <Pane
