@@ -19,4 +19,11 @@ const FilterCheckbox = (props) => {
   />);
 };
 
+FilterCheckbox.propTypes = {
+  group: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onChangeFilter: PropTypes.func.isRequired,
+};
+
 export default FilterCheckbox;
