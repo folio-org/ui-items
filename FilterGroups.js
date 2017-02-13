@@ -8,8 +8,8 @@ const FilterGroups = (props) => {
     {config.map((group, index) =>
       <FilterGroup
         key={index}
-        label="{group.label}"
-        group="{group.group}"
+        label={group.label}
+        group={group.group}
         names={group.fields.map(x => x[0])}
         filters={filters} onChangeFilter={onChangeFilter}
       />)
