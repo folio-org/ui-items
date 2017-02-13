@@ -130,14 +130,14 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterControlGroup label="Record Types">
-            <FilterCheckbox group="record" name="Bibliographic" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
-            <FilterCheckbox group="record" name="Item" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
-            <FilterCheckbox group="record" name="Holdings" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="record" name="Bibliographic" checked={!!this.state.filters[`record.Bibliographic`]} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="record" name="Item" checked={!!this.state.filters[`record.Item`]} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="record" name="Holdings" checked={!!this.state.filters[`record.Holdings`]} onChangeFilter={this.onChangeFilter}/>
           </FilterControlGroup>
           <FilterControlGroup label="Item Types">
-            <FilterCheckbox group="item" name="Book" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
-            <FilterCheckbox group="item" name="DVD" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
-            <FilterCheckbox group="item" name="Microfilm" filters={this.state.filters} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="item" name="Book" checked={!!this.state.filters[`item.Book`]} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="item" name="DVD" checked={!!this.state.filters[`item.DVD`]} onChangeFilter={this.onChangeFilter}/>
+            <FilterCheckbox group="item" name="Microfilm" checked={!!this.state.filters[`item.Microfilm`]} onChangeFilter={this.onChangeFilter}/>
           </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
