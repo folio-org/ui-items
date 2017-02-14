@@ -28,6 +28,28 @@ const filterConfig = [
   },
 ];
 
+function filters2cql(filters) {
+  if (!filters) return undefined;
+
+  const conds = [];
+  const fullNames = filters.split(',');
+  for (const i in fullNames) {
+    const [ groupName, fieldName ] = fullNames[i].split('.');
+
+    const groups = filterConfig.filter(g => g.name === groupName);
+    const group = groups[0];
+    console.log('considering group', group);
+    const cqlIndex = group.cql;
+
+    // ### should map the value of fieldName to CQL
+    console.log('considering field', fieldName);
+
+    conds.push(`${cqlIndex}=${fieldName}`);
+  }
+
+  return conds.join(' and ');
+}
+
 
 class Items extends React.Component {
   static contextTypes = {
@@ -55,24 +77,8 @@ class Items extends React.Component {
           cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
         }
 
-        if (filters) {
-          const conds = [];
-          const fullNames = filters.split(',');
-          for (const i in fullNames) {
-            const [ groupName, fieldName ] = fullNames[i].split('.');
-
-            const groups = filterConfig.filter(g => g.name === groupName);
-            const group = groups[0];
-            console.log('considering group', group);
-            const cqlIndex = group.cql;
-
-            // ### should map to CQL
-            console.log('considering field', fieldName);
-
-            conds.push(`${cqlIndex}=${fieldName}`);
-          }
-
-          const filterCql = conds.join(' and ');
+        const filterCql = filters2cql(filters);
+        if (filterCql) {
           if (cql) {
             cql = `(${cql}) and ${filterCql}`;
           } else {
