@@ -4,8 +4,8 @@ import FilterGroup from './FilterGroup';
 export function initialFilterState(config) {
   const state = {};
 
-  config.map(group => {
-    group.fields.map(field => {
+  config.map((group) => {
+    group.fields.map((field) => {
       state[`${group.name}.${field[0]}`] = field[1];
     });
   });
