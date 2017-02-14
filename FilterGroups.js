@@ -6,7 +6,7 @@ export function initialFilterState(config, query) {
 
   for (const group of config) {
     for (const field of group.fields) {
-      const fullName = `${group.name}.${field[0]}`;
+      const fullName = `${group.name}.${field}`;
       if (query[fullName]) state[fullName] = true;
     }
   }
@@ -24,7 +24,7 @@ const FilterGroups = (props) => {
         key={index}
         label={group.label}
         groupName={group.name}
-        names={group.fields.map(x => x[0])}
+        names={group.fields}
         filters={filters} onChangeFilter={onChangeFilter}
       />)
     }
@@ -37,7 +37,7 @@ FilterGroups.propTypes = {
       label: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       fields: PropTypes.arrayOf(
-        PropTypes.array.isRequired,
+        PropTypes.string.isRequired,
       ).isRequired,
     }),
   ).isRequired,

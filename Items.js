@@ -18,19 +18,11 @@ const filterConfig = [
   {
     label: 'Record Types',
     name: 'record',
-    fields: [
-      ['Bibliographic', false],
-      ['Item', true],
-      ['Holdings', true],
-    ],
+    fields: ['Bibliographic', 'Item', 'Holdings'],
   }, {
     label: 'Item Types',
     name: 'item',
-    fields: [
-      ['Book', true],
-      ['DVD', false],
-      ['Microfilm', true],
-    ],
+    fields: ['Book', 'DVD', 'Microfilm'],
   },
 ];
 
