@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'; // eslint-disable-line
 import FilterGroup from './FilterGroup';
 
-export function initialFilterState(config) {
+export function initialFilterState(config, query) {
   const state = {};
 
   for (const group of config) {
     for (const field of group.fields) {
-      state[`${group.name}.${field[0]}`] = field[1];
+      const fullName = `${group.name}.${field[0]}`;
+      if (query[fullName]) state[fullName] = true;
     }
   }
 
