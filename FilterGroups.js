@@ -57,16 +57,18 @@ FilterGroup.propTypes = {
 export function initialFilterState(config, filters) {
   const state = {};
 
-  const fullNames = filters.split(',');
-  const register = {};
-  for (const i in fullNames) {
-    register[fullNames[i]] = true;
-  }
+  if (filters) {
+    const fullNames = filters.split(',');
+    const register = {};
+    for (const i in fullNames) {
+      register[fullNames[i]] = true;
+    }
 
-  for (const group of config) {
-    for (const field of group.fields) {
-      const fullName = `${group.name}.${field}`;
-      if (register[fullName]) state[fullName] = true;
+    for (const group of config) {
+      for (const field of group.fields) {
+        const fullName = `${group.name}.${field}`;
+        if (register[fullName]) state[fullName] = true;
+      }
     }
   }
 
