@@ -84,20 +84,28 @@ export function initialFilterState(config, filters) {
 export function filters2cql(config, filters) {
   if (!filters) return undefined;
 
-  const conds = [];
+  const groups = {};
   const fullNames = filters.split(',');
   for (const i in fullNames) {
     const [ groupName, fieldName ] = fullNames[i].split('.');
+    if (groups[groupName] === undefined) groups[groupName] = [];
+    groups[groupName].push(fieldName);
+  }
 
-    const groups = config.filter(g => g.name === groupName);
-    const group = groups[0];
-    console.log('considering group', group);
+  const conds = [];
+  for (const groupName in groups) {
+    const group = config.filter(g => g.name === groupName)[0];
     const cqlIndex = group.cql;
 
-    // ### should map the value of fieldName to CQL
-    console.log('considering field', fieldName);
+    const values = groups[groupName];
+    const mappedValues = values.map(v => {
+      // ### should map the value of fieldName to CQL, but that config doesn't presently exist
+      return v;
+    });
+    let joinedValues = mappedValues.map(v => `"${v}"`).join(' or ');
+    if (values.length > 1) joinedValues = `(${joinedValues})`;
 
-    conds.push(`${cqlIndex}=${fieldName}`);
+    conds.push(`${cqlIndex}=${joinedValues}`);
   }
 
   return conds.join(' and ');
