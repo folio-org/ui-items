@@ -3,8 +3,8 @@ import Checkbox from '@folio/stripes-components/lib/Checkbox'; // eslint-disable
 import Icon from '@folio/stripes-components/lib/Icon'; // eslint-disable-line
 
 const FilterCheckbox = (props) => {
-  const { group, name, checked, onChangeFilter } = props;
-  const fullName = `${group}.${name}`;
+  const { groupName, name, checked, onChangeFilter } = props;
+  const fullName = `${groupName}.${name}`;
 
   return (<Checkbox
     id={`${fullName}-ItemFilter`}
@@ -20,7 +20,7 @@ const FilterCheckbox = (props) => {
 };
 
 FilterCheckbox.propTypes = {
-  group: PropTypes.string.isRequired,
+  groupName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
   onChangeFilter: PropTypes.func.isRequired,

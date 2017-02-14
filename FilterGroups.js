@@ -9,7 +9,7 @@ const FilterGroups = (props) => {
       <FilterGroup
         key={index}
         label={group.label}
-        group={group.group}
+        groupName={group.name}
         names={group.fields.map(x => x[0])}
         filters={filters} onChangeFilter={onChangeFilter}
       />)
@@ -21,7 +21,7 @@ FilterGroups.propTypes = {
   config: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      group: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
       fields: PropTypes.arrayOf(
         PropTypes.array.isRequired,
       ).isRequired,

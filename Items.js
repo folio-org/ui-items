@@ -17,7 +17,7 @@ import FilterGroups from './FilterGroups';
 const filterConfig = [
   {
     label: 'Record Types',
-    group: 'record',
+    name: 'record',
     fields: [
       ['Bibliographic', false],
       ['Item', true],
@@ -25,7 +25,7 @@ const filterConfig = [
     ],
   }, {
     label: 'Item Types',
-    group: 'item',
+    name: 'item',
     fields: [
       ['Book', true],
       ['DVD', false],
@@ -40,7 +40,7 @@ function initialFilterState(config) {
 
   config.map(group => {
     group.fields.map(field => {
-      state[`${group.group}.${field[0]}`] = field[1];
+      state[`${group.name}.${field[0]}`] = field[1];
     });
   });
 
