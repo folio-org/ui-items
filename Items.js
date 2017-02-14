@@ -19,7 +19,7 @@ const filterConfig = [
     label: 'Record Types',
     group: 'record',
     fields: [
-      ['Bibliographic', true],
+      ['Bibliographic', false],
       ['Item', true],
       ['Holdings', true],
     ],
@@ -28,7 +28,7 @@ const filterConfig = [
     group: 'item',
     fields: [
       ['Book', true],
-      ['DVD', true],
+      ['DVD', false],
       ['Microfilm', true],
     ],
   },
@@ -36,14 +36,15 @@ const filterConfig = [
 
 
 function initialFilterState(config) {
-  return {
-    'record.Bibliographic': true,
-    'record.Item': false,
-    'record.Holdings': true,
-    'item.Book': false,
-    'item.DVD': true,
-    'item.Microfilm': true,
-  };
+  const state = {};
+
+  config.map(group => {
+    group.fields.map(field => {
+      state[`${group.group}.${field[0]}`] = field[1];
+    });
+  });
+
+  return state;
 }
 
 
