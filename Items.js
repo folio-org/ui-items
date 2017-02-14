@@ -18,10 +18,12 @@ const filterConfig = [
   {
     label: 'Record Types',
     name: 'record',
+    cql: 'status',
     fields: ['Bibliographic', 'Item', 'Holdings'],
   }, {
     label: 'Item Types',
     name: 'item',
+    cql: 'materialType',
     fields: ['Book', 'DVD', 'Microfilm'],
   },
 ];
@@ -54,14 +56,30 @@ class Items extends React.Component {
         }
 
         if (filters) {
-          const filterConds = filters.filter(pair => pair[1]).map(pair => `${pair[0]}=true`);
-          if (filterConds) {
-            const filterCql = filterConds.join(' and ');
-            if (cql) {
-              cql = `(${cql}) and ${filterCql}`;
-            } else {
-              cql = filterCql;
-            }
+          const conds = [];
+          const fullNames = filters.split(',');
+          for (const i in fullNames) {
+            const fullName = fullNames[i];
+            const t = fullName.split('.');
+
+            const groupName = t[0];
+            const groups = filterConfig.filter(g => g.name === groupName);
+            const group = groups[0];
+            console.log('considering group', group);
+            const cqlIndex = group.cql;
+
+            const fieldName = t[1];
+            // ### should map to CQL
+            console.log('considering field', fieldName);
+
+            conds.push(`${cqlIndex}=${fieldName}`);
+          }
+
+          const filterCql = conds.join(' and ');
+          if (cql) {
+            cql = `(${cql}) and ${filterCql}`;
+          } else {
+            cql = filterCql;
           }
         }
 
@@ -142,9 +160,12 @@ class Items extends React.Component {
     if (query) params.query = query;
     if (sortOrder) params.sort = sortOrder;
 
-    for (const name in filters) {
-      if (filters[name]) params[name] = true;
+    const activeFilters = [];
+    for (name in filters) {
+      if (filters[name]) activeFilters.push(name);
     }
+
+    if (activeFilters) params.filters = activeFilters.join(',');
 
     const keys = Object.keys(params);
     if (keys.length) {
