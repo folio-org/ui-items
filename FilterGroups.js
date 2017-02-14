@@ -76,6 +76,29 @@ export function initialFilterState(config, filters) {
 }
 
 
+export function filters2cql(config, filters) {
+  if (!filters) return undefined;
+
+  const conds = [];
+  const fullNames = filters.split(',');
+  for (const i in fullNames) {
+    const [ groupName, fieldName ] = fullNames[i].split('.');
+
+    const groups = config.filter(g => g.name === groupName);
+    const group = groups[0];
+    console.log('considering group', group);
+    const cqlIndex = group.cql;
+
+    // ### should map the value of fieldName to CQL
+    console.log('considering field', fieldName);
+
+    conds.push(`${cqlIndex}=${fieldName}`);
+  }
+
+  return conds.join(' and ');
+}
+
+
 const FilterGroups = (props) => {
   const { config, filters, onChangeFilter } = props;
 

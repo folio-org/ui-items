@@ -12,7 +12,7 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // 
 import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 
-import FilterGroups, { initialFilterState } from './FilterGroups';
+import FilterGroups, { initialFilterState, filters2cql } from './FilterGroups';
 
 const filterConfig = [
   {
@@ -27,29 +27,6 @@ const filterConfig = [
     fields: ['Checked Out', 'Available'],
   },
 ];
-
-function filters2cql(config, filters) {
-  if (!filters) return undefined;
-
-  const conds = [];
-  const fullNames = filters.split(',');
-  for (const i in fullNames) {
-    const [ groupName, fieldName ] = fullNames[i].split('.');
-
-    const groups = config.filter(g => g.name === groupName);
-    const group = groups[0];
-    console.log('considering group', group);
-    const cqlIndex = group.cql;
-
-    // ### should map the value of fieldName to CQL
-    console.log('considering field', fieldName);
-
-    conds.push(`${cqlIndex}=${fieldName}`);
-  }
-
-  return conds.join(' and ');
-}
-
 
 class Items extends React.Component {
   static contextTypes = {
