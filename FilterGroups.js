@@ -1,6 +1,19 @@
 import React, { PropTypes } from 'react'; // eslint-disable-line
 import FilterGroup from './FilterGroup';
 
+export function initialFilterState(config) {
+  const state = {};
+
+  config.map(group => {
+    group.fields.map(field => {
+      state[`${group.name}.${field[0]}`] = field[1];
+    });
+  });
+
+  return state;
+}
+
+
 const FilterGroups = (props) => {
   const { config, filters, onChangeFilter } = props;
 

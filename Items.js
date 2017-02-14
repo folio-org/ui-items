@@ -12,7 +12,7 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // 
 import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 
-import FilterGroups from './FilterGroups';
+import FilterGroups, { initialFilterState } from './FilterGroups';
 
 const filterConfig = [
   {
@@ -33,19 +33,6 @@ const filterConfig = [
     ],
   },
 ];
-
-
-function initialFilterState(config) {
-  const state = {};
-
-  config.map(group => {
-    group.fields.map(field => {
-      state[`${group.name}.${field[0]}`] = field[1];
-    });
-  });
-
-  return state;
-}
 
 
 class Items extends React.Component {
