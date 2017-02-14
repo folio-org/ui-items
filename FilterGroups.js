@@ -76,6 +76,11 @@ export function initialFilterState(config, filters) {
 }
 
 
+// Filters come in groups. Within each group, we want to OR together
+// the filters that have been selected; and we want to AND together
+// the output of each group. Groups where no filter has been selected
+// have no effect at all.
+//
 export function filters2cql(config, filters) {
   if (!filters) return undefined;
 
