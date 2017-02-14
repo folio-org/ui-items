@@ -103,7 +103,7 @@ class Items extends React.Component {
 
     const query = props.location.query || {};
     this.state = {
-      filters: initialFilterState(filterConfig, query),
+      filters: initialFilterState(filterConfig, query.filters),
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
@@ -161,7 +161,7 @@ class Items extends React.Component {
     if (sortOrder) params.sort = sortOrder;
 
     const activeFilters = [];
-    for (name in filters) {
+    for (const name in filters) {
       if (filters[name]) activeFilters.push(name);
     }
 
