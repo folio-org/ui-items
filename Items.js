@@ -34,6 +34,19 @@ const filterConfig = [
   },
 ];
 
+
+function initialFilterState(config) {
+  return {
+    'record.Bibliographic': true,
+    'record.Item': false,
+    'record.Holdings': true,
+    'item.Book': false,
+    'item.DVD': true,
+    'item.Microfilm': true,
+  };
+}
+
+
 class Items extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -61,15 +74,7 @@ class Items extends React.Component {
 
     const query = props.location.query || {};
     this.state = {
-      // ### Should derive initial state of `filters' from filterConfig
-      filters: {
-        'record.Bibliographic': true,
-        'record.Item': true,
-        'record.Holdings': true,
-        'item.Book': true,
-        'item.DVD': true,
-        'item.Microfilm': true,
-      },
+      filters: initialFilterState(filterConfig),
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
