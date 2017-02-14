@@ -28,7 +28,7 @@ const filterConfig = [
   },
 ];
 
-function filters2cql(filters) {
+function filters2cql(config, filters) {
   if (!filters) return undefined;
 
   const conds = [];
@@ -36,7 +36,7 @@ function filters2cql(filters) {
   for (const i in fullNames) {
     const [ groupName, fieldName ] = fullNames[i].split('.');
 
-    const groups = filterConfig.filter(g => g.name === groupName);
+    const groups = config.filter(g => g.name === groupName);
     const group = groups[0];
     console.log('considering group', group);
     const cqlIndex = group.cql;
@@ -77,7 +77,7 @@ class Items extends React.Component {
           cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
         }
 
-        const filterCql = filters2cql(filters);
+        const filterCql = filters2cql(filterConfig, filters);
         if (filterCql) {
           if (cql) {
             cql = `(${cql}) and ${filterCql}`;
