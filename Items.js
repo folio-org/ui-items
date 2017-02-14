@@ -16,15 +16,15 @@ import FilterGroups, { initialFilterState } from './FilterGroups';
 
 const filterConfig = [
   {
-    label: 'Record Types',
-    name: 'record',
-    cql: 'status',
-    fields: ['Bibliographic', 'Item', 'Holdings'],
-  }, {
     label: 'Item Types',
     name: 'item',
     cql: 'materialType',
     fields: ['Book', 'DVD', 'Microfilm'],
+  }, {
+    label: 'Status',
+    name: 'status',
+    cql: 'status',
+    fields: ['Checked Out', 'Available'],
   },
 ];
 
