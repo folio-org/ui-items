@@ -52,7 +52,37 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: 'item-storage/items?query=(materialType=?{query:-*} or barcode=?{query:-}* or title=?{query:-}*) ?{sort:+sortby} ?{sort:-}',
+      path: (queryParams, _pathComponents, _resourceValues) => {
+        console.log('Items manifest "items" path function, queryParams =', queryParams);
+        const { query, filters, sort } = queryParams || {};
+
+        let cql;
+        if (query) {
+          cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
+        }
+
+        let filterCql;
+        // ### fill this in
+
+        if (filterCql) {
+          if (cql) {
+            cql = `(${cql}) and ${filterCql}`;
+          } else {
+            cql = filterCql;
+          }
+        }
+
+        if (sort) {
+          if (cql === undefined) cql = 'materialType=*';
+          cql += ` sortby ${sort}`;
+        }
+
+        let path = 'item-storage/items';
+        if (cql) path += `?query=${encodeURIComponent(cql)}`;
+
+        console.log(`query=${query} filters=${filters} sort=${sort} -> ${path}`);
+        return path;
+      },
       staticFallback: { path: 'item-storage/items' },
     },
   });
