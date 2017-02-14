@@ -59,16 +59,13 @@ class Items extends React.Component {
           const conds = [];
           const fullNames = filters.split(',');
           for (const i in fullNames) {
-            const fullName = fullNames[i];
-            const t = fullName.split('.');
+            const [ groupName, fieldName ] = fullNames[i].split('.');
 
-            const groupName = t[0];
             const groups = filterConfig.filter(g => g.name === groupName);
             const group = groups[0];
             console.log('considering group', group);
             const cqlIndex = group.cql;
 
-            const fieldName = t[1];
             // ### should map to CQL
             console.log('considering field', fieldName);
 
