@@ -93,7 +93,7 @@ class Items extends React.Component {
 
     const query = props.location.query || {};
     this.state = {
-      filters: initialFilterState(filterConfig),
+      filters: initialFilterState(filterConfig, query),
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
