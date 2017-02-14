@@ -61,14 +61,15 @@ class Items extends React.Component {
           cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
         }
 
-        let filterCql;
-        // ### fill this in
-
-        if (filterCql) {
-          if (cql) {
-            cql = `(${cql}) and ${filterCql}`;
-          } else {
-            cql = filterCql;
+        if (filters) {
+          const filterConds = filters.filter(pair => pair[1]).map(pair => `${pair[0]}=true`);
+          if (filterConds) {
+            const filterCql = filterConds.join(' and ');
+            if (cql) {
+              cql = `(${cql}) and ${filterCql}`;
+            } else {
+              cql = filterCql;
+            }
           }
         }
 
@@ -108,8 +109,9 @@ class Items extends React.Component {
   onChangeFilter(e) {
     const filters = Object.assign({}, this.state.filters);
     filters[e.target.name] = e.target.checked;
-    console.log('setting state', filters);
+    console.log('onChangeFilter setting state', filters);
     this.setState({ filters });
+    this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
   }
 
   onChangeSearch(e) {
@@ -117,7 +119,7 @@ class Items extends React.Component {
     console.log(`User searched for '${query}' at '${this.props.location.pathname}'`);
 
     this.setState({ searchTerm: query });
-    this.updateSearch(query, this.state.sortOrder);
+    this.updateSearch(query, this.state.sortOrder, this.state.filters);
   }
 
   onClearSearch() {
@@ -130,7 +132,7 @@ class Items extends React.Component {
     const sortOrder = meta.name;
     console.log('User sorted by', sortOrder);
     this.setState({ sortOrder });
-    this.updateSearch(this.state.searchTerm, sortOrder);
+    this.updateSearch(this.state.searchTerm, sortOrder, this.state.filters);
   }
 
   // Results Handler
@@ -141,12 +143,17 @@ class Items extends React.Component {
 
   // We need to explicitly pass changed values into this function,
   // as state-change only happens after event is handled.
-  updateSearch(query, sortOrder) {
-    console.log(`updateSearch('${query}', '${sortOrder}')`);
+  updateSearch(query, sortOrder, filters) {
+    console.log(`updateSearch('${query}', '${sortOrder}',`, filters, ')');
     let transitionLoc = this.props.location.pathname;
     const params = {};
     if (query) params.query = query;
     if (sortOrder) params.sort = sortOrder;
+
+    for (const name in filters) {
+      if (filters[name]) params[name] = true;
+    }
+
     const keys = Object.keys(params);
     if (keys.length) {
       // eslint-disable-next-line prefer-template
