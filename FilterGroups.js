@@ -60,8 +60,8 @@ export function initialFilterState(config, filters) {
   if (filters) {
     const fullNames = filters.split(',');
     const register = {};
-    for (const i in fullNames) {
-      register[fullNames[i]] = true;
+    for (const fullName of fullNames) {
+      register[fullName] = true;
     }
 
     for (const group of config) {
@@ -87,14 +87,14 @@ export function filters2cql(config, filters) {
 
   const groups = {};
   const fullNames = filters.split(',');
-  for (const i in fullNames) {
-    const [groupName, fieldName] = fullNames[i].split('.');
+  for (const fullName of fullNames) {
+    const [groupName, fieldName] = fullName.split('.');
     if (groups[groupName] === undefined) groups[groupName] = [];
     groups[groupName].push(fieldName);
   }
 
   const conds = [];
-  for (const groupName in groups) {
+  for (const groupName of Object.keys(groups)) {
     const group = config.filter(g => g.name === groupName)[0];
     const cqlIndex = group.cql;
 
