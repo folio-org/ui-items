@@ -21,10 +21,10 @@ const filterConfig = [
     cql: 'materialType',
     fields: ['Book', 'DVD', 'Microfilm'],
   }, {
-    label: 'Status',
-    name: 'status',
-    cql: 'status',
-    fields: ['Checked Out', 'Available'],
+    label: 'Location',
+    name: 'location',
+    cql: 'location.name',
+    fields: ['Main Library', 'Annex Library'],
   },
 ];
 
@@ -165,7 +165,7 @@ class Items extends React.Component {
 
     const resultsFormatter = {
       materialType: x => x.materialType.name,
-      status: x => x.status.name,
+      location: x => x.location.name,
     };
 
     return (
@@ -195,7 +195,7 @@ class Items extends React.Component {
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
-            visibleColumns={['materialType', 'status', 'barcode', 'title']}
+            visibleColumns={['materialType', 'location', 'barcode', 'title']}
             fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
