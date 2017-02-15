@@ -13,6 +13,6 @@
     "react/forbid-prop-types": [ 1, { 'forbid' : [ 'any', 'array' ] } ],
     "no-unused-vars": [ 1, { argsIgnorePattern: "^_" } ],
     "max-len": "off",
-    "no-restricted-syntax": ["warn", "WithStatement"]
+    "no-restricted-syntax": ["error", "LabeledStatement", "WithStatement"]
   }
 }
