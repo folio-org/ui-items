@@ -88,7 +88,7 @@ export function filters2cql(config, filters) {
   const groups = {};
   const fullNames = filters.split(',');
   for (const i in fullNames) {
-    const [ groupName, fieldName ] = fullNames[i].split('.');
+    const [groupName, fieldName] = fullNames[i].split('.');
     if (groups[groupName] === undefined) groups[groupName] = [];
     groups[groupName].push(fieldName);
   }
@@ -99,7 +99,7 @@ export function filters2cql(config, filters) {
     const cqlIndex = group.cql;
 
     const values = groups[groupName];
-    const mappedValues = values.map(v => {
+    const mappedValues = values.map((v) => {
       // If the field is a {name,cql} object, use the CQL.
       const obj = group.values.filter(f => typeof f === 'object' && f.name === v);
       if (obj.length > 0) {
@@ -127,7 +127,7 @@ const FilterGroups = (props) => {
         key={index}
         label={group.label}
         groupName={group.name}
-        names={group.values.map(f => (typeof f === 'object') ? f.name : f)}
+        names={group.values.map(f => ((typeof f === 'object') ? f.name : f))}
         filters={filters} onChangeFilter={onChangeFilter}
       />)
     }
@@ -147,7 +147,7 @@ FilterGroups.propTypes = {
             name: PropTypes.string.isRequired,
             cql: PropTypes.string.isRequired,
           }),
-        ])
+        ]),
       ).isRequired,
     }),
   ).isRequired,
