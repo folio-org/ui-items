@@ -22,7 +22,7 @@ const filterConfig = [
     values: [
       { name: 'Books', cql: 'Book' },
       { name: 'DVDs', cql: 'DVD' },
-      'Microfilm'
+      'Microfilm',
     ],
   }, {
     label: 'Location',
