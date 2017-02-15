@@ -118,6 +118,16 @@ export function filters2cql(config, filters) {
 }
 
 
+// Provided for the benefit of React components. Not sure if this is the way to go
+export function onChangeFilter(e) {
+  const filters = Object.assign({}, this.state.filters);
+  filters[e.target.name] = e.target.checked;
+  console.log('onChangeFilter setting state', filters);
+  this.setState({ filters });
+  this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
+}
+
+
 const FilterGroups = (props) => {
   const { config, filters, onChangeFilter } = props;
 
