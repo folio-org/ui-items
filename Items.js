@@ -19,7 +19,11 @@ const filterConfig = [
     label: 'Item Types',
     name: 'item',
     cql: 'materialType',
-    values: ['Book', 'DVD', 'Microfilm'],
+    values: [
+      { name: 'Books', cql: 'Book' },
+      { name: 'DVDs', cql: 'DVD' },
+      'Microfilm'
+    ],
   }, {
     label: 'Location',
     name: 'location',
