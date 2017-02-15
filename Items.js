@@ -50,7 +50,6 @@ class Items extends React.Component {
       type: 'okapi',
       records: 'items',
       path: (queryParams, _pathComponents, _resourceValues) => {
-        console.log('Items manifest "items" path function, queryParams =', queryParams);
         const { query, filters, sort } = queryParams || {};
 
         let cql;
