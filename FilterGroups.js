@@ -66,7 +66,8 @@ export function initialFilterState(config, filters) {
 
     for (const group of config) {
       for (const field of group.fields) {
-        const fullName = `${group.name}.${field}`;
+        const fieldName = (typeof field === 'object') ? field.name : field;
+        const fullName = `${group.name}.${fieldName}`;
         if (register[fullName]) state[fullName] = true;
       }
     }
@@ -99,7 +100,12 @@ export function filters2cql(config, filters) {
 
     const values = groups[groupName];
     const mappedValues = values.map(v => {
-      // ### should map the value of fieldName to CQL, but that config doesn't presently exist
+      // If the field is a {name,cql} object, use the CQL.
+      const obj = group.fields.filter(f => typeof f === 'object' && f.name === v);
+      if (obj.length > 0) {
+        // console.log(`mapping value '${v}' to CQL '${obj[0].cql}'`);
+        return obj[0].cql;
+      }
       return v;
     });
     let joinedValues = mappedValues.map(v => `"${v}"`).join(' or ');
@@ -121,7 +127,7 @@ const FilterGroups = (props) => {
         key={index}
         label={group.label}
         groupName={group.name}
-        names={group.fields}
+        names={group.fields.map(f => (typeof f === 'object') ? f.name : f)}
         filters={filters} onChangeFilter={onChangeFilter}
       />)
     }
@@ -133,8 +139,15 @@ FilterGroups.propTypes = {
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
+      cql: PropTypes.string.isRequired,
       fields: PropTypes.arrayOf(
-        PropTypes.string.isRequired,
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            cql: PropTypes.string.isRequired,
+          }),
+        ])
       ).isRequired,
     }),
   ).isRequired,
