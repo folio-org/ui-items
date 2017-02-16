@@ -11,6 +11,7 @@ import TextField from '@folio/stripes-components/lib/TextField'; // eslint-disab
 import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // eslint-disable-line
 import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
+import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
 import FilterGroups, { initialFilterState, filters2cql } from './FilterGroups';
 
@@ -46,6 +47,7 @@ class Items extends React.Component {
   };
 
   static manifest = Object.freeze({
+    addItemMode: { },
     items: {
       type: 'okapi',
       records: 'items',
@@ -92,12 +94,15 @@ class Items extends React.Component {
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
     };
+    props.mutator.addItemMode.replace({ mode: false });
 
     this.onChangeFilter = this.onChangeFilter.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
+
+    this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
   }
 
   onChangeFilter(e) {
@@ -133,6 +138,12 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     this.setState({ selectedItem: meta });
+  }
+
+  // AddItem Handlers
+  onClickAddNewItem(e) {
+    if (e) e.preventDefault();
+    this.props.mutator.addItemMode.replace({ mode: true })
   }
 
   // We need to explicitly pass changed values into this function,
@@ -177,6 +188,9 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterGroups config={filterConfig} filters={this.state.filters} onChangeFilter={this.onChangeFilter} />
+          <FilterControlGroup label="Actions">
+            <Button fullWidth onClick={this.onClickAddNewItem}>New item</Button>
+          </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
         <Pane
