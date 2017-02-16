@@ -15,29 +15,35 @@ class ViewItem extends Component {
 
   static propTypes = {
     data: PropTypes.shape({
-      user: PropTypes.arrayOf(PropTypes.object),
+      item: PropTypes.arrayOf(PropTypes.object),
     }),
     mutator: React.PropTypes.shape({
-      user: React.PropTypes.shape({
+      item: React.PropTypes.shape({
         PUT: React.PropTypes.func.isRequired,
       }),
     }),
   };
 
   static manifest = Object.freeze({
-    user: {
+    items: {
       type: 'okapi',
-      path: 'items/:{itemid}',
+      path: 'item-storage/items/:{itemid}',
+      clear: false,
     },
   });
 
   constructor(props) {
+
     super(props);
+
+
     this.state = {
       editItemMode: false,
     };
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
+    console.log("matt initial state: " + JSON.stringify(this.state));
+    console.log("matt initial props: " + JSON.stringify(this.props.data));
   }
 
   // Edit Item Handlers
@@ -62,11 +68,21 @@ class ViewItem extends Component {
   }
 
   render() {
-
+    console.log('mattprops:'  + JSON.stringify(this.props), "type: " + typeof(this.props.data.item));
+    console.log('mattstate: ' + JSON.stringify(this.state));
+  //  const { data: { item } } = this.props;
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
-      
+
+    const { data: { items }, params: { itemid } } = this.props;
+    console.log('matt data: ' + JSON.stringify(this.props), 'matt item id: ' + itemid);
+    if (!items || !itemid) return <div />;
+    const item = items.find(i => i.id === itemid)
+
     return (
       <Pane defaultWidth="fill" paneTitle="Item Details" lastMenu={detailMenu}>
+        <Row>
+          {item.title}
+        </Row>
       </Pane>
     )
   }

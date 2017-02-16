@@ -146,6 +146,8 @@ class Items extends React.Component {
     const itemId = meta.id;
     this.setState({ selectedItem: meta });
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
+
+    console.log('User clicked', itemId, 'location = ', this.props.location);
   }
 
   // AddItem Handlers
@@ -216,7 +218,7 @@ class Items extends React.Component {
           <MultiColumnList
             contentData={items}
             selectedRow={this.state.selectedItem}
-            rowMetadata={['title']}
+            rowMetadata={['title','id']}
             headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
