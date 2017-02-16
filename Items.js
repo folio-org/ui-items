@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react'; // eslint-disable-line
 import {Row, Col} from 'react-bootstrap'; // eslint-disable-line
+import Match from 'react-router/Match'; // eslint-disable-line
+
+import { connect } from '@folio/stripes-connect'; // eslint-disable-line
 
 import Pane from '@folio/stripes-components/lib/Pane'; // eslint-disable-line
 import Paneset from '@folio/stripes-components/lib/Paneset'; // eslint-disable-line
@@ -10,10 +13,13 @@ import Checkbox from '@folio/stripes-components/lib/Checkbox'; // eslint-disable
 import TextField from '@folio/stripes-components/lib/TextField'; // eslint-disable-line
 import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // eslint-disable-line
 import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
+import Layer from '@folio/stripes-components/lib/Layer'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
 import FilterGroups, { initialFilterState, filters2cql } from './FilterGroups';
+
+import ViewItem from './ViewItem';
 
 const filterConfig = [
   {
@@ -137,7 +143,9 @@ class Items extends React.Component {
   // Results Handler
   // row selection handler
   onSelectRow(e, meta) {
+    const itemId = meta.id;
     this.setState({ selectedItem: meta });
+    this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
   }
 
   // AddItem Handlers
@@ -171,7 +179,7 @@ class Items extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, pathname } = this.props;
     const items = data.items || [];
 
     /* searchHeader is a 'custom pane header'*/
@@ -219,6 +227,17 @@ class Items extends React.Component {
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
           />
         </Pane>
+
+        {/* Details Pane */}
+        <Match pattern={`${pathname}/view/:itemid`} render={props => <ViewItem placeholder={'placeholder'} {...props} />} />
+        <Layer isOpen={this.state.addItemMode} label="Add New Item Dialog">
+          {/* <ItemForm
+            onSubmit={(record) => { this.create(record); }}
+            onCancel={this.onClickCloseNewItem}
+          /> */}
+          <h2>yo</h2>
+        </Layer>
+
       </Paneset>
     );
   }
