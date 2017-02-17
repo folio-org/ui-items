@@ -17,7 +17,7 @@ import Layer from '@folio/stripes-components/lib/Layer'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
-import FilterGroups, { initialFilterState, filters2cql } from './FilterGroups';
+import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from './FilterGroups';
 
 import ViewItem from './ViewItem';
 
@@ -29,7 +29,7 @@ const filterConfig = [
     values: [
       { name: 'Books', cql: 'Book' },
       { name: 'DVDs', cql: 'DVD' },
-      'Microfilm'
+      'Microfilm',
     ],
   }, {
     label: 'Location',
@@ -58,7 +58,6 @@ class Items extends React.Component {
       type: 'okapi',
       records: 'items',
       path: (queryParams, _pathComponents, _resourceValues) => {
-        console.log('Items manifest "items" path function, queryParams =', queryParams);
         const { query, filters, sort } = queryParams || {};
 
         let cql;
@@ -102,21 +101,13 @@ class Items extends React.Component {
     };
     props.mutator.addItemMode.replace({ mode: false });
 
-    this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.onChangeFilter = onChangeFilter.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
 
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
-  }
-
-  onChangeFilter(e) {
-    const filters = Object.assign({}, this.state.filters);
-    filters[e.target.name] = e.target.checked;
-    console.log('onChangeFilter setting state', filters);
-    this.setState({ filters });
-    this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
   }
 
   onChangeSearch(e) {

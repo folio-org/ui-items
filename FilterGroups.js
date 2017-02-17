@@ -60,8 +60,8 @@ export function initialFilterState(config, filters) {
   if (filters) {
     const fullNames = filters.split(',');
     const register = {};
-    for (const i in fullNames) {
-      register[fullNames[i]] = true;
+    for (const fullName of fullNames) {
+      register[fullName] = true;
     }
 
     for (const group of config) {
@@ -87,19 +87,19 @@ export function filters2cql(config, filters) {
 
   const groups = {};
   const fullNames = filters.split(',');
-  for (const i in fullNames) {
-    const [ groupName, fieldName ] = fullNames[i].split('.');
+  for (const fullName of fullNames) {
+    const [groupName, fieldName] = fullName.split('.');
     if (groups[groupName] === undefined) groups[groupName] = [];
     groups[groupName].push(fieldName);
   }
 
   const conds = [];
-  for (const groupName in groups) {
+  for (const groupName of Object.keys(groups)) {
     const group = config.filter(g => g.name === groupName)[0];
     const cqlIndex = group.cql;
 
     const values = groups[groupName];
-    const mappedValues = values.map(v => {
+    const mappedValues = values.map((v) => {
       // If the field is a {name,cql} object, use the CQL.
       const obj = group.values.filter(f => typeof f === 'object' && f.name === v);
       if (obj.length > 0) {
@@ -118,6 +118,16 @@ export function filters2cql(config, filters) {
 }
 
 
+// Provided for the benefit of React components. Not sure if this is the way to go
+export function onChangeFilter(e) {
+  const filters = Object.assign({}, this.state.filters);
+  filters[e.target.name] = e.target.checked;
+  console.log('onChangeFilter setting state', filters);
+  this.setState({ filters });
+  this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
+}
+
+
 const FilterGroups = (props) => {
   const { config, filters, onChangeFilter } = props;
 
@@ -127,7 +137,7 @@ const FilterGroups = (props) => {
         key={index}
         label={group.label}
         groupName={group.name}
-        names={group.values.map(f => (typeof f === 'object') ? f.name : f)}
+        names={group.values.map(f => ((typeof f === 'object') ? f.name : f))}
         filters={filters} onChangeFilter={onChangeFilter}
       />)
     }
@@ -147,7 +157,7 @@ FilterGroups.propTypes = {
             name: PropTypes.string.isRequired,
             cql: PropTypes.string.isRequired,
           }),
-        ])
+        ]),
       ).isRequired,
     }),
   ).isRequired,
