@@ -42,8 +42,7 @@ class ViewItem extends Component {
     };
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
-    console.log("matt initial state: " + JSON.stringify(this.state));
-    console.log("matt initial props: " + JSON.stringify(this.props.data));
+
   }
 
   // Edit Item Handlers
@@ -68,16 +67,11 @@ class ViewItem extends Component {
   }
 
   render() {
-    console.log('mattprops:'  + JSON.stringify(this.props), "type: " + typeof(this.props.data.item));
-    console.log('mattstate: ' + JSON.stringify(this.state));
-  //  const { data: { item } } = this.props;
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
     const { data: { items }, params: { itemid } } = this.props;
-    console.log('matt data: ' + JSON.stringify(this.props), 'matt item id: ' + itemid);
     if (!items || !itemid) return <div />;
     const item = items.find(i => i.id === itemid)
-    console.log("item: " + JSON.stringify(item));
 
     return (
       <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
