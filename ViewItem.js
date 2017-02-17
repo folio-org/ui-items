@@ -77,11 +77,32 @@ class ViewItem extends Component {
     console.log('matt data: ' + JSON.stringify(this.props), 'matt item id: ' + itemid);
     if (!items || !itemid) return <div />;
     const item = items.find(i => i.id === itemid)
+    console.log("item: " + JSON.stringify(item));
 
     return (
-      <Pane defaultWidth="fill" paneTitle="Item Details" lastMenu={detailMenu}>
+      <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
         <Row>
-          {item.title}
+          <Col xs={12}>
+            <KeyValue label="Title" value={_.get(item, ['title'], '')} />
+          </Col>
+        </Row>
+        <br/>
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Material Type" value={_.get(item, ['materialType', 'name'], '')} />
+          </Col>
+        </Row>
+        <br/>
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Barcode" value={_.get(item, ['barcode'], '')} />
+          </Col>
+        </Row>
+        <br/>
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Location" value={_.get(item, ['location', 'name'], '')} />
+          </Col>
         </Row>
       </Pane>
     )
