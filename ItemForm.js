@@ -32,15 +32,26 @@ function ItemForm(props) {
     initialValues,
   } = props;
 
-  /* Menues for Add Item workflow */
+  /* Menus for Add Item workflow */
   const addItemFirstMenu = <PaneMenu><button onClick={onCancel} title="close" aria-label="Close New Item Dialog"><span style={{ fontSize: '30px', color: '#999', lineHeight: '18px' }} >&times;</span></button></PaneMenu>;
-  const addItemLastMenu = <PaneMenu><Button type="submit" title="Create New Item" disabled={pristine || submitting} onClick={handleSubmit}>Create Item</Button></PaneMenu>;
-  const editItemLastMenu = <PaneMenu><Button type="submit" title="Update Item" disabled={pristine || submitting} onClick={handleSubmit}>Update Item</Button></PaneMenu>;
+  const addItemLastMenu = <PaneMenu><Button type="submit" title="Create New Item" disabled={pristine || submitting} onClick={handleSubmit}>Create item</Button></PaneMenu>;
+  const editItemLastMenu = <PaneMenu><Button type="submit" title="Update Item" disabled={pristine || submitting} onClick={handleSubmit}>Update item</Button></PaneMenu>;
 
   return (
     <form>
       <Paneset>
-
+        <Pane defaultWidth="100%" firstMenu={addItemFirstMenu} lastMenu={initialValues ? editItemLastMenu : addItemLastMenu} paneTitle={initialValues ? 'Edit Item' : 'New Item'}>
+          <Row>
+            <Col sm={5} smOffset={1}>
+              <h2>Item Record</h2>
+              <Field label="Instance ID" name="instanceId" id="additem_instanceId" component={TextField} required fullWidth />
+              <Field label="Title" name="title" id="additem_title" component={TextField} required fullWidth />
+              <Field label="Material Type" name="materialType.name" id="additem_materialType" component={TextField} required fullWidth />
+              <Field label="Barcode" name="barcode" id="additem_barcode" component={TextField} required fullWidth />
+              <Field label="Location" name="location.name" id="additem_location" component={TextField} required fullWidth />
+            </Col>
+          </Row>
+        </Pane>
       </Paneset>
     </form>
   );

@@ -109,6 +109,7 @@ class Items extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
 
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
+    this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
   }
 
   onChangeSearch(e) {
@@ -146,6 +147,17 @@ class Items extends React.Component {
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
     this.props.mutator.addItemMode.replace({ mode: true })
+  }
+
+  onClickCloseNewItem(e) {
+    if (e) e.preventDefault();
+    this.props.mutator.addItemMode.replace({ mode: false })
+  }
+
+  create(data) {
+    // POST item record
+    this.props.mutator.items.POST(data);
+    this.onClickCloseNewItem();
   }
 
   // We need to explicitly pass changed values into this function,
