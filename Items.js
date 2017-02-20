@@ -20,6 +20,7 @@ import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup
 import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from './FilterGroups';
 
 import ViewItem from './ViewItem';
+import ItemForm from './ItemForm';
 
 const filterConfig = [
   {
@@ -223,12 +224,11 @@ class Items extends React.Component {
 
         {/* Details Pane */}
         <Match pattern={`${pathname}/view/:itemid`} render={props => <ViewItem placeholder={'placeholder'} {...props} />} />
-        <Layer isOpen={this.state.addItemMode} label="Add New Item Dialog">
-          {/* <ItemForm
+        <Layer isOpen={ data.addItemMode ? data.addItemMode.mode : false } label="Add New Item Dialog">
+          <ItemForm
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
-          /> */}
-          <h2>yo</h2>
+          />
         </Layer>
 
       </Paneset>
