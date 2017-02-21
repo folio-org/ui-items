@@ -73,9 +73,8 @@ class ViewItem extends Component {
 
     const { data: { items }, params: { itemid } } = this.props;
     if (!items || !itemid) return <div />;
-    const item = items.find(i => i.id === itemid)
-
-    return (
+    const item = items.find(i => i.id === itemid);
+    return item ? (
       <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
         <Row>
           <Col xs={12}>
@@ -108,7 +107,7 @@ class ViewItem extends Component {
           />
         </Layer>
       </Pane>
-    )
+    ) : null
   }
 
 }
