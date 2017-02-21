@@ -11,6 +11,8 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList' // e
 import Icon from '@folio/stripes-components/lib/Icon' // eslint-disable-line
 import Layer from '@folio/stripes-components/lib/Layer'; // eslint-disable-line
 
+import ItemForm from './ItemForm';
+
 class ViewItem extends Component {
 
   static propTypes = {
@@ -61,7 +63,7 @@ class ViewItem extends Component {
   }
 
   update(data) {
-    this.props.mutator.item.PUT(data).then(() => {
+    this.props.mutator.items.PUT(data).then(() => {
       this.onClickCloseEditItem();
     });
   }
@@ -73,7 +75,7 @@ class ViewItem extends Component {
     if (!items || !itemid) return <div />;
     const item = items.find(i => i.id === itemid);
 
-    return (
+    return item ? (
       <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
         <Row>
           <Col xs={12}>
@@ -98,8 +100,15 @@ class ViewItem extends Component {
             <KeyValue label="Location" value={_.get(item, ['location', 'name'], '')} />
           </Col>
         </Row>
+        <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
+          <ItemForm
+            onSubmit={(record) => { this.update(record); }}
+            initialValues={item}
+            onCancel={this.onClickCloseEditItem}
+          />
+        </Layer>
       </Pane>
-    );
+    ) : null
   }
 
 }
