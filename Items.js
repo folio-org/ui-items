@@ -46,9 +46,16 @@ class Items extends React.Component {
 
   static propTypes = {
     data: PropTypes.object.isRequired,
+    pathname: PropTypes.string,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
       query: PropTypes.object,
+      search: PropTypes.string,
+    }).isRequired,
+    mutator: PropTypes.shape({
+      addItemMode: PropTypes.shape({
+        replace: PropTypes.func,
+      }),
     }).isRequired,
   };
 
@@ -152,7 +159,7 @@ class Items extends React.Component {
   // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
-    this.props.mutator.addItemMode.replace({ mode: true })
+    this.props.mutator.addItemMode.replace({ mode: true });
   }
 
   // We need to explicitly pass changed values into this function,
@@ -217,7 +224,7 @@ class Items extends React.Component {
           <MultiColumnList
             contentData={items}
             selectedRow={this.state.selectedItem}
-            rowMetadata={['title','id']}
+            rowMetadata={['title', 'id']}
             headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
