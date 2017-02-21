@@ -19,6 +19,9 @@ class ViewItem extends Component {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
     }),
+    params: PropTypes.shape({
+      itemid: PropTypes.string,
+    }),
     mutator: React.PropTypes.shape({
       item: React.PropTypes.shape({
         PUT: React.PropTypes.func.isRequired,
@@ -35,16 +38,13 @@ class ViewItem extends Component {
   });
 
   constructor(props) {
-
     super(props);
-
 
     this.state = {
       editItemMode: false,
     };
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
-
   }
 
   // Edit Item Handlers
@@ -74,6 +74,7 @@ class ViewItem extends Component {
     const { data: { items }, params: { itemid } } = this.props;
     if (!items || !itemid) return <div />;
     const item = items.find(i => i.id === itemid);
+
     return item ? (
       <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
         <Row>
@@ -81,19 +82,19 @@ class ViewItem extends Component {
             <KeyValue label="Title" value={_.get(item, ['title'], '')} />
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col xs={12}>
             <KeyValue label="Material Type" value={_.get(item, ['materialType', 'name'], '')} />
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col xs={12}>
             <KeyValue label="Barcode" value={_.get(item, ['barcode'], '')} />
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col xs={12}>
             <KeyValue label="Location" value={_.get(item, ['location', 'name'], '')} />
