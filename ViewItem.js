@@ -17,6 +17,9 @@ class ViewItem extends Component {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
     }),
+    params: PropTypes.shape({
+      itemid: PropTypes.string,
+    }),
     mutator: React.PropTypes.shape({
       item: React.PropTypes.shape({
         PUT: React.PropTypes.func.isRequired,
