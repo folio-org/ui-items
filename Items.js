@@ -17,7 +17,7 @@ import Layer from '@folio/stripes-components/lib/Layer'; // eslint-disable-line
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
 
-import FilterGroups, { initialFilterState, filters2cql } from './FilterGroups';
+import FilterGroups, { initialFilterState, filters2cql } from '@folio/stripes-components/lib/FilterGroups';
 
 import ViewItem from './ViewItem';
 
