@@ -33,16 +33,13 @@ class ViewItem extends Component {
   });
 
   constructor(props) {
-
     super(props);
-
 
     this.state = {
       editItemMode: false,
     };
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
-
   }
 
   // Edit Item Handlers
@@ -71,7 +68,7 @@ class ViewItem extends Component {
 
     const { data: { items }, params: { itemid } } = this.props;
     if (!items || !itemid) return <div />;
-    const item = items.find(i => i.id === itemid)
+    const item = items.find(i => i.id === itemid);
 
     return (
       <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
@@ -80,26 +77,26 @@ class ViewItem extends Component {
             <KeyValue label="Title" value={_.get(item, ['title'], '')} />
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col xs={12}>
             <KeyValue label="Material Type" value={_.get(item, ['materialType', 'name'], '')} />
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col xs={12}>
             <KeyValue label="Barcode" value={_.get(item, ['barcode'], '')} />
           </Col>
         </Row>
-        <br/>
+        <br />
         <Row>
           <Col xs={12}>
             <KeyValue label="Location" value={_.get(item, ['location', 'name'], '')} />
           </Col>
         </Row>
       </Pane>
-    )
+    );
   }
 
 }
