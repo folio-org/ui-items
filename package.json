@@ -1,5 +1,5 @@
 {
-  "name": "@folio-sample-modules/items",
+  "name": "@folio/items",
   "version": "0.0.1-test",
   "description": "Items management",
   "repository": "folio-org/stripes-components",
