@@ -43,6 +43,7 @@ const filterConfig = [
 class Items extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
+    store: PropTypes.object,
   };
 
   static propTypes = {
@@ -137,25 +138,28 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
+    console.log('User clicked', itemId, 'location = ', this.props.location, "selected item = ", meta);
     this.setState({ selectedItem: meta });
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
 
-    console.log('User clicked', itemId, 'location = ', this.props.location);
   }
 
   // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
+    console.log('User clicked "add new item"');
     this.props.mutator.addItemMode.replace({ mode: true })
   }
 
   onClickCloseNewItem(e) {
     if (e) e.preventDefault();
+    console.log('User clicked "close new item"');
     this.props.mutator.addItemMode.replace({ mode: false })
   }
 
   create(data) {
     // POST item record
+    console.log('Creating new item record: ' + JSON.stringify(data));
     this.props.mutator.items.POST(data);
     this.onClickCloseNewItem();
   }
@@ -193,8 +197,8 @@ class Items extends React.Component {
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      materialType: x => x.materialType.name,
-      location: x => x.location.name,
+      materialType: x => x.materialType ? x.materialType.name : '',
+      location: x => x.location ? x.location.name : '',
     };
 
     return (
