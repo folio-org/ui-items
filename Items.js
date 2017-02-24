@@ -20,6 +20,7 @@ import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup
 import FilterGroups, { initialFilterState, filters2cql } from '@folio/stripes-components/lib/FilterGroups';
 
 import ViewItem from './ViewItem';
+import ItemForm from './ItemForm';
 
 const filterConfig = [
   {
@@ -42,6 +43,7 @@ const filterConfig = [
 class Items extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
+    store: PropTypes.object,
   };
 
   static propTypes = {
@@ -115,6 +117,7 @@ class Items extends React.Component {
     this.onSelectRow = this.onSelectRow.bind(this);
 
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
+    this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
   }
 
   onChangeFilter(e) {
@@ -154,16 +157,30 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
+    console.log('User clicked', itemId, 'location = ', this.props.location, "selected item = ", meta);
     this.setState({ selectedItem: meta });
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
 
-    console.log('User clicked', itemId, 'location = ', this.props.location);
   }
 
   // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
-    this.props.mutator.addItemMode.replace({ mode: true });
+    console.log('User clicked "add new item"');
+    this.props.mutator.addItemMode.replace({ mode: true })
+  }
+
+  onClickCloseNewItem(e) {
+    if (e) e.preventDefault();
+    console.log('User clicked "close new item"');
+    this.props.mutator.addItemMode.replace({ mode: false })
+  }
+
+  create(data) {
+    // POST item record
+    console.log('Creating new item record: ' + JSON.stringify(data));
+    this.props.mutator.items.POST(data);
+    this.onClickCloseNewItem();
   }
 
   // We need to explicitly pass changed values into this function,
@@ -199,8 +216,8 @@ class Items extends React.Component {
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      materialType: x => x.materialType.name,
-      location: x => x.location.name,
+      materialType: x => x.materialType ? x.materialType.name : '',
+      location: x => x.location ? x.location.name : '',
     };
 
     return (
@@ -242,12 +259,11 @@ class Items extends React.Component {
 
         {/* Details Pane */}
         <Match pattern={`${pathname}/view/:itemid`} render={props => <ViewItem placeholder={'placeholder'} {...props} />} />
-        <Layer isOpen={this.state.addItemMode} label="Add New Item Dialog">
-          {/* <ItemForm
+        <Layer isOpen={ data.addItemMode ? data.addItemMode.mode : false } label="Add New Item Dialog">
+          <ItemForm
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
-          /> */}
-          <h2>yo</h2>
+          />
         </Layer>
 
       </Paneset>
