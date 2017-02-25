@@ -61,6 +61,9 @@ class Items extends React.Component {
       addItemMode: PropTypes.shape({
         replace: PropTypes.func,
       }),
+      items: PropTypes.shape({
+        POST: PropTypes.func,
+      }),
     }).isRequired,
   };
 
@@ -152,28 +155,27 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
-    console.log('User clicked', itemId, 'location = ', this.props.location, "selected item = ", meta);
+    console.log('User clicked', itemId, 'location = ', this.props.location, 'selected item = ', meta);
     this.setState({ selectedItem: meta });
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
-
   }
 
   // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
     console.log('User clicked "add new item"');
-    this.props.mutator.addItemMode.replace({ mode: true })
+    this.props.mutator.addItemMode.replace({ mode: true });
   }
 
   onClickCloseNewItem(e) {
     if (e) e.preventDefault();
     console.log('User clicked "close new item"');
-    this.props.mutator.addItemMode.replace({ mode: false })
+    this.props.mutator.addItemMode.replace({ mode: false });
   }
 
   create(data) {
     // POST item record
-    console.log('Creating new item record: ' + JSON.stringify(data));
+    console.log(`Creating new item record: ${JSON.stringify(data)}`);
     this.props.mutator.items.POST(data);
     this.onClickCloseNewItem();
   }
@@ -254,7 +256,7 @@ class Items extends React.Component {
 
         {/* Details Pane */}
         <Match pattern={`${pathname}/view/:itemid`} render={props => <ViewItem placeholder={'placeholder'} {...props} />} />
-        <Layer isOpen={ data.addItemMode ? data.addItemMode.mode : false } label="Add New Item Dialog">
+        <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
