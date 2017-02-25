@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { PropTypes } from 'react'; // eslint-disable-line
 import {Row, Col} from 'react-bootstrap'; // eslint-disable-line
 import Match from 'react-router/Match'; // eslint-disable-line
@@ -208,8 +209,8 @@ class Items extends React.Component {
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      materialType: x => x.materialType ? x.materialType.name : '',
-      location: x => x.location ? x.location.name : '',
+      materialType: x => _.get(x, ['materialType', 'name']),
+      location: x => _.get(x, ['location', 'name']),
     };
 
     return (
