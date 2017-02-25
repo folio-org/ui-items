@@ -1,25 +1,17 @@
 import _ from 'lodash';
 // We have to remove node_modules/react to avoid having multiple copies loaded.
 // eslint-disable-next-line import/no-unresolved
-import React, { PropTypes } from 'react'; // eslint-disable-line
-import {Row, Col} from 'react-bootstrap'; // eslint-disable-line
-import Match from 'react-router/Match'; // eslint-disable-line
-
-import { connect } from '@folio/stripes-connect'; // eslint-disable-line
-
-import Pane from '@folio/stripes-components/lib/Pane'; // eslint-disable-line
-import Paneset from '@folio/stripes-components/lib/Paneset'; // eslint-disable-line
-import PaneMenu from '@folio/stripes-components/lib/PaneMenu'; // eslint-disable-line
-import Button from '@folio/stripes-components/lib/Button'; // eslint-disable-line
-import Icon from '@folio/stripes-components/lib/Icon'; // eslint-disable-line
-import Checkbox from '@folio/stripes-components/lib/Checkbox'; // eslint-disable-line
-import TextField from '@folio/stripes-components/lib/TextField'; // eslint-disable-line
-import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList'; // eslint-disable-line
-import KeyValue from '@folio/stripes-components/lib/KeyValue'; // eslint-disable-line
-import Layer from '@folio/stripes-components/lib/Layer'; // eslint-disable-line
-import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch'; // eslint-disable-line
-import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup'; // eslint-disable-line
-
+import React, { PropTypes } from 'react';
+import Match from 'react-router/Match';
+import Pane from '@folio/stripes-components/lib/Pane';
+import Paneset from '@folio/stripes-components/lib/Paneset';
+import PaneMenu from '@folio/stripes-components/lib/PaneMenu';
+import Button from '@folio/stripes-components/lib/Button';
+import Icon from '@folio/stripes-components/lib/Icon';
+import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
+import Layer from '@folio/stripes-components/lib/Layer';
+import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
+import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 
 import ViewItem from './ViewItem';
