@@ -55,7 +55,6 @@ function ItemForm(props) {
       </Paneset>
     </form>
   );
-
 }
 
 ItemForm.propTypes = propTypes;
