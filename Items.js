@@ -1,4 +1,6 @@
 import _ from 'lodash';
+// We have to remove node_modules/react to avoid having multiple copies loaded.
+// eslint-disable-next-line import/no-unresolved
 import React, { PropTypes } from 'react'; // eslint-disable-line
 import {Row, Col} from 'react-bootstrap'; // eslint-disable-line
 import Match from 'react-router/Match'; // eslint-disable-line
