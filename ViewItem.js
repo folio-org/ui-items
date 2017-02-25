@@ -23,7 +23,7 @@ class ViewItem extends Component {
       itemid: PropTypes.string,
     }),
     mutator: React.PropTypes.shape({
-      item: React.PropTypes.shape({
+      items: React.PropTypes.shape({
         PUT: React.PropTypes.func.isRequired,
       }),
     }),
@@ -108,7 +108,7 @@ class ViewItem extends Component {
           />
         </Layer>
       </Pane>
-    ) : null
+    ) : null;
   }
 
 }
