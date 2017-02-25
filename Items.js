@@ -118,10 +118,6 @@ class Items extends React.Component {
     this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
   }
 
-  updateFilters(filters) { // provided for onChangeFilter
-    this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
-  }
-
   onChangeSearch(e) {
     const query = e.target.value;
     console.log(`User searched for '${query}' at '${this.props.location.pathname}'`);
@@ -170,6 +166,10 @@ class Items extends React.Component {
     console.log(`Creating new item record: ${JSON.stringify(data)}`);
     this.props.mutator.items.POST(data);
     this.onClickCloseNewItem();
+  }
+
+  updateFilters(filters) { // provided for onChangeFilter
+    this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
   }
 
   // We need to explicitly pass changed values into this function,
