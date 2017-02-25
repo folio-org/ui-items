@@ -38,6 +38,12 @@
   },
   "dependencies": {
     "@folio/stripes-components": "^0.0.1-test",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
+    "react-router": "4.0.0-alpha.6"
+  },
+  "peerDependencies": {
+    "@folio/stripes-connect": "^0.0.8"
   }
 }
