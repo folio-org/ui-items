@@ -123,7 +123,7 @@ class Items extends React.Component {
     console.log(`User searched for '${query}' at '${this.props.location.pathname}'`);
 
     this.setState({ searchTerm: query });
-    this.updateSearch(query, this.state.sortOrder, this.state.filters);
+    this.transitionToParams({ query });
   }
 
   onClearSearch() {
@@ -136,7 +136,7 @@ class Items extends React.Component {
     const sortOrder = meta.name;
     console.log('User sorted by', sortOrder);
     this.setState({ sortOrder });
-    this.updateSearch(this.state.searchTerm, sortOrder, this.state.filters);
+    this.transitionToParams({ sort: sortOrder });
   }
 
   // Results Handler
@@ -169,31 +169,20 @@ class Items extends React.Component {
   }
 
   updateFilters(filters) { // provided for onChangeFilter
-    this.updateSearch(this.state.searchTerm, this.state.sortOrder, filters);
+    this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
   }
 
-  // We need to explicitly pass changed values into this function,
-  // as state-change only happens after event is handled.
-  updateSearch(query, sortOrder, filters) {
-    console.log(`updateSearch('${query}', '${sortOrder}',`, filters, ')');
-    let transitionLoc = this.props.location.pathname;
-    const params = {};
-    if (query) params.query = query;
-    if (sortOrder) params.sort = sortOrder;
+  transitionToParams(params) {
+    const location = this.props.location;
+    const allParams = Object.assign({}, location.query, params);
+    const keys = Object.keys(allParams);
 
-    const activeFilters = [];
-    for (const name in filters) {
-      if (filters[name]) activeFilters.push(name);
-    }
-
-    if (activeFilters) params.filters = activeFilters.join(',');
-
-    const keys = Object.keys(params);
+    let url = location.pathname;
     if (keys.length) {
-      // eslint-disable-next-line prefer-template
-      transitionLoc += '?' + keys.map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
+      url += `?${keys.map(key => `${key}=${encodeURIComponent(allParams[key])}`).join('&')}`;
     }
-    this.context.router.transitionTo(transitionLoc);
+
+    this.context.router.transitionTo(url);
   }
 
   render() {
