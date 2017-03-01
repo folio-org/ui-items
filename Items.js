@@ -13,6 +13,7 @@ import Layer from '@folio/stripes-components/lib/Layer';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
+import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 
 import ViewItem from './ViewItem';
 import ItemForm from './ItemForm';
@@ -113,6 +114,7 @@ class Items extends React.Component {
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
+    this.transitionToParams = transitionToParams.bind(this);
 
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
     this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
@@ -170,19 +172,6 @@ class Items extends React.Component {
 
   updateFilters(filters) { // provided for onChangeFilter
     this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
-  }
-
-  transitionToParams(params) {
-    const location = this.props.location;
-    const allParams = Object.assign({}, location.query, params);
-    const keys = Object.keys(allParams);
-
-    let url = location.pathname;
-    if (keys.length) {
-      url += `?${keys.map(key => `${key}=${encodeURIComponent(allParams[key])}`).join('&')}`;
-    }
-
-    this.context.router.transitionTo(url);
   }
 
   render() {
