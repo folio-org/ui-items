@@ -118,6 +118,8 @@ class Items extends React.Component {
 
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
     this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
+
+    this.props.logger.log('core', 'in Items');
   }
 
   onChangeSearch(e) {
