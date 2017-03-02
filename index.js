@@ -29,7 +29,8 @@ class ItemsRouting extends Component {
     const { pathname } = this.props;
     return (
       <div>
-        <Match pattern={`${pathname}`} component={this.connectedApp} />
+        <Match pattern={`${pathname}`}
+          render={props => <this.connectedApp {...props} logger={this.props.logger}/>} />
         <Miss component={() => { this.NoMatch(); }} />
       </div>
     );
