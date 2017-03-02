@@ -37,6 +37,7 @@
     "webpack": "1.11.0"
   },
   "dependencies": {
+    "@folio/stripes-core": "^0.1.0",
     "@folio/stripes-components": "^0.0.3",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
