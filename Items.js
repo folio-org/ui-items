@@ -124,21 +124,21 @@ class Items extends React.Component {
 
   onChangeSearch(e) {
     const query = e.target.value;
-    console.log(`User searched for '${query}' at '${this.props.location.pathname}'`);
+    this.props.logger.log('action', `searched for '${query}'`);
 
     this.setState({ searchTerm: query });
     this.transitionToParams({ query });
   }
 
   onClearSearch() {
-    console.log('User cleared search');
+    this.props.logger.log('action', 'cleared search');
     this.setState({ searchTerm: '' });
     this.context.router.transitionTo(this.props.location.pathname);
   }
 
   onSort(e, meta) {
     const sortOrder = meta.name;
-    console.log('User sorted by', sortOrder);
+    this.props.logger.log('action', `sorted by ${sortOrder}`);
     this.setState({ sortOrder });
     this.transitionToParams({ sort: sortOrder });
   }
@@ -147,7 +147,7 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
-    console.log('User clicked', itemId, 'location = ', this.props.location, 'selected item = ', meta);
+    this.props.logger.log(`clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
     this.setState({ selectedItem: meta });
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
   }
@@ -155,19 +155,19 @@ class Items extends React.Component {
   // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
-    console.log('User clicked "add new item"');
+    this.props.logger.log('action', 'clicked "add new item"');
     this.props.mutator.addItemMode.replace({ mode: true });
   }
 
   onClickCloseNewItem(e) {
     if (e) e.preventDefault();
-    console.log('User clicked "close new item"');
+    this.props.logger.log('action', 'clicked "close new item"');
     this.props.mutator.addItemMode.replace({ mode: false });
   }
 
   create(data) {
     // POST item record
-    console.log(`Creating new item record: ${JSON.stringify(data)}`);
+    this.props.logger.log('action', `Creating new item record: ${JSON.stringify(data)}`);
     this.props.mutator.items.POST(data);
     this.onClickCloseNewItem();
   }
