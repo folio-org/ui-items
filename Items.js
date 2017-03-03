@@ -62,7 +62,7 @@ class Items extends React.Component {
   };
 
   static manifest = Object.freeze({
-    addItemMode: { },
+    addItemMode: {},
     items: {
       type: 'okapi',
       records: 'items',
