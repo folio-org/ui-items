@@ -3,20 +3,21 @@ import _ from 'lodash';
 // eslint-disable-next-line import/no-unresolved
 import React, { PropTypes } from 'react';
 import Match from 'react-router/Match';
+
 import Pane from '@folio/stripes-components/lib/Pane';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import PaneMenu from '@folio/stripes-components/lib/PaneMenu';
 import Button from '@folio/stripes-components/lib/Button';
 import Icon from '@folio/stripes-components/lib/Icon';
 import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
-import Layer from '@folio/stripes-components/lib/Layer';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
+import Layer from '@folio/stripes-components/lib/Layer';
 import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 
-import ViewItem from './ViewItem';
 import ItemForm from './ItemForm';
+import ViewItem from './ViewItem';
 
 const filterConfig = [
   {
@@ -44,11 +45,11 @@ class Items extends React.Component {
 
   static propTypes = {
     data: PropTypes.object.isRequired,
-    pathname: PropTypes.string,
+    pathname: PropTypes.string.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
-      query: PropTypes.object,
-      search: PropTypes.string,
+      query: PropTypes.object, // object of key=value pairs
+      search: PropTypes.string, // string combining all parts of query
     }).isRequired,
     mutator: PropTypes.shape({
       addItemMode: PropTypes.shape({
