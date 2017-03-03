@@ -110,15 +110,15 @@ class Items extends React.Component {
     };
     props.mutator.addItemMode.replace({ mode: false });
 
-    this.onChangeFilter = onChangeFilter.bind(this);
-    this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
-    this.transitionToParams = transitionToParams.bind(this);
-
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
     this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+
+    this.onChangeFilter = onChangeFilter.bind(this);
+    this.transitionToParams = transitionToParams.bind(this);
   }
 
   onChangeSearch(e) {
