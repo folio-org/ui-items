@@ -3,19 +3,21 @@ import _ from 'lodash';
 // eslint-disable-next-line import/no-unresolved
 import React, { PropTypes } from 'react';
 import Match from 'react-router/Match';
+
 import Pane from '@folio/stripes-components/lib/Pane';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import PaneMenu from '@folio/stripes-components/lib/PaneMenu';
 import Button from '@folio/stripes-components/lib/Button';
 import Icon from '@folio/stripes-components/lib/Icon';
 import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
-import Layer from '@folio/stripes-components/lib/Layer';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
+import Layer from '@folio/stripes-components/lib/Layer';
 import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
+import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 
-import ViewItem from './ViewItem';
 import ItemForm from './ItemForm';
+import ViewItem from './ViewItem';
 
 const filterConfig = [
   {
@@ -43,11 +45,11 @@ class Items extends React.Component {
 
   static propTypes = {
     data: PropTypes.object.isRequired,
-    pathname: PropTypes.string,
+    pathname: PropTypes.string.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
-      query: PropTypes.object,
-      search: PropTypes.string,
+      query: PropTypes.object, // object of key=value pairs
+      search: PropTypes.string, // string combining all parts of query
     }).isRequired,
     mutator: PropTypes.shape({
       addItemMode: PropTypes.shape({
@@ -60,7 +62,7 @@ class Items extends React.Component {
   };
 
   static manifest = Object.freeze({
-    addItemMode: { },
+    addItemMode: {},
     items: {
       type: 'okapi',
       records: 'items',
@@ -108,14 +110,15 @@ class Items extends React.Component {
     };
     props.mutator.addItemMode.replace({ mode: false });
 
-    this.onChangeFilter = onChangeFilter.bind(this);
-    this.onChangeSearch = this.onChangeSearch.bind(this);
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
-
     this.onClickAddNewItem = this.onClickAddNewItem.bind(this);
     this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+
+    this.onChangeFilter = onChangeFilter.bind(this);
+    this.transitionToParams = transitionToParams.bind(this);
   }
 
   onChangeSearch(e) {
@@ -172,19 +175,6 @@ class Items extends React.Component {
     this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
   }
 
-  transitionToParams(params) {
-    const location = this.props.location;
-    const allParams = Object.assign({}, location.query, params);
-    const keys = Object.keys(allParams);
-
-    let url = location.pathname;
-    if (keys.length) {
-      url += `?${keys.map(key => `${key}=${encodeURIComponent(allParams[key])}`).join('&')}`;
-    }
-
-    this.context.router.transitionTo(url);
-  }
-
   render() {
     const { data, pathname } = this.props;
     const items = data.items || [];
@@ -196,6 +186,7 @@ class Items extends React.Component {
     const resultsFormatter = {
       materialType: x => _.get(x, ['materialType', 'name']),
       location: x => _.get(x, ['location', 'name']),
+      status: x => _.get(x, ['status', 'name']),
     };
 
     return (
@@ -228,7 +219,7 @@ class Items extends React.Component {
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
-            visibleColumns={['materialType', 'location', 'barcode', 'title']}
+            visibleColumns={['materialType', 'location', 'barcode', 'title', 'status']}
             fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
