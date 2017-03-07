@@ -113,4 +113,4 @@ class ViewItem extends Component {
 
 }
 
-export default connect(ViewItem, 'items');
+export default connect(ViewItem, '@folio/items');
