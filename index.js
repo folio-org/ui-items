@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved (see STRIPES-220)
 import React, { Component, PropTypes } from 'react';
 import Match from 'react-router/Match';
 import Miss from 'react-router/Miss';
