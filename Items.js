@@ -1,5 +1,6 @@
 import _ from 'lodash';
-// eslint-disable-next-line import/no-unresolved (see STRIPES-220)
+// We have to remove node_modules/react to avoid having multiple copies loaded.
+// eslint-disable-next-line import/no-unresolved
 import React, { PropTypes } from 'react';
 import Match from 'react-router/Match';
 
