@@ -1,4 +1,5 @@
 import _ from 'lodash';
+// eslint-disable-next-line import/no-unresolved (see STRIPES-220)
 import React, { Component, PropTypes } from 'react';
 import { connect } from '@folio/stripes-connect';
 import Pane from '@folio/stripes-components/lib/Pane';
