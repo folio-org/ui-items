@@ -44,6 +44,9 @@ class Items extends React.Component {
   };
 
   static propTypes = {
+    logger: PropTypes.shape({
+      log: PropTypes.func.isRequired,
+    }).isRequired,
     data: PropTypes.object.isRequired,
     pathname: PropTypes.string.isRequired,
     location: PropTypes.shape({
