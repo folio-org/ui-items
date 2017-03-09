@@ -8,7 +8,7 @@ import Items from './Items';
 class ItemsRouting extends Component {
   static propTypes = {
     connect: PropTypes.func.isRequired,
-    logger: PropTypes.func.isRequired,
+    logger: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     pathname: PropTypes.string,
   }
