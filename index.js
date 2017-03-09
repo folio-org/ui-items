@@ -1,13 +1,15 @@
-import React, { Component, PropTypes } from 'react'; // eslint-disable-line
-import Match from 'react-router/Match'; // eslint-disable-line
-import Miss from 'react-router/Miss'; // eslint-disable-line
+// We have to remove node_modules/react to avoid having multiple copies loaded.
+// eslint-disable-next-line import/no-unresolved
+import React, { Component, PropTypes } from 'react';
+import Match from 'react-router/Match';
+import Miss from 'react-router/Miss';
 import Items from './Items';
 
 class ItemsRouting extends Component {
 
   static propTypes = {
     connect: PropTypes.func.isRequired,
-    location: PropTypes.object.isRequired, // eslint-disable-line
+    location: PropTypes.object.isRequired,
     pathname: PropTypes.string,
   }
 

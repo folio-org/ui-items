@@ -186,6 +186,7 @@ class Items extends React.Component {
     const resultsFormatter = {
       materialType: x => _.get(x, ['materialType', 'name']),
       location: x => _.get(x, ['location', 'name']),
+      status: x => _.get(x, ['status', 'name']),
     };
 
     return (
@@ -218,7 +219,7 @@ class Items extends React.Component {
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
-            visibleColumns={['materialType', 'location', 'barcode', 'title']}
+            visibleColumns={['materialType', 'location', 'barcode', 'title', 'status']}
             fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
