@@ -6,9 +6,9 @@ import Miss from 'react-router/Miss';
 import Items from './Items';
 
 class ItemsRouting extends Component {
-
   static propTypes = {
     connect: PropTypes.func.isRequired,
+    logger: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired,
     pathname: PropTypes.string,
   }
@@ -31,8 +31,10 @@ class ItemsRouting extends Component {
     const { pathname } = this.props;
     return (
       <div>
-        <Match pattern={`${pathname}`}
-          render={props => <this.connectedApp {...props} logger={this.props.logger}/>} />
+        <Match
+          pattern={`${pathname}`}
+          render={props => <this.connectedApp {...props} logger={this.props.logger} />}
+        />
         <Miss component={() => { this.NoMatch(); }} />
       </div>
     );
