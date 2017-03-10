@@ -2,7 +2,6 @@ import _ from 'lodash';
 // We have to remove node_modules/react to avoid having multiple copies loaded.
 // eslint-disable-next-line import/no-unresolved
 import React, { Component, PropTypes } from 'react';
-import { connect } from '@folio/stripes-connect';
 import Pane from '@folio/stripes-components/lib/Pane';
 import PaneMenu from '@folio/stripes-components/lib/PaneMenu';
 import KeyValue from '@folio/stripes-components/lib/KeyValue';
@@ -112,4 +111,4 @@ class ViewItem extends Component {
 
 }
 
-export default connect(ViewItem, '@folio/items');
+export default ViewItem;
