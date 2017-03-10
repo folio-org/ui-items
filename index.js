@@ -33,7 +33,7 @@ class ItemsRouting extends Component {
       <div>
         <Match
           pattern={`${pathname}`}
-          render={props => <this.connectedApp {...props} logger={this.props.logger} />}
+          render={() => <this.connectedApp {...this.props} />}
         />
         <Miss component={() => { this.NoMatch(); }} />
       </div>
