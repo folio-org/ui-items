@@ -44,6 +44,7 @@ class Items extends React.Component {
   };
 
   static propTypes = {
+    connect: PropTypes.func.isRequired,
     logger: PropTypes.shape({
       log: PropTypes.func.isRequired,
     }).isRequired,
@@ -122,6 +123,8 @@ class Items extends React.Component {
 
     this.onChangeFilter = onChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
+
+    this.connectedViewItem = this.props.connect(ViewItem);
   }
 
   onChangeSearch(e) {
@@ -230,7 +233,7 @@ class Items extends React.Component {
         </Pane>
 
         {/* Details Pane */}
-        <Match pattern={`${pathname}/view/:itemid`} render={props => <ViewItem placeholder={'placeholder'} {...props} />} />
+        <Match pattern={`${pathname}/view/:itemid`} render={props => <this.connectedViewItem placeholder={'placeholder'} {...props} />} />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.create(record); }}
