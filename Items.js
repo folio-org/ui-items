@@ -70,7 +70,7 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: (queryParams, _pathComponents, _resourceValues) => {
+      path: (queryParams, _pathComponents, _resourceValues, logger) => {
         const { query, filters, sort } = queryParams || {};
 
         let cql;
@@ -95,7 +95,7 @@ class Items extends React.Component {
         let path = 'item-storage/items';
         if (cql) path += `?query=${encodeURIComponent(cql)}`;
 
-        console.log(`query=${query} filters=${filters} sort=${sort} -> ${path}`);
+        logger.log('path', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
         return path;
       },
       staticFallback: { path: 'item-storage/items' },
