@@ -152,7 +152,7 @@ class Items extends React.Component {
   // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
-    this.props.logger.log(`clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
+    this.props.logger.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
     this.setState({ selectedItem: meta });
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
   }
