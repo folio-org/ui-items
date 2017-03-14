@@ -37,7 +37,7 @@ const filterConfig = [
   },
 ];
 
-function makePath(queryTemplate, sortMap) {
+function makePath(basePath, queryTemplate, sortMap) {
   return (queryParams, _pathComponents, _resourceValues, logger) => {
     const { query, filters, sort } = queryParams || {};
 
@@ -64,7 +64,7 @@ function makePath(queryTemplate, sortMap) {
       }
     }
 
-    let path = 'item-storage/items';
+    let path = basePath;
     if (cql) path += `?query=${encodeURIComponent(cql)}`;
 
     logger.log('mpath', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
@@ -106,6 +106,7 @@ class Items extends React.Component {
       type: 'okapi',
       records: 'items',
       path: makePath(
+        'item-storage/items',
         'materialType="${query}" or barcode="${query}*" or title="${query}*"',
         {
           'Material Type': 'materialType',
