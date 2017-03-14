@@ -37,13 +37,14 @@ const filterConfig = [
   },
 ];
 
-function makePath() {
+function makePath(queryTemplate) {
   return (queryParams, _pathComponents, _resourceValues, logger) => {
     const { query, filters, sort } = queryParams || {};
 
     let cql;
     if (query) {
-      cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
+      cql = queryTemplate.replace(/\${query}/g, query);
+      logger.log('mpath', `for query '${query}', template '${queryTemplate}' -> '${cql}'`);
     }
 
     const filterCql = filters2cql(filterConfig, filters);
@@ -111,7 +112,7 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: makePath(),
+      path: makePath('materialType="${query}" or barcode="${query}*" or title="${query}*"'),
       staticFallback: { path: 'item-storage/items' },
     },
   });
