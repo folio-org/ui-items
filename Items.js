@@ -130,14 +130,6 @@ class Items extends React.Component {
     if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
   }
 
-  onChangeSearch(e) {
-    const query = e.target.value;
-    this.props.logger.log('action', `searched for '${query}'`);
-
-    this.setState({ searchTerm: query });
-    this.transitionToParams({ query });
-  }
-
   onClearSearch() {
     this.props.logger.log('action', 'cleared search');
     this.setState({ searchTerm: '' });
@@ -151,8 +143,6 @@ class Items extends React.Component {
     this.transitionToParams({ sort: sortOrder });
   }
 
-  // Results Handler
-  // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
     this.props.logger.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
@@ -160,7 +150,6 @@ class Items extends React.Component {
     this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
   }
 
-  // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
     this.props.logger.log('action', 'clicked "add new item"');
@@ -173,15 +162,22 @@ class Items extends React.Component {
     this.props.mutator.addItemMode.replace({ mode: false });
   }
 
+  onChangeSearch(e) {
+    const query = e.target.value;
+    this.setState({ searchTerm: query });
+    this.props.logger.log('action', `searched for '${query}'`);
+    this.transitionToParams({ query });
+  }
+
+  updateFilters(filters) { // provided for onChangeFilter
+    this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
+  }
+
   create(data) {
     // POST item record
     this.props.logger.log('action', `Creating new item record: ${JSON.stringify(data)}`);
     this.props.mutator.items.POST(data);
     this.onClickCloseNewItem();
-  }
-
-  updateFilters(filters) { // provided for onChangeFilter
-    this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
   }
 
   render() {
@@ -243,7 +239,6 @@ class Items extends React.Component {
             onCancel={this.onClickCloseNewItem}
           />
         </Layer>
-
       </Paneset>
     );
   }
