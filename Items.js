@@ -112,7 +112,6 @@ class Items extends React.Component {
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
     };
-    props.mutator.addItemMode.replace({ mode: false });
 
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
@@ -125,6 +124,10 @@ class Items extends React.Component {
     this.transitionToParams = transitionToParams.bind(this);
 
     this.connectedViewItem = this.props.connect(ViewItem);
+  }
+
+  componentWillMount() {
+    if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
   }
 
   onChangeSearch(e) {
