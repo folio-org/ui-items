@@ -95,7 +95,7 @@ class Items extends React.Component {
         let path = 'item-storage/items';
         if (cql) path += `?query=${encodeURIComponent(cql)}`;
 
-        logger.log('path', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
+        logger.log('mpath', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
         return path;
       },
       staticFallback: { path: 'item-storage/items' },
