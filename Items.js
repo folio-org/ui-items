@@ -41,12 +41,7 @@ function makePath(basePath, findAll, queryTemplate, sortMap) {
   return (queryParams, _pathComponents, _resourceValues, logger) => {
     const { query, filters, sort } = queryParams || {};
 
-    let cql;
-    if (query) {
-      cql = queryTemplate.replace(/\${query}/g, query);
-      logger.log('mpath', `for query '${query}', template '${queryTemplate}' -> '${cql}'`);
-    }
-
+    let cql = !query ? undefined : queryTemplate.replace(/\${query}/g, query);
     const filterCql = filters2cql(filterConfig, filters);
     if (filterCql) {
       if (cql) {
