@@ -62,7 +62,7 @@ function makePath(basePath, findAll, queryTemplate, sortMap) {
     let path = basePath;
     if (cql) path += `?query=${encodeURIComponent(cql)}`;
 
-    logger.log('mpath', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
+    logger.log('mpath', `query='${query}' filters='${filters}' sort='${sort}' -> ${path}`);
     return path;
   };
 }
