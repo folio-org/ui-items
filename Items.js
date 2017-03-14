@@ -15,6 +15,7 @@ import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup
 import Layer from '@folio/stripes-components/lib/Layer';
 import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
+import makePathFunction from '@folio/stripes-components/util/makePathFunction';
 
 import ItemForm from './ItemForm';
 import ViewItem from './ViewItem';
@@ -36,36 +37,6 @@ const filterConfig = [
     values: ['Main Library', 'Annex Library'],
   },
 ];
-
-function makePath(basePath, findAll, queryTemplate, sortMap) {
-  return (queryParams, _pathComponents, _resourceValues, logger) => {
-    const { query, filters, sort } = queryParams || {};
-
-    let cql = !query ? undefined : queryTemplate.replace(/\${query}/g, query);
-    const filterCql = filters2cql(filterConfig, filters);
-    if (filterCql) {
-      if (cql) {
-        cql = `(${cql}) and ${filterCql}`;
-      } else {
-        cql = filterCql;
-      }
-    }
-
-    if (sort) {
-      const sortIndex = sortMap[sort];
-      if (sortIndex) {
-        if (cql === undefined) cql = findAll;
-        cql += ` sortby ${sortIndex}`;
-      }
-    }
-
-    let path = basePath;
-    if (cql) path += `?query=${encodeURIComponent(cql)}`;
-
-    logger.log('mpath', `query='${query}' filters='${filters}' sort='${sort}' -> ${path}`);
-    return path;
-  };
-}
 
 class Items extends React.Component {
   static contextTypes = {
@@ -100,17 +71,12 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: makePath(
+      path: makePathFunction(
         'item-storage/items',
         'materialType=*',
         'materialType="${query}" or barcode="${query}*" or title="${query}*"',
-        {
-          'Material Type': 'materialType',
-          location: 'location',
-          barcode: 'barcode',
-          title: 'title',
-          status: 'status',
-        }
+        { 'Material Type': 'materialType' },
+        filterConfig
       ),
       staticFallback: { path: 'item-storage/items' },
     },
