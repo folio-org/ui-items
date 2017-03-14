@@ -37,6 +37,47 @@ const filterConfig = [
   },
 ];
 
+function makePath() {
+  return (queryParams, _pathComponents, _resourceValues, logger) => {
+    const { query, filters, sort } = queryParams || {};
+
+    let cql;
+    if (query) {
+      cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
+    }
+
+    const filterCql = filters2cql(filterConfig, filters);
+    if (filterCql) {
+      if (cql) {
+        cql = `(${cql}) and ${filterCql}`;
+      } else {
+        cql = filterCql;
+      }
+    }
+
+    if (sort) {
+      const sortMap = {
+        'Material Type': 'materialType',
+        location: 'location',
+        barcode: 'barcode',
+        title: 'title',
+        status: 'status',
+      };
+      const sortIndex = sortMap[sort];
+      if (sortIndex) {
+        if (cql === undefined) cql = 'materialType=*';
+        cql += ` sortby ${sortIndex}`;
+      }
+    }
+
+    let path = 'item-storage/items';
+    if (cql) path += `?query=${encodeURIComponent(cql)}`;
+
+    logger.log('mpath', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
+    return path;
+  };
+}
+
 class Items extends React.Component {
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -70,44 +111,7 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: (queryParams, _pathComponents, _resourceValues, logger) => {
-        const { query, filters, sort } = queryParams || {};
-
-        let cql;
-        if (query) {
-          cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
-        }
-
-        const filterCql = filters2cql(filterConfig, filters);
-        if (filterCql) {
-          if (cql) {
-            cql = `(${cql}) and ${filterCql}`;
-          } else {
-            cql = filterCql;
-          }
-        }
-
-        if (sort) {
-          const sortMap = {
-            'Material Type': 'materialType',
-            location: 'location',
-            barcode: 'barcode',
-            title: 'title',
-            status: 'status',
-          };
-          const sortIndex = sortMap[sort];
-          if (sortIndex) {
-            if (cql === undefined) cql = 'materialType=*';
-            cql += ` sortby ${sortIndex}`;
-          }
-        }
-
-        let path = 'item-storage/items';
-        if (cql) path += `?query=${encodeURIComponent(cql)}`;
-
-        logger.log('mpath', `query=${query} filters=${filters} sort=${sort} -> ${path}`);
-        return path;
-      },
+      path: makePath(),
       staticFallback: { path: 'item-storage/items' },
     },
   });
