@@ -37,7 +37,7 @@ const filterConfig = [
   },
 ];
 
-function makePath(queryTemplate) {
+function makePath(queryTemplate, sortMap) {
   return (queryParams, _pathComponents, _resourceValues, logger) => {
     const { query, filters, sort } = queryParams || {};
 
@@ -57,13 +57,6 @@ function makePath(queryTemplate) {
     }
 
     if (sort) {
-      const sortMap = {
-        'Material Type': 'materialType',
-        location: 'location',
-        barcode: 'barcode',
-        title: 'title',
-        status: 'status',
-      };
       const sortIndex = sortMap[sort];
       if (sortIndex) {
         if (cql === undefined) cql = 'materialType=*';
@@ -112,7 +105,16 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: makePath('materialType="${query}" or barcode="${query}*" or title="${query}*"'),
+      path: makePath(
+        'materialType="${query}" or barcode="${query}*" or title="${query}*"',
+        {
+          'Material Type': 'materialType',
+          location: 'location',
+          barcode: 'barcode',
+          title: 'title',
+          status: 'status',
+        }
+      ),
       staticFallback: { path: 'item-storage/items' },
     },
   });
