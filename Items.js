@@ -37,7 +37,7 @@ const filterConfig = [
   },
 ];
 
-function makePath(basePath, queryTemplate, sortMap) {
+function makePath(basePath, findAll, queryTemplate, sortMap) {
   return (queryParams, _pathComponents, _resourceValues, logger) => {
     const { query, filters, sort } = queryParams || {};
 
@@ -59,7 +59,7 @@ function makePath(basePath, queryTemplate, sortMap) {
     if (sort) {
       const sortIndex = sortMap[sort];
       if (sortIndex) {
-        if (cql === undefined) cql = 'materialType=*';
+        if (cql === undefined) cql = 'findAll';
         cql += ` sortby ${sortIndex}`;
       }
     }
@@ -107,6 +107,7 @@ class Items extends React.Component {
       records: 'items',
       path: makePath(
         'item-storage/items',
+        'materialType=*',
         'materialType="${query}" or barcode="${query}*" or title="${query}*"',
         {
           'Material Type': 'materialType',
