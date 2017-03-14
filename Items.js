@@ -88,8 +88,18 @@ class Items extends React.Component {
         }
 
         if (sort) {
-          if (cql === undefined) cql = 'materialType=*';
-          cql += ` sortby ${sort}`;
+          const sortMap = {
+            'Material Type': 'materialType',
+            location: 'location',
+            barcode: 'barcode',
+            title: 'title',
+            status: 'status',
+          };
+          const sortIndex = sortMap[sort];
+          if (sortIndex) {
+            if (cql === undefined) cql = 'materialType=*';
+            cql += ` sortby ${sortIndex}`;
+          }
         }
 
         let path = 'item-storage/items';
@@ -189,7 +199,7 @@ class Items extends React.Component {
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      materialType: x => _.get(x, ['materialType', 'name']),
+      'Material Type': x => _.get(x, ['materialType', 'name']),
       location: x => _.get(x, ['location', 'name']),
       status: x => _.get(x, ['status', 'name']),
     };
@@ -224,7 +234,7 @@ class Items extends React.Component {
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
-            visibleColumns={['materialType', 'location', 'barcode', 'title', 'status']}
+            visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
             fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
