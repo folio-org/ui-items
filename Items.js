@@ -59,7 +59,7 @@ function makePath(basePath, findAll, queryTemplate, sortMap) {
     if (sort) {
       const sortIndex = sortMap[sort];
       if (sortIndex) {
-        if (cql === undefined) cql = 'findAll';
+        if (cql === undefined) cql = findAll;
         cql += ` sortby ${sortIndex}`;
       }
     }
