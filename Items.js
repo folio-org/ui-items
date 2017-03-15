@@ -200,7 +200,6 @@ class Items extends React.Component {
             contentData={items}
             selectedRow={this.state.selectedItem}
             rowMetadata={['title', 'id']}
-            headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
