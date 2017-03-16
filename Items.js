@@ -2,7 +2,8 @@ import _ from 'lodash';
 // We have to remove node_modules/react to avoid having multiple copies loaded.
 // eslint-disable-next-line import/no-unresolved
 import React, { PropTypes } from 'react';
-import Match from 'react-router/Match';
+import Route from 'react-router-dom/Route';
+import queryString from 'query-string';
 
 import Pane from '@folio/stripes-components/lib/Pane';
 import Paneset from '@folio/stripes-components/lib/Paneset';
@@ -40,7 +41,6 @@ const filterConfig = [
 
 class Items extends React.Component {
   static contextTypes = {
-    router: PropTypes.object.isRequired,
     store: PropTypes.object,
   };
 
@@ -50,11 +50,15 @@ class Items extends React.Component {
       log: PropTypes.func.isRequired,
     }).isRequired,
     data: PropTypes.object.isRequired,
-    pathname: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
-      query: PropTypes.object, // object of key=value pairs
-      search: PropTypes.string, // string combining all parts of query
+      search: PropTypes.string,
+    }).isRequired,
+    match: PropTypes.shape({
+      path: PropTypes.string.isRequired,
     }).isRequired,
     mutator: PropTypes.shape({
       addItemMode: PropTypes.shape({
@@ -85,7 +89,7 @@ class Items extends React.Component {
   constructor(props) {
     super(props);
 
-    const query = props.location.query || {};
+    const query = props.location.search ? queryString.parse(props.location.search) : {};
     this.state = {
       filters: initialFilterState(filterConfig, query.filters),
       selectedItem: {},
@@ -113,7 +117,7 @@ class Items extends React.Component {
   onClearSearch() {
     this.props.logger.log('action', 'cleared search');
     this.setState({ searchTerm: '' });
-    this.context.router.transitionTo(this.props.location.pathname);
+    this.props.history.push(this.props.location.pathname);
   }
 
   onSort(e, meta) {
@@ -127,7 +131,7 @@ class Items extends React.Component {
     const itemId = meta.id;
     this.props.logger.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
     this.setState({ selectedItem: meta });
-    this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
+    this.props.history.push(`/items/view/${itemId}${this.props.location.search}`);
   }
 
   onClickAddNewItem(e) {
@@ -161,7 +165,7 @@ class Items extends React.Component {
   }
 
   render() {
-    const { data, pathname } = this.props;
+    const { data } = this.props;
     const items = data.items || [];
 
     /* searchHeader is a 'custom pane header'*/
@@ -211,7 +215,7 @@ class Items extends React.Component {
         </Pane>
 
         {/* Details Pane */}
-        <Match pattern={`${pathname}/view/:itemid`} render={props => <this.connectedViewItem placeholder={'placeholder'} {...props} />} />
+        <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem placeholder={'placeholder'} {...props} />} />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.create(record); }}

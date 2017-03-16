@@ -17,8 +17,8 @@ class ViewItem extends Component {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
     }),
-    params: PropTypes.shape({
-      itemid: PropTypes.string,
+    match: PropTypes.shape({
+      params: PropTypes.object,
     }),
     mutator: React.PropTypes.shape({
       items: React.PropTypes.shape({
@@ -69,7 +69,7 @@ class ViewItem extends Component {
   render() {
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
-    const { data: { items }, params: { itemid } } = this.props;
+    const { data: { items }, match: { params: { itemid } } } = this.props;
     if (!items || !itemid) return <div />;
     const item = items.find(i => i.id === itemid);
 
