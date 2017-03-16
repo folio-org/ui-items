@@ -74,7 +74,7 @@ class Items extends React.Component {
       path: makePathFunction(
         'item-storage/items',
         'materialType=*',
-        'materialType="${query}" or barcode="${query}*" or title="${query}*"',
+        'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
         { 'Material Type': 'materialType' },
         filterConfig
       ),
