@@ -13,7 +13,7 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import Layer from '@folio/stripes-components/lib/Layer';
-import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
+import FilterGroups, { initialFilterState, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 import makePathFunction from '@folio/stripes-components/util/makePathFunction';
 
@@ -76,7 +76,7 @@ class Items extends React.Component {
         'materialType=*',
         'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
         { 'Material Type': 'materialType' },
-        filterConfig
+        filterConfig,
       ),
       staticFallback: { path: 'item-storage/items' },
     },
