@@ -76,13 +76,13 @@ class Items extends React.Component {
       type: 'okapi',
       records: 'items',
       path: makePathFunction(
-        'item-storage/items',
+        'inventory/items',
         'materialType=*',
         'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
         { 'Material Type': 'materialType' },
         filterConfig,
       ),
-      staticFallback: { path: 'item-storage/items' },
+      staticFallback: { path: 'inventory/items' },
     },
   });
 
