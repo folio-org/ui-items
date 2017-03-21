@@ -110,6 +110,8 @@ class Items extends React.Component {
     this.transitionToParams = transitionToParams.bind(this);
 
     this.connectedViewItem = this.props.connect(ViewItem);
+    const logger = this.props.stripes.logger;
+    this.log = logger.log.bind(logger);
   }
 
   componentWillMount() {
@@ -117,41 +119,41 @@ class Items extends React.Component {
   }
 
   onClearSearch() {
-    this.props.stripes.logger.log('action', 'cleared search');
+    this.log('action', 'cleared search');
     this.setState({ searchTerm: '' });
     this.props.history.push(this.props.location.pathname);
   }
 
   onSort(e, meta) {
     const sortOrder = meta.name;
-    this.props.stripes.logger.log('action', `sorted by ${sortOrder}`);
+    this.log('action', `sorted by ${sortOrder}`);
     this.setState({ sortOrder });
     this.transitionToParams({ sort: sortOrder });
   }
 
   onSelectRow(e, meta) {
     const itemId = meta.id;
-    this.props.stripes.logger.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
+    this.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
     this.setState({ selectedItem: meta });
     this.props.history.push(`/items/view/${itemId}${this.props.location.search}`);
   }
 
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
-    this.props.stripes.logger.log('action', 'clicked "add new item"');
+    this.log('action', 'clicked "add new item"');
     this.props.mutator.addItemMode.replace({ mode: true });
   }
 
   onClickCloseNewItem(e) {
     if (e) e.preventDefault();
-    this.props.stripes.logger.log('action', 'clicked "close new item"');
+    this.log('action', 'clicked "close new item"');
     this.props.mutator.addItemMode.replace({ mode: false });
   }
 
   onChangeSearch(e) {
     const query = e.target.value;
     this.setState({ searchTerm: query });
-    this.props.stripes.logger.log('action', `searched for '${query}'`);
+    this.log('action', `searched for '${query}'`);
     this.transitionToParams({ query });
   }
 
@@ -161,7 +163,7 @@ class Items extends React.Component {
 
   create(data) {
     // POST item record
-    this.props.stripes.logger.log('action', `Creating new item record: ${JSON.stringify(data)}`);
+    this.log('action', `Creating new item record: ${JSON.stringify(data)}`);
     this.props.mutator.items.POST(data);
     this.onClickCloseNewItem();
   }
