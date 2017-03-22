@@ -219,7 +219,7 @@ class Items extends React.Component {
         </Pane>
 
         {/* Details Pane */}
-        <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem placeholder={'placeholder'} {...props} />} />
+        <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem {...props} />} />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.create(record); }}
