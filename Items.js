@@ -109,8 +109,8 @@ class Items extends React.Component {
     this.onChangeFilter = onChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
 
-    this.connectedViewItem = this.props.stripes.connect(ViewItem);
-    const logger = this.props.stripes.logger;
+    this.connectedViewItem = props.stripes.connect(ViewItem);
+    const logger = props.stripes.logger;
     this.log = logger.log.bind(logger);
   }
 
