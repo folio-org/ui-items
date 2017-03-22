@@ -45,8 +45,8 @@ class Items extends React.Component {
   };
 
   static propTypes = {
-    connect: PropTypes.func.isRequired,
     stripes: PropTypes.shape({
+      connect: PropTypes.func.isRequired,
       logger: PropTypes.shape({
         log: PropTypes.func.isRequired,
       }).isRequired,
@@ -109,7 +109,7 @@ class Items extends React.Component {
     this.onChangeFilter = onChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
 
-    this.connectedViewItem = this.props.connect(ViewItem);
+    this.connectedViewItem = this.props.stripes.connect(ViewItem);
     const logger = this.props.stripes.logger;
     this.log = logger.log.bind(logger);
   }
