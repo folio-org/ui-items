@@ -40,10 +40,6 @@ const filterConfig = [
 ];
 
 class Items extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object,
-  };
-
   static propTypes = {
     stripes: PropTypes.shape({
       connect: PropTypes.func.isRequired,
