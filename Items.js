@@ -2,7 +2,8 @@ import _ from 'lodash';
 // We have to remove node_modules/react to avoid having multiple copies loaded.
 // eslint-disable-next-line import/no-unresolved
 import React, { PropTypes } from 'react';
-import Match from 'react-router/Match';
+import Route from 'react-router-dom/Route';
+import queryString from 'query-string';
 
 import Pane from '@folio/stripes-components/lib/Pane';
 import Paneset from '@folio/stripes-components/lib/Paneset';
@@ -13,8 +14,9 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import Layer from '@folio/stripes-components/lib/Layer';
-import FilterGroups, { initialFilterState, filters2cql, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
+import FilterGroups, { initialFilterState, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
+import makePathFunction from '@folio/stripes-components/util/makePathFunction';
 
 import ItemForm from './ItemForm';
 import ViewItem from './ViewItem';
@@ -38,18 +40,23 @@ const filterConfig = [
 ];
 
 class Items extends React.Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-    store: PropTypes.object,
-  };
-
   static propTypes = {
+    stripes: PropTypes.shape({
+      connect: PropTypes.func.isRequired,
+      logger: PropTypes.shape({
+        log: PropTypes.func.isRequired,
+      }).isRequired,
+    }).isRequired,
     data: PropTypes.object.isRequired,
-    pathname: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }).isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
-      query: PropTypes.object, // object of key=value pairs
-      search: PropTypes.string, // string combining all parts of query
+      search: PropTypes.string,
+    }).isRequired,
+    match: PropTypes.shape({
+      path: PropTypes.string.isRequired,
     }).isRequired,
     mutator: PropTypes.shape({
       addItemMode: PropTypes.shape({
@@ -66,49 +73,27 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: (queryParams, _pathComponents, _resourceValues) => {
-        const { query, filters, sort } = queryParams || {};
-
-        let cql;
-        if (query) {
-          cql = `materialType="${query}" or barcode="${query}*" or title="${query}*"`;
-        }
-
-        const filterCql = filters2cql(filterConfig, filters);
-        if (filterCql) {
-          if (cql) {
-            cql = `(${cql}) and ${filterCql}`;
-          } else {
-            cql = filterCql;
-          }
-        }
-
-        if (sort) {
-          if (cql === undefined) cql = 'materialType=*';
-          cql += ` sortby ${sort}`;
-        }
-
-        let path = 'item-storage/items';
-        if (cql) path += `?query=${encodeURIComponent(cql)}`;
-
-        console.log(`query=${query} filters=${filters} sort=${sort} -> ${path}`);
-        return path;
-      },
-      staticFallback: { path: 'item-storage/items' },
+      path: makePathFunction(
+        'inventory/items',
+        'materialType=*',
+        'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
+        { 'Material Type': 'materialType' },
+        filterConfig,
+      ),
+      staticFallback: { path: 'inventory/items' },
     },
   });
 
   constructor(props) {
     super(props);
 
-    const query = props.location.query || {};
+    const query = props.location.search ? queryString.parse(props.location.search) : {};
     this.state = {
       filters: initialFilterState(filterConfig, query.filters),
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
     };
-    props.mutator.addItemMode.replace({ mode: false });
 
     this.onClearSearch = this.onClearSearch.bind(this);
     this.onSort = this.onSort.bind(this);
@@ -119,64 +104,68 @@ class Items extends React.Component {
 
     this.onChangeFilter = onChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
+
+    this.connectedViewItem = props.stripes.connect(ViewItem);
+    const logger = props.stripes.logger;
+    this.log = logger.log.bind(logger);
   }
 
-  onChangeSearch(e) {
-    const query = e.target.value;
-    console.log(`User searched for '${query}' at '${this.props.location.pathname}'`);
-
-    this.setState({ searchTerm: query });
-    this.transitionToParams({ query });
+  componentWillMount() {
+    if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
   }
 
   onClearSearch() {
-    console.log('User cleared search');
+    this.log('action', 'cleared search');
     this.setState({ searchTerm: '' });
-    this.context.router.transitionTo(this.props.location.pathname);
+    this.props.history.push(this.props.location.pathname);
   }
 
   onSort(e, meta) {
     const sortOrder = meta.name;
-    console.log('User sorted by', sortOrder);
+    this.log('action', `sorted by ${sortOrder}`);
     this.setState({ sortOrder });
     this.transitionToParams({ sort: sortOrder });
   }
 
-  // Results Handler
-  // row selection handler
   onSelectRow(e, meta) {
     const itemId = meta.id;
-    console.log('User clicked', itemId, 'location = ', this.props.location, 'selected item = ', meta);
+    this.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
     this.setState({ selectedItem: meta });
-    this.context.router.transitionTo(`/items/view/${itemId}${this.props.location.search}`);
+    this.props.history.push(`/items/view/${itemId}${this.props.location.search}`);
   }
 
-  // AddItem Handlers
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
-    console.log('User clicked "add new item"');
+    this.log('action', 'clicked "add new item"');
     this.props.mutator.addItemMode.replace({ mode: true });
   }
 
   onClickCloseNewItem(e) {
     if (e) e.preventDefault();
-    console.log('User clicked "close new item"');
+    this.log('action', 'clicked "close new item"');
     this.props.mutator.addItemMode.replace({ mode: false });
   }
 
-  create(data) {
-    // POST item record
-    console.log(`Creating new item record: ${JSON.stringify(data)}`);
-    this.props.mutator.items.POST(data);
-    this.onClickCloseNewItem();
+  onChangeSearch(e) {
+    const query = e.target.value;
+    this.setState({ searchTerm: query });
+    this.log('action', `searched for '${query}'`);
+    this.transitionToParams({ query });
   }
 
   updateFilters(filters) { // provided for onChangeFilter
     this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
   }
 
+  create(data) {
+    // POST item record
+    this.log('action', `Creating new item record: ${JSON.stringify(data)}`);
+    this.props.mutator.items.POST(data);
+    this.onClickCloseNewItem();
+  }
+
   render() {
-    const { data, pathname } = this.props;
+    const { data } = this.props;
     const items = data.items || [];
 
     /* searchHeader is a 'custom pane header'*/
@@ -184,7 +173,7 @@ class Items extends React.Component {
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
-      materialType: x => _.get(x, ['materialType', 'name']),
+      'Material Type': x => _.get(x, ['materialType', 'name']),
       location: x => _.get(x, ['location', 'name']),
       status: x => _.get(x, ['status', 'name']),
     };
@@ -215,11 +204,10 @@ class Items extends React.Component {
             contentData={items}
             selectedRow={this.state.selectedItem}
             rowMetadata={['title', 'id']}
-            headerMetadata={{ title: { _id: '001' } }}
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
-            visibleColumns={['materialType', 'location', 'barcode', 'title', 'status']}
+            visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
             fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
@@ -227,14 +215,13 @@ class Items extends React.Component {
         </Pane>
 
         {/* Details Pane */}
-        <Match pattern={`${pathname}/view/:itemid`} render={props => <ViewItem placeholder={'placeholder'} {...props} />} />
+        <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem {...props} />} />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
           />
         </Layer>
-
       </Paneset>
     );
   }
