@@ -43,7 +43,7 @@ const propTypes= {
    */
   uniqueField: React.PropTypes.string.isRequired,
   /**
-   * Fieldname that includes the unique identifier for the list.
+   *
    */
   editingItem: React.PropTypes.string,
   /**
@@ -72,7 +72,7 @@ const defaultProps = {
   uniqueField: 'id',
 }
 
-class MaterialTypesList extends React.Component {
+class EditableList extends React.Component {
   
   constructor(props) {
     super(props);
@@ -107,20 +107,20 @@ class MaterialTypesList extends React.Component {
   }
     
   componentDidUpdate(prevProps, prevState){
-    if(prevState.creating != this.state.creating && this.editingRow !== null){
+    if (prevState.creating != this.state.creating && this.editingRow !== null) {
       this.editingRow.getElementsByTagName('input')[0].focus();
     }
   }
 
   componentWillMount(){
-    if(this.props.actionSuppression){
+    if (this.props.actionSuppression) {
       Object.assign(this.actionSuppression, this.props.actionSuppression);
     }
   }
 
   // Utility Methods =================================================== //
 
-  getItemIndex(val, array){
+  getItemIndex(val, array) {
     const uf = this.props.uniqueField;
     const ind = array.findIndex(
       (item) => {
@@ -130,9 +130,9 @@ class MaterialTypesList extends React.Component {
     return ind;
   }
 
-  shallowCopy(arr){
+  shallowCopy(arr) {
     let newArr = new Array(arr.length);
-    for ( var i = 0;i < arr.length; i++ ) newArr[i] = arr[i];
+    for ( var i = 0; i < arr.length; i++ ) newArr[i] = arr[i];
     return newArr;
   }
 
@@ -147,7 +147,7 @@ class MaterialTypesList extends React.Component {
 
   handleAddClick(){
     let newTempObject = {};
-    for (var k in this.props.itemTemplate) { newTempObject[k] = ''};
+    for (var k in this.props.itemTemplate) { newTempObject[k] = '' };
     newTempObject[this.props.uniqueField] = this.state.creatingArray.length.toString();
 
     let tempArray = this.state.creatingArray;
@@ -162,9 +162,9 @@ class MaterialTypesList extends React.Component {
     const { uniqueField } = this.props;
 
     let savingIndex;
-    if(this.state.creatingArray.length === 1){
+    if (this.state.creatingArray.length === 1) {
       savingIndex = 0;
-    }else{
+    } else {
       const id = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute("data-id");
       savingIndex = this.getItemIndex(id, this.state.creatingArray);
     }
@@ -189,7 +189,7 @@ class MaterialTypesList extends React.Component {
   handleCreateFieldChange(e){
     let tempArray = this.state.creatingArray;
     let ind;
-    if(tempArray.length === 1){
+    if (tempArray.length === 1) {
       ind = 0;
     } else {
       ind = this.getItemIndex(this.editingItem, this.state.creatingArray);
@@ -275,12 +275,12 @@ class MaterialTypesList extends React.Component {
 
   // "Edit" Worflow Methods/Handlers ================================= //
 
-  handleDeleteClick(e){
+  handleDeleteClick(e) {
     const id = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute("data-id");
     this.props.onDelete(id);
   }
 
-  handleFieldChange(e){
+  handleFieldChange(e) {
     let tempArray = this.state.editArray;
     const ind = tempArray.length === 1 ?
       0 : this.getItemIndex(this.editingItem, this.state.editArray);
@@ -291,13 +291,13 @@ class MaterialTypesList extends React.Component {
     });
   }
 
-  handleFieldFocus(e){
+  handleFieldFocus(e) {
     const id = e.target.parentNode.parentNode.parentNode.getAttribute("data-id");
     this.editingRow = e.target.parentNode.parentNode.parentNode;
     this.editingItem = id;
   }
 
-  handleEditClick(e){
+  handleEditClick(e) {
     const id = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-id');
     const ind = this.props.contentData.findIndex(
       (item) => {
@@ -311,11 +311,11 @@ class MaterialTypesList extends React.Component {
     });
   }
 
-  handleEditCancelClick(e){
+  handleEditCancelClick(e) {
     let ind;
-    if(this.state.editArray.length === 1){
+    if (this.state.editArray.length === 1) {
       ind = 0
-    }else{
+    } else {
       const id = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute("data-id");
       const ind = this.getItemIndex(id, this.state.editArray);
     }
@@ -329,9 +329,9 @@ class MaterialTypesList extends React.Component {
 
   handleSaveEditClick(e){
     let savingIndex;
-    if(this.state.editArray.length >= 1){
+    if (this.state.editArray.length >= 1) {
       savingIndex = 0;
-    }else{
+    } else {
       const id = e.target.parentNode.parentNode.parentNode.parentNode.getAttribute("data-id");
       this.getItemIndex(id, this.state.editArray);
     }
@@ -362,11 +362,11 @@ class MaterialTypesList extends React.Component {
     const isEditing = editingIndex !== -1;
     visibleFields.forEach(
       (field) => {
-        if(field !== uniqueField){
+        if (field !== uniqueField) {
           let fieldContent;
           /* if state.editingIndentifier matches the user-specified unique field, the row is in 'edit mode' so it renders textfields
              instead of textual data.*/
-          if(isEditing/*this.state.editingIdentifier === item[uniqueField]*/){
+          if (isEditing/*this.state.editingIdentifier === item[uniqueField]*/) {
             fieldContent = <TextField
               value={this.state.editArray[editingIndex][field]}
               onChange={this.handleFieldChange}
@@ -376,7 +376,7 @@ class MaterialTypesList extends React.Component {
               fullWidth
               marginBottom0
             />;
-          }else{
+          } else {
             fieldContent = item[field];
           }
           const renderedField = (
@@ -392,11 +392,13 @@ class MaterialTypesList extends React.Component {
     // If the row is in edit mode, the inputs will be different...
     let actions;
 
-
-    if(isEditing/*this.state.editingIdentifier === item[uniqueField]*/){
+    if (isEditing/*this.state.editingIdentifier === item[uniqueField]*/) {
       // edit mode: 'save' button
-      actions = <div style={{ float:'right' }}><button onClick={this.handleEditCancelClick}>Cancel</button> <button onClick={this.handleSaveEditClick}>Save</button></div>;
-    }else{
+      actions = <div style={{ float:'right' }}>
+                  <button onClick={this.handleEditCancelClick}>Cancel</button> 
+                  <button onClick={this.handleSaveEditClick}>Save</button>
+                </div>;
+    } else {
       // read mode: 'remove' button
       actions = (
         <div style={{ float:'right' }}>
@@ -447,7 +449,7 @@ class MaterialTypesList extends React.Component {
   }
 }
 
-MaterialTypesList.propTypes = propTypes;
-MaterialTypesList.defaultProps = defaultProps;
+EditableList.propTypes = propTypes;
+EditableList.defaultProps = defaultProps;
 
-export default MaterialTypesList;
+export default EditableList;
