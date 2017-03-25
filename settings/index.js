@@ -36,7 +36,7 @@ class ItemsSettings extends React.Component {
   render() {
     return (
       <Paneset nested>
-        <Pane defaultWidth="25%" paneTitle="Users">
+        <Pane defaultWidth="25%" paneTitle="Items">
           <NavList>
             <NavListSection activeLink={`#${this.state.selectedPage}`}>
               <a href="#MaterialTypes" onClick={this.onSelectPage}>Material types</a>
