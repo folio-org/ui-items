@@ -34,15 +34,20 @@ class MaterialTypesSettings extends React.Component {
   }
   
   onCreateType(type) {
-    
+    console.log('ui-items - settings - onCreateType called')
+    this.props.mutator.materialTypes.POST(type);
   }
   
   onUpdateType(type) {
-    
+    console.log('ui-items - settings - onUpdateType called')
+    this.props.mutator.activeRecord.update({'id': type.id });
+    this.props.mutator.materialTypes.PUT(type);
   }
   
-  onDeleteType(type) {
-    
+  onDeleteType(typeId) {
+    console.log('ui-items - settings - onDeleteType called')
+    this.props.mutator.activeRecord.update({'id': typeId });
+    this.props.mutator.materialTypes.DELETE(this.props.data.materialTypes.find((t) => { return t.id == typeId }))
   }
   
   render() {
