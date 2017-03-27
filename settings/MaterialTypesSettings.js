@@ -4,7 +4,7 @@ import { connect } from '@folio/stripes-connect';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
 
-import MaterialTypesList from './MaterialTypesList'
+import EditableList from './EditableList'
 
 class MaterialTypesSettings extends React.Component { 
   
@@ -61,7 +61,7 @@ class MaterialTypesSettings extends React.Component {
     return (
       <Paneset>
         <Pane defaultWidth="fill" >
-          <MaterialTypesList
+          <EditableList
             // TODO: not sure why we need this OR if there are no groups
             // Seems to load this once before the groups data from the manifest
             // is pulled in. This still causes a JS warning, but not an error
