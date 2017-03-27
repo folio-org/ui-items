@@ -3,8 +3,7 @@ import { Component } from 'react';
 import { connect } from '@folio/stripes-connect';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
-
-import EditableList from './EditableList'
+import EditableList from '@folio/stripes-components/lib/structures/EditableList';
 
 class MaterialTypesSettings extends React.Component { 
   
