@@ -33,6 +33,11 @@ class ViewItem extends Component {
       path: 'inventory/items/:{itemid}',
       clear: false,
     },
+    materialTypes: {
+      type: 'okapi',
+      path: 'material-type',
+      records: 'mtypes',
+    },
   });
 
   constructor(props) {
@@ -101,7 +106,7 @@ class ViewItem extends Component {
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}
-            initialValues={item}
+            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes })}
             onCancel={this.onClickCloseEditItem}
           />
         </Layer>
