@@ -30,7 +30,7 @@ class ViewItem extends Component {
   static manifest = Object.freeze({
     items: {
       type: 'okapi',
-      path: 'inventory/items/:{itemid}', 
+      path: 'inventory/items/:{itemid}',
       clear: false,
     },
     materialTypes: {
@@ -41,8 +41,8 @@ class ViewItem extends Component {
         path: 'material-type/${activeRecord.id}',
       },
       DELETE: {
-        path: 'material-type/${activeRecord.id}'
-      }
+        path: 'material-type/${activeRecord.id}',
+      },
     },
   });
 
@@ -112,7 +112,7 @@ class ViewItem extends Component {
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}
-            initialValues={_.merge(item, {'available_material_types': this.props.data.materialTypes })}
+            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes })}
             onCancel={this.onClickCloseEditItem}
           />
         </Layer>

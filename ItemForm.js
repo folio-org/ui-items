@@ -36,14 +36,22 @@ function ItemForm(props) {
   const addItemLastMenu = <PaneMenu><Button type="submit" title="Create New Item" disabled={pristine || submitting} onClick={handleSubmit}>Create item</Button></PaneMenu>;
   const editItemLastMenu = <PaneMenu><Button type="submit" title="Update Item" disabled={pristine || submitting} onClick={handleSubmit}>Update item</Button></PaneMenu>;
   // const patronGroupOptions = initialValues['available_patron_groups'] ? initialValues['available_patron_groups'].map((g) => { return {'label': g.group, 'value': g._id, selected: initialValues['patron_group'] == g._id }}) : []
-  const materialTypeOptions = initialValues['available_material_types'] ?
-        initialValues['available_material_types'].map((t) => { return {'label': t.name, 'value': t.name, selected: initialValues['materialType'].name == t.name }}) : []
+  const materialTypeOptions = initialValues.available_material_types ?
+        initialValues.available_material_types.map((t) => {
+          let selectedValue;
+          if (initialValues.materialType) { selectedValue = initialValues.materialType.name === t.name; }
+          return {
+            label: t.name,
+            value: t.name,
+            selected: selectedValue,
+          };
+        }) : [];
 
 
   return (
     <form>
       <Paneset>
-        <Pane defaultWidth="100%" firstMenu={addItemFirstMenu} lastMenu={initialValues ? editItemLastMenu : addItemLastMenu} paneTitle={initialValues['title'] ? 'Edit Item' : 'New Item'}>
+        <Pane defaultWidth="100%" firstMenu={addItemFirstMenu} lastMenu={initialValues.title ? editItemLastMenu : addItemLastMenu} paneTitle={initialValues.title ? 'Edit Item' : 'New Item'}>
           <Row>
             <Col sm={5} smOffset={1}>
               <h2>Item Record</h2>
@@ -56,7 +64,7 @@ function ItemForm(props) {
                 id="additem_materialType"
                 component={Select}
                 fullWidth
-                dataOptions={[{'label': 'Select material type', 'value': null},...materialTypeOptions]}
+                dataOptions={[{ label: 'Select material type', value: null }, ...materialTypeOptions]}
               />
               <Field label="Barcode" name="barcode" id="additem_barcode" component={TextField} required fullWidth />
               <Field label="Location" name="location.name" id="additem_location" component={TextField} fullWidth />

@@ -90,9 +90,9 @@ class Items extends React.Component {
         path: 'material-type/${activeRecord.id}',
       },
       DELETE: {
-        path: 'material-type/${activeRecord.id}'
-      }
-    }
+        path: 'material-type/${activeRecord.id}',
+      },
+    },
   });
 
   constructor(props) {
@@ -229,7 +229,7 @@ class Items extends React.Component {
         <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem {...props} />} />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
-            initialValues={{'available_material_types': this.props.data.materialTypes }}
+            initialValues={{ available_material_types: this.props.data.materialTypes }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
           />
