@@ -37,12 +37,6 @@ class ViewItem extends Component {
       type: 'okapi',
       path: 'material-type',
       records: 'mtypes',
-      PUT: {
-        path: 'material-type/${activeRecord.id}',
-      },
-      DELETE: {
-        path: 'material-type/${activeRecord.id}',
-      },
     },
   });
 
