@@ -37,7 +37,7 @@ function ItemForm(props) {
   const editItemLastMenu = <PaneMenu><Button type="submit" title="Update Item" disabled={pristine || submitting} onClick={handleSubmit}>Update item</Button></PaneMenu>;
   // const patronGroupOptions = initialValues['available_patron_groups'] ? initialValues['available_patron_groups'].map((g) => { return {'label': g.group, 'value': g._id, selected: initialValues['patron_group'] == g._id }}) : []
   const materialTypeOptions = initialValues['available_material_types'] ?
-        initialValues['available_material_types'].map((t) => { return {'label': t.name, 'value': t.id, selected: initialValues['materialType'] == t.id }}) : []
+        initialValues['available_material_types'].map((t) => { return {'label': t.name, 'value': t.name, selected: initialValues['materialType'].name == t.name }}) : []
 
 
   return (
@@ -52,7 +52,7 @@ function ItemForm(props) {
               {/* <Field label="Material Type" name="materialType.name" id="additem_materialType" component={TextField} fullWidth /> */}
               <Field
                 label="Material Type"
-                name="material_type"
+                name="materialType.name"
                 id="additem_materialType"
                 component={Select}
                 fullWidth

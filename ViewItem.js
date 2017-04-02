@@ -30,7 +30,7 @@ class ViewItem extends Component {
   static manifest = Object.freeze({
     items: {
       type: 'okapi',
-      path: 'inventory/items/:{itemid}',
+      path: 'inventory/items/:{itemid}', 
       clear: false,
     },
     materialTypes: {
