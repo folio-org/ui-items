@@ -2,7 +2,7 @@
   "name": "@folio/items",
   "version": "0.0.2",
   "description": "Items management",
-  "repository": "folio-org/stripes-components",
+  "repository": "folio-org/ui-items",
   "publishConfig": {
     "registry": "https://repository.folio.org/repository/npm-folio/"
   },
