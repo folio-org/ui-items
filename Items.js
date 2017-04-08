@@ -82,6 +82,11 @@ class Items extends React.Component {
       ),
       staticFallback: { path: 'inventory/items' },
     },
+    materialTypes: {
+      type: 'okapi',
+      path: 'material-type',
+      records: 'mtypes',
+    },
   });
 
   constructor(props) {
@@ -129,7 +134,7 @@ class Items extends React.Component {
 
   onSelectRow(e, meta) {
     const itemId = meta.id;
-    this.log('action', `clicked ${itemId}, location =`, this.props.location, 'selected item =', meta);
+    this.log('action', `clicked ${itemId}, selected item =`, meta);
     this.setState({ selectedItem: meta });
     this.props.history.push(`/items/view/${itemId}${this.props.location.search}`);
   }
@@ -218,6 +223,7 @@ class Items extends React.Component {
         <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem {...props} />} />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
+            initialValues={{ available_material_types: this.props.data.materialTypes }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
           />
