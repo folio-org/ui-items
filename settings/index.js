@@ -5,6 +5,7 @@ import Pane from '@folio/stripes-components/lib/Pane';
 import NavList from '@folio/stripes-components/lib/NavList';
 import NavListSection from '@folio/stripes-components/lib/NavListSection';
 
+import LoanTypesSettings from './LoanTypesSettings';
 import MaterialTypesSettings from './MaterialTypesSettings';
 
 class ItemsSettings extends React.Component {
@@ -14,6 +15,7 @@ class ItemsSettings extends React.Component {
     this.state = {
       selectedPage: 'MaterialTypes',
       pages: [
+        { label: 'Loan types', name: 'LoanTypes', component: LoanTypesSettings },
         { label: 'Material types', name: 'MaterialTypes', component: MaterialTypesSettings },
       ],
     };
@@ -39,6 +41,7 @@ class ItemsSettings extends React.Component {
         <Pane defaultWidth="25%" paneTitle="Items">
           <NavList>
             <NavListSection activeLink={`#${this.state.selectedPage}`}>
+              <a href="#LoanTypes" onClick={this.onSelectPage}>Loan types</a>
               <a href="#MaterialTypes" onClick={this.onSelectPage}>Material types</a>
             </NavListSection>
           </NavList>
