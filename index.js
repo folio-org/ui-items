@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Route from 'react-router-dom/Route';
 import Switch from 'react-router-dom/Switch';
 import Items from './Items';
+import Settings from './settings';
 
 class ItemsRouting extends Component {
   static propTypes = {
@@ -29,11 +30,14 @@ class ItemsRouting extends Component {
   }
 
   render() {
-    const pathname = this.props.match.path;
+    if (this.props.showSettings) {
+      return <Settings {...this.props} />
+    }
+
     return (
       <Switch>
         <Route
-          path={`${pathname}`}
+          path={`${this.props.match.path}`}
           render={() => <this.connectedApp {...this.props} />}
         />
         <Route component={() => { this.NoMatch(); }} />
