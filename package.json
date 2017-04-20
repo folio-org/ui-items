@@ -15,7 +15,8 @@
     "type": "app",
     "displayName": "Items",
     "route": "/items",
-    "home": "/items?sort=title"
+    "home": "/items?sort=title",
+    "hasSettings": true
   },
   "scripts": {
     "lint": "eslint *.js || true"
