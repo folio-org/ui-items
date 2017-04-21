@@ -180,7 +180,7 @@ class Items extends React.Component {
     const resultsFormatter = {
       'Material Type': x => _.get(x, ['materialType', 'name']),
       location: x => _.get(x, ['location', 'name']),
-      status: x => _.get(x, ['status', 'name']),
+      status: x => _.get(x, ['status', 'name']) || '--',
     };
 
     return (

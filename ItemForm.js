@@ -58,7 +58,7 @@ function ItemForm(props) {
 
   return (
     <form>
-      <Paneset>
+      <Paneset isRoot>
         <Pane defaultWidth="100%" firstMenu={addItemFirstMenu} lastMenu={initialValues.title ? editItemLastMenu : addItemLastMenu} paneTitle={initialValues.title ? 'Edit Item' : 'New Item'}>
           <Row>
             <Col sm={5} smOffset={1}>
