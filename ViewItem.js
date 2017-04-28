@@ -16,6 +16,7 @@ class ViewItem extends Component {
   static propTypes = {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
+      materialTypes: PropTypes.arrayOf(PropTypes.object),
     }),
     match: PropTypes.shape({
       params: PropTypes.object,
@@ -26,6 +27,7 @@ class ViewItem extends Component {
       }),
     }),
     onClose: PropTypes.func,
+    paneWidth: PropTypes.string.isRequired,
   };
 
   static manifest = Object.freeze({
