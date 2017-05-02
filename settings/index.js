@@ -29,7 +29,7 @@ const ItemsSettings = (props) => {
     return (
       <Link
         key={p.route}
-        to={`/settings/items/${p.route}`}
+        to={`${props.match.path}/${p.route}`}
       >{p.label}</Link>
     );
   }).filter(l => l);
@@ -38,7 +38,7 @@ const ItemsSettings = (props) => {
     const Current = props.stripes.connect(p.component);
     return (<Route
       key={p.route}
-      path={`/settings/items/${p.route}`}
+      path={`${props.match.path}/${p.route}`}
       render={props2 => <Current {...props2} stripes={props.stripes} />}
     />);
   });
