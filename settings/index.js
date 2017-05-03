@@ -23,7 +23,7 @@ const pages = [
 ];
 
 
-const ItemsSettings = (props) => {
+const Settings = (props) => {
   const navLinks = pages.map((p) => {
     if (p.perm && !props.stripes.hasPerm(p.perm)) return null;
     return (
@@ -61,11 +61,11 @@ const ItemsSettings = (props) => {
   );
 };
 
-ItemsSettings.propTypes = {
+Settings.propTypes = {
   stripes: PropTypes.shape({
     connect: PropTypes.func.isRequired,
     hasPerm: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default ItemsSettings;
+export default Settings;
