@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Component } from 'react';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
 import EditableList from '@folio/stripes-components/lib/structures/EditableList';
@@ -18,7 +17,6 @@ class LoanTypesSettings extends React.Component {
         DELETE: PropTypes.func,
       }),
     }).isRequired,
-    paneWidth: PropTypes.string.isRequired,
   };
 
   static manifest = Object.freeze({
@@ -60,7 +58,7 @@ class LoanTypesSettings extends React.Component {
   onDeleteType(typeId) {
     console.log('ui-items - settings - onDeleteType called');
     this.props.mutator.activeRecord.update({ id: typeId });
-    this.props.mutator.loanTypes.DELETE(this.props.data.loanTypes.find((t) => { return t.id === typeId; }));
+    this.props.mutator.loanTypes.DELETE(this.props.data.loanTypes.find(t => t.id === typeId));
   }
 
   render() {
