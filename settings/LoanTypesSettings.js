@@ -53,7 +53,7 @@ class LoanTypesSettings extends React.Component {
     
     const suppressor = {
       // If a suppressor returns true, the control for that action will not appear
-      delete: (type) => { return (!type.inUse) }, 
+      delete: (type) => false, 
       edit: type => false,                      
     }
     
@@ -68,7 +68,7 @@ class LoanTypesSettings extends React.Component {
             label="Loan Types"
             createButtonLabel="+ Add type"
             visibleFields={['name']}
-            itemTemplate={{name:'string', inUse:'bool'}}
+            itemTemplate={{name:'string'}}
             actionSuppression={suppressor}
             onUpdate={this.onUpdateType}
             onCreate={this.onCreateType}

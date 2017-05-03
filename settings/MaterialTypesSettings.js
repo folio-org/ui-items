@@ -52,7 +52,8 @@ class MaterialTypesSettings extends React.Component {
     
     const suppressor = {
       // If a suppressor returns true, the control for that action will not appear
-      delete: (type) => { return (!type.inUse) }, 
+    //delete: (type) => { return (!type.inUse) }, 
+      delete: type => false,
       edit: type => false,                      
     }
     
@@ -67,7 +68,7 @@ class MaterialTypesSettings extends React.Component {
             label="Material Types"
             createButtonLabel="+ Add type"
             visibleFields={['name']}
-            itemTemplate={{name:'string', inUse:'bool'}}
+            itemTemplate={{name:'string'}}
             actionSuppression={suppressor}
             onUpdate={this.onUpdateType}
             onCreate={this.onCreateType}
