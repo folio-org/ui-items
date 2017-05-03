@@ -1,26 +1,27 @@
 import React from 'react';
 import { Component } from 'react';
+import { connect } from '@folio/stripes-connect';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
 import EditableList from '@folio/stripes-components/lib/structures/EditableList';
 
-class MaterialTypesSettings extends React.Component { 
-  
+class LoanTypesSettings extends React.Component { 
+
   static manifest = Object.freeze({
-    materialTypes: {
+    loanTypes: {
       type: 'okapi',
-      path: 'material-type',
-      records: 'mtypes',
+      path: 'loan-types',
+      records: 'loantypes',
       PUT: {
-        path: 'material-type/${activeRecord.id}',
+        path: 'loan-types/${activeRecord.id}',
       },
       DELETE: {
-        path: 'material-type/${activeRecord.id}'
+        path: 'loan-types/${activeRecord.id}'
       }
     },
     activeRecord: {}
   });
-
+  
   constructor(props){
     super(props);
     
@@ -33,39 +34,38 @@ class MaterialTypesSettings extends React.Component {
   
   onCreateType(type) {
     console.log('ui-items - settings - onCreateType called')
-    this.props.mutator.materialTypes.POST(type);
+    this.props.mutator.loanTypes.POST(type);
   }
   
   onUpdateType(type) {
     console.log('ui-items - settings - onUpdateType called')
     this.props.mutator.activeRecord.update({'id': type.id });
-    this.props.mutator.materialTypes.PUT(type);
+    this.props.mutator.loanTypes.PUT(type);
   }
   
   onDeleteType(typeId) {
     console.log('ui-items - settings - onDeleteType called')
     this.props.mutator.activeRecord.update({'id': typeId });
-    this.props.mutator.materialTypes.DELETE(this.props.data.materialTypes.find((t) => { return t.id == typeId }))
+    this.props.mutator.loanTypes.DELETE(this.props.data.loanTypes.find((t) => { return t.id == typeId }))
   }
   
   render() {
     
     const suppressor = {
       // If a suppressor returns true, the control for that action will not appear
-    //delete: (type) => { return (!type.inUse) }, 
-      delete: type => true,
+      delete: type => true, 
       edit: type => false,                      
     }
     
     return (
       <Paneset>
-        <Pane defaultWidth="fill" fluidContentWidth>
+        <Pane defaultWidth="fill" >
           <EditableList
             // TODO: not sure why we need this OR if there are no groups
             // Seems to load this once before the groups data from the manifest
             // is pulled in. This still causes a JS warning, but not an error
-            contentData={this.props.data.materialTypes || []}
-            label="Material Types"
+            contentData={this.props.data.loanTypes || []}
+            label="Loan Types"
             createButtonLabel="+ Add type"
             visibleFields={['name']}
             itemTemplate={{name:'string'}}
@@ -73,7 +73,7 @@ class MaterialTypesSettings extends React.Component {
             onUpdate={this.onUpdateType}
             onCreate={this.onCreateType}
             onDelete={this.onDeleteType}
-            isEmptyMessage="There are no Material Types"
+            isEmptyMessage="There are no Loan Types"
           />
         </Pane>
       </Paneset>
@@ -82,4 +82,4 @@ class MaterialTypesSettings extends React.Component {
   
 }
 
-export default MaterialTypesSettings;
+export default connect(LoanTypesSettings, '@folio/ui-items');

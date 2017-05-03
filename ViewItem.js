@@ -106,6 +106,18 @@ class ViewItem extends Component {
             <KeyValue label="Location" value={_.get(item, ['location', 'name'], '')} />
           </Col>
         </Row>
+        <br />
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Loan type (permanent)" value={_.get(item, ['location', 'name'], '')} />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Loan type (temporary)" value={_.get(item, ['location', 'name'], '')} />
+          </Col>
+        </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}

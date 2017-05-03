@@ -11,9 +11,16 @@ import NavList from '@folio/stripes-components/lib/NavList';
 import NavListSection from '@folio/stripes-components/lib/NavListSection';
 
 // Should this list be loaded dynamically from configuration?
+import LoanTypesSettings from './LoanTypesSettings';
 import MaterialTypesSettings from './MaterialTypesSettings';
 
 const pages = [
+  {
+    route: 'loantypes',
+    label: 'Loan types',
+    component: LoanTypesSettings,
+    // No perm needed yet
+  },
   {
     route: 'mtypes',
     label: 'Material types',
