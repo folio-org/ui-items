@@ -8,18 +8,17 @@ import EditableList from '@folio/stripes-components/lib/structures/EditableList'
 class LoanTypesSettings extends React.Component { 
 
   static manifest = Object.freeze({
-    // loanTypes: {
-    //   type: 'okapi',
-    //   path: 'loan-type',
-    //   records: 'mtypes',
-    //   PUT: {
-    //     path: 'loan-type/${activeRecord.id}',
-    //   },
-    //   DELETE: {
-    //     path: 'loan-type/${activeRecord.id}'
-    //   }
-    // },
-    loanTypes: {},
+    loanTypes: {
+      type: 'okapi',
+      path: 'loan-types',
+      records: 'loantypes',
+      PUT: {
+        path: 'loan-types/${activeRecord.id}',
+      },
+      DELETE: {
+        path: 'loan-types/${activeRecord.id}'
+      }
+    },
     activeRecord: {}
   });
   
