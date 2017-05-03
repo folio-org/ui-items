@@ -110,6 +110,7 @@ class Items extends React.Component {
     this.onChangeFilter = onChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
 
+    this.collapseDetails = this.collapseDetails.bind(this);
     this.connectedViewItem = props.stripes.connect(ViewItem);
     const logger = props.stripes.logger;
     this.log = logger.log.bind(logger);
@@ -169,6 +170,13 @@ class Items extends React.Component {
     this.onClickCloseNewItem();
   }
 
+  collapseDetails() {
+    this.setState({
+      selectedItem: {},
+    });
+    this.props.history.push(`${this.props.match.path}${this.props.location.search}`);
+  }
+
   render() {
     const { data } = this.props;
     const items = data.items || [];
@@ -180,7 +188,7 @@ class Items extends React.Component {
     const resultsFormatter = {
       'Material Type': x => _.get(x, ['materialType', 'name']),
       location: x => _.get(x, ['location', 'name']),
-      status: x => _.get(x, ['status', 'name']),
+      status: x => _.get(x, ['status', 'name']) || '--',
     };
 
     return (
@@ -194,7 +202,7 @@ class Items extends React.Component {
         </Pane>
         {/* Results Pane */}
         <Pane
-          defaultWidth="40%"
+          defaultWidth="fill"
           paneTitle={
             <div style={{ textAlign: 'center' }}>
               <strong>Results</strong>
@@ -213,14 +221,16 @@ class Items extends React.Component {
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
             visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
-            fullWidth
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
           />
         </Pane>
 
         {/* Details Pane */}
-        <Route path={`${this.props.match.path}/view/:itemid`} render={props => <this.connectedViewItem {...props} />} />
+        <Route
+          path={`${this.props.match.path}/view/:itemid`}
+          render={props => <this.connectedViewItem paneWidth="44%" onClose={this.collapseDetails} {...props} />}
+        />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
             initialValues={{ available_material_types: this.props.data.materialTypes }}
