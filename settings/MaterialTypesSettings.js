@@ -53,7 +53,7 @@ class MaterialTypesSettings extends React.Component {
     const suppressor = {
       // If a suppressor returns true, the control for that action will not appear
     //delete: (type) => { return (!type.inUse) }, 
-      delete: type => false,
+      delete: type => true,
       edit: type => false,                      
     }
     
