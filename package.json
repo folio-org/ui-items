@@ -38,7 +38,7 @@
     "webpack": "1.11.0"
   },
   "dependencies": {
-    "@folio/stripes-components": "^0.6.0",
+    "@folio/stripes-components": "^0.7.0",
     "@folio/stripes-logger": "^0.0.2",
     "lodash": "^4.17.4",
     "query-string": "^4.3.2",
