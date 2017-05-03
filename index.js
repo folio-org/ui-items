@@ -13,6 +13,7 @@ class ItemsRouting extends Component {
     }).isRequired,
     location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
+    showSettings: PropTypes.bool,
   }
 
   constructor(props) {
@@ -31,7 +32,7 @@ class ItemsRouting extends Component {
 
   render() {
     if (this.props.showSettings) {
-      return <Settings {...this.props} />
+      return <Settings {...this.props} />;
     }
 
     return (

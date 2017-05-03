@@ -16,6 +16,7 @@ class ViewItem extends Component {
   static propTypes = {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
+      materialTypes: PropTypes.arrayOf(PropTypes.object),
     }),
     match: PropTypes.shape({
       params: PropTypes.object,
@@ -25,6 +26,8 @@ class ViewItem extends Component {
         PUT: React.PropTypes.func.isRequired,
       }),
     }),
+    onClose: PropTypes.func,
+    paneWidth: PropTypes.string.isRequired,
   };
 
   static manifest = Object.freeze({
@@ -79,7 +82,7 @@ class ViewItem extends Component {
     const item = items.find(i => i.id === itemid);
 
     return item ? (
-      <Pane defaultWidth="fill" paneTitle={item.title} lastMenu={detailMenu}>
+      <Pane defaultWidth={this.props.paneWidth} paneTitle={item.title} lastMenu={detailMenu} dismissible onClose={this.props.onClose}>
         <Row>
           <Col xs={12}>
             <KeyValue label="Title" value={_.get(item, ['title'], '')} />

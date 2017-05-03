@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-import { connect } from '@folio/stripes-connect';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
 import EditableList from '@folio/stripes-components/lib/structures/EditableList';
@@ -59,7 +58,7 @@ class MaterialTypesSettings extends React.Component {
     
     return (
       <Paneset>
-        <Pane defaultWidth="fill" >
+        <Pane defaultWidth="fill" fluidContentWidth>
           <EditableList
             // TODO: not sure why we need this OR if there are no groups
             // Seems to load this once before the groups data from the manifest
@@ -82,4 +81,4 @@ class MaterialTypesSettings extends React.Component {
   
 }
 
-export default connect(MaterialTypesSettings, '@folio/ui-items');
+export default MaterialTypesSettings;
