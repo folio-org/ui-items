@@ -84,7 +84,7 @@ class Items extends React.Component {
     },
     materialTypes: {
       type: 'okapi',
-      path: 'material-type',
+      path: 'material-types',
       records: 'mtypes',
     },
   });
