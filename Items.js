@@ -75,7 +75,7 @@ class Items extends React.Component {
       records: 'items',
       path: makePathFunction(
         'inventory/items',
-        'materialType=*',
+        'cql.allRecords=1',
         'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
         { 'Material Type': 'materialType' },
         filterConfig,
