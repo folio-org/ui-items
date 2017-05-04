@@ -38,7 +38,7 @@ class ViewItem extends Component {
     },
     materialTypes: {
       type: 'okapi',
-      path: 'material-type',
+      path: 'material-types',
       records: 'mtypes',
     },
   });
