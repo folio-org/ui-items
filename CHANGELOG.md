@@ -1,6 +1,6 @@
 # Change history for ui-items
 
-## [1.2.0](https://github.com/folio-org/ui-items/tree/v1.2.0) (IN PROGRESS)
+## [1.2.0](https://github.com/folio-org/ui-items/tree/v1.2.0) (2017-05-05)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.1.0...v1.2.0)
 
 * Settings page added for maintaining loan types. Fixes LIBAPP-173.
