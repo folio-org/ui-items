@@ -25,10 +25,11 @@ const filterConfig = [
   {
     label: 'Material Types',
     name: 'item',
-    cql: 'materialType',
+    cql: 'materialTypeId',
     values: [
-      { name: 'Books', cql: 'Book' },
-      { name: 'DVDs', cql: 'DVD' },
+      // Note horrible temporary use of hardwired UUIDs from folio-backend-auth v0.16.0
+      { name: 'Books', cql: '1a54b431-2e4f-452d-9cae-9cee66c9a892' },
+      { name: 'DVDs', cql: 'fe88a6cf-5114-4a4f-a0ca-1e6a3a692c8d' },
       'Microfilm',
     ],
   }, {
