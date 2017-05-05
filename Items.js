@@ -23,7 +23,7 @@ import ViewItem from './ViewItem';
 
 const filterConfig = [
   {
-    label: 'Item Types',
+    label: 'Material Types',
     name: 'item',
     cql: 'materialType',
     values: [
