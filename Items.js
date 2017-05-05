@@ -26,12 +26,7 @@ const filterConfig = [
     label: 'Material Types',
     name: 'item',
     cql: 'materialTypeId',
-    values: [
-      // Note horrible temporary use of hardwired UUIDs from folio-backend-auth v0.16.0
-      { name: 'Books', cql: '1a54b431-2e4f-452d-9cae-9cee66c9a892' },
-      { name: 'DVDs', cql: 'fe88a6cf-5114-4a4f-a0ca-1e6a3a692c8d' },
-      'Microfilm',
-    ],
+    values: [], // will be filled in by componentWillUpdate
   }, {
     label: 'Location',
     name: 'location',
@@ -119,6 +114,13 @@ class Items extends React.Component {
 
   componentWillMount() {
     if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
+  }
+
+  componentWillUpdate() {
+    const mt = this.props.data.materialTypes;
+    if (mt && mt.length) {
+      filterConfig[0].values = mt.map(rec => ({ name: rec.name, cql: rec.id }));
+    }
   }
 
   onClearSearch() {
