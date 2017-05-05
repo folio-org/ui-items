@@ -3,9 +3,17 @@
 ## [1.2.0](https://github.com/folio-org/ui-items/tree/v1.2.0) (IN PROGRESS)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.1.0...v1.2.0)
 
+* Settings page added for maintaining loan types. Fixes LIBAPP-173.
+* Make item detail pane collapsible. Fixes LIBAPP-162.
 * Editing an item record no longer leaves the widths of multi-pane display broken. Fixes STRIPES-316.
+* Similar fixes to rendering of settings pages. Fixes STRIPES-330.
 * Item records with no status are rendered without errors. Fixes STRIPES-318.
+* All-records search now works again. Fixes the Items-module part of STRIPES-346.
+* Components no longer connect themsleves but their callers use curried connect. See STRIPES-338.
 * The material-type filters are now populated dynamically from the set of material-types. Fixes STRIPES-287.
+* Uses new-style settings API from stripes-core. See STRIPES-197.
+* Uses react-router to navigate to pages within settings. Fixes STRIPES-340.
+* Requires stripes-core v1.0.0 and stripes-components v0.7.0.
 
 ## [1.1.0](https://github.com/folio-org/ui-items/tree/v1.1.0) (2017-04-12)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.0.0...v1.1.0)
