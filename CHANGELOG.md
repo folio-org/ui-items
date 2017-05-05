@@ -1,5 +1,10 @@
 # Change history for ui-items
 
+## [1.3.0](https://github.com/folio-org/ui-items/tree/v1.3.0) (IN PROGRESS)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.2.0...v1.3.0)
+
+* The material-type filters are now populated dynamically from the set of material-types. Fixes STRIPES-287.
+
 ## [1.2.0](https://github.com/folio-org/ui-items/tree/v1.2.0) (IN PROGRESS)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.1.0...v1.2.0)
 
