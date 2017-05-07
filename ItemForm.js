@@ -45,7 +45,16 @@ function ItemForm(props) {
             selected: selectedValue,
           };
         }) : [];
-
+  const loanTypeOptions = initialValues.available_loan_types ?
+        initialValues.available_loan_types.map((t) => {
+          let selectedValue;
+          if (initialValues.loanType) { selectedValue = initialValues.loanType.name === t.name; }
+          return {
+            label: t.name,
+            value: t.name,
+            selected: selectedValue,
+          };
+        }) : [];
 
   return (
     <form>
@@ -67,6 +76,22 @@ function ItemForm(props) {
               />
               <Field label="Barcode" name="barcode" id="additem_barcode" component={TextField} required fullWidth />
               <Field label="Location" name="location.name" id="additem_location" component={TextField} fullWidth />
+              <Field
+                label="Loan Type (Permanent)"
+                name="loanTypePerm.name"
+                id="additem_loanTypePerm"
+                component={Select}
+                fullWidth
+                dataOptions={[{ label: 'Select loan type', value: null }, ...loanTypeOptions]}
+              />
+              <Field
+                label="Loan Type (Temporary)"
+                name="loanTypeTemp.name"
+                id="additem_loanTypeTemp"
+                component={Select}
+                fullWidth
+                dataOptions={[{ label: 'Select loan type', value: null }, ...loanTypeOptions]}
+              />
             </Col>
           </Row>
         </Pane>

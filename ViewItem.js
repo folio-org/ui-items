@@ -38,7 +38,7 @@ class ViewItem extends Component {
     },
     materialTypes: {
       type: 'okapi',
-      path: 'material-type',
+      path: 'material-types',
       records: 'mtypes',
     },
   });
@@ -104,6 +104,18 @@ class ViewItem extends Component {
         <Row>
           <Col xs={12}>
             <KeyValue label="Location" value={_.get(item, ['location', 'name'], '')} />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Loan type (permanent)" value={_.get(item, ['location', 'name'], '')} />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col xs={12}>
+            <KeyValue label="Loan type (temporary)" value={_.get(item, ['location', 'name'], '')} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
