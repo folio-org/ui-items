@@ -17,6 +17,7 @@ class ViewItem extends Component {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
       materialTypes: PropTypes.arrayOf(PropTypes.object),
+      loanTypes: PropTypes.arrayOf(PropTypes.object),
     }),
     match: PropTypes.shape({
       params: PropTypes.object,
@@ -40,6 +41,11 @@ class ViewItem extends Component {
       type: 'okapi',
       path: 'material-types',
       records: 'mtypes',
+    },
+    loanTypes: {
+      type: 'okapi',
+      path: 'loan-types',
+      records: 'loantypes'
     },
   });
 
@@ -109,19 +115,19 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (permanent)" value={_.get(item, ['location', 'name'], '')} />
+            <KeyValue label="Loan type (permanent)" value={_.get(item, ['permanentLoanType', 'name'], '')} />
           </Col>
         </Row>
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (temporary)" value={_.get(item, ['location', 'name'], '')} />
+            <KeyValue label="Loan type (temporary)" value={_.get(item, ['temporaryLoanType', 'name'], '')} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}
-            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes })}
+            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes })}
             onCancel={this.onClickCloseEditItem}
           />
         </Layer>

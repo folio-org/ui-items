@@ -83,6 +83,11 @@ class Items extends React.Component {
       path: 'material-types',
       records: 'mtypes',
     },
+    loanTypes: {
+      type: 'okapi',
+      path: 'loan-types',
+      records: 'loantypes',
+    },
   });
 
   constructor(props) {
@@ -236,7 +241,7 @@ class Items extends React.Component {
         />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
-            initialValues={{ available_material_types: this.props.data.materialTypes }}
+            initialValues={{ available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
           />
