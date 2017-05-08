@@ -45,7 +45,7 @@ class ViewItem extends Component {
     loanTypes: {
       type: 'okapi',
       path: 'loan-types',
-      records: 'loantypes'
+      records: 'loantypes',
     },
   });
 
@@ -78,6 +78,20 @@ class ViewItem extends Component {
     this.props.mutator.items.PUT(data).then(() => {
       this.onClickCloseEditItem();
     });
+  }
+
+  // TODO: this function is a hack to get around the fact that the item-storage
+  // schema currently only supports a loan type ID, not an object containing
+  // ID and name. Once the full object is supported, this function should be
+  // eliminated.
+  loanTypeNameForId(id) {
+    if (!id) {
+      return '';
+    } else if (this.props.data.loanTypes.length > 0) {
+      return _.find(this.props.data.loanTypes, { id }).name;
+    }
+
+    return id;
   }
 
   render() {
@@ -115,13 +129,13 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (permanent)" value={_.get(item, ['permanentLoanType', 'name'], '')} />
+            <KeyValue label="Loan type (permanent)" value={this.loanTypeNameForId(_.get(item, ['permanentLoanType', 'id'], ''))} />
           </Col>
         </Row>
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (temporary)" value={_.get(item, ['temporaryLoanType', 'name'], '')} />
+            <KeyValue label="Loan type (temporary)" value={this.loanTypeNameForId(_.get(item, ['temporaryLoanType', 'id'], ''))} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
