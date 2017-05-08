@@ -16,6 +16,10 @@ class ItemsRouting extends Component {
     showSettings: PropTypes.bool,
   }
 
+  static defaultProps = {
+    showSettings: false,
+  }
+
   constructor(props) {
     super(props);
     this.connectedApp = props.stripes.connect(Items);

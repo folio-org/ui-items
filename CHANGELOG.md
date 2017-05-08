@@ -1,5 +1,10 @@
 # Change history for ui-items
 
+## [1.3.0]() (2017-05-08)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.2.0...v1.3.0)
+
+* Permanent and temporary loan types now viewable and editable in the main UI. Completes LIBAPP-174.
+
 ## [1.2.0](https://github.com/folio-org/ui-items/tree/v1.2.0) (2017-05-05)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.1.0...v1.2.0)
 

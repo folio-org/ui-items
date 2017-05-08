@@ -17,6 +17,7 @@ class ViewItem extends Component {
     data: PropTypes.shape({
       item: PropTypes.arrayOf(PropTypes.object),
       materialTypes: PropTypes.arrayOf(PropTypes.object),
+      loanTypes: PropTypes.arrayOf(PropTypes.object),
     }),
     match: PropTypes.shape({
       params: PropTypes.object,
@@ -40,6 +41,11 @@ class ViewItem extends Component {
       type: 'okapi',
       path: 'material-types',
       records: 'mtypes',
+    },
+    loanTypes: {
+      type: 'okapi',
+      path: 'loan-types',
+      records: 'loantypes',
     },
   });
 
@@ -72,6 +78,20 @@ class ViewItem extends Component {
     this.props.mutator.items.PUT(data).then(() => {
       this.onClickCloseEditItem();
     });
+  }
+
+  // TODO: this function is a hack to get around the fact that the item-storage
+  // schema currently only supports a loan type ID, not an object containing
+  // ID and name. Once the full object is supported, this function should be
+  // eliminated.
+  loanTypeNameForId(id) {
+    if (!id) {
+      return '';
+    } else if (this.props.data.loanTypes.length > 0) {
+      return _.find(this.props.data.loanTypes, { id }).name;
+    }
+
+    return id;
   }
 
   render() {
@@ -109,19 +129,19 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (permanent)" value={_.get(item, ['location', 'name'], '')} />
+            <KeyValue label="Loan type (permanent)" value={this.loanTypeNameForId(_.get(item, ['permanentLoanType', 'id'], ''))} />
           </Col>
         </Row>
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (temporary)" value={_.get(item, ['location', 'name'], '')} />
+            <KeyValue label="Loan type (temporary)" value={this.loanTypeNameForId(_.get(item, ['temporaryLoanType', 'id'], ''))} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}
-            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes })}
+            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes })}
             onCancel={this.onClickCloseEditItem}
           />
         </Layer>
