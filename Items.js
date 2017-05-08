@@ -23,14 +23,10 @@ import ViewItem from './ViewItem';
 
 const filterConfig = [
   {
-    label: 'Item Types',
+    label: 'Material Types',
     name: 'item',
-    cql: 'materialType',
-    values: [
-      { name: 'Books', cql: 'Book' },
-      { name: 'DVDs', cql: 'DVD' },
-      'Microfilm',
-    ],
+    cql: 'materialTypeId',
+    values: [], // will be filled in by componentWillUpdate
   }, {
     label: 'Location',
     name: 'location',
@@ -75,7 +71,7 @@ class Items extends React.Component {
       records: 'items',
       path: makePathFunction(
         'inventory/items',
-        'materialType=*',
+        'cql.allRecords=1',
         'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
         { 'Material Type': 'materialType' },
         filterConfig,
@@ -86,6 +82,11 @@ class Items extends React.Component {
       type: 'okapi',
       path: 'material-types',
       records: 'mtypes',
+    },
+    loanTypes: {
+      type: 'okapi',
+      path: 'loan-types',
+      records: 'loantypes',
     },
   });
 
@@ -118,6 +119,13 @@ class Items extends React.Component {
 
   componentWillMount() {
     if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
+  }
+
+  componentWillUpdate() {
+    const mt = this.props.data.materialTypes;
+    if (mt && mt.length) {
+      filterConfig[0].values = mt.map(rec => ({ name: rec.name, cql: rec.id }));
+    }
   }
 
   onClearSearch() {
@@ -233,7 +241,7 @@ class Items extends React.Component {
         />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
-            initialValues={{ available_material_types: this.props.data.materialTypes }}
+            initialValues={{ available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
           />
