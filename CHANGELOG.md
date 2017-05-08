@@ -9,7 +9,7 @@
 * Similar fixes to rendering of settings pages. Fixes STRIPES-330.
 * Item records with no status are rendered without errors. Fixes STRIPES-318.
 * All-records search now works again. Fixes the Items-module part of STRIPES-346.
-* Components no longer connect themsleves but their callers use curried connect. See STRIPES-338.
+* Components no longer connect themselves but their callers use curried connect. See STRIPES-338.
 * The material-type filters are now populated dynamically from the set of material-types. Fixes STRIPES-287.
 * Uses new-style settings API from stripes-core. See STRIPES-197.
 * Uses react-router to navigate to pages within settings. Fixes STRIPES-340.
