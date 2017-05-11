@@ -23,7 +23,7 @@ class ViewItem extends Component {
       params: PropTypes.object,
     }),
     mutator: React.PropTypes.shape({
-      items: React.PropTypes.shape({
+      selectedItem: React.PropTypes.shape({
         PUT: React.PropTypes.func.isRequired,
       }),
     }),
@@ -32,7 +32,7 @@ class ViewItem extends Component {
   };
 
   static manifest = Object.freeze({
-    items: {
+    selectedItem: {
       type: 'okapi',
       path: 'inventory/items/:{itemid}',
       clear: false,
@@ -75,7 +75,7 @@ class ViewItem extends Component {
   }
 
   update(data) {
-    this.props.mutator.items.PUT(data).then(() => {
+    this.props.mutator.selectedItem.PUT(data).then(() => {
       this.onClickCloseEditItem();
     });
   }
@@ -97,9 +97,9 @@ class ViewItem extends Component {
   render() {
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
-    const { data: { items }, match: { params: { itemid } } } = this.props;
-    if (!items || !itemid) return <div />;
-    const item = items.find(i => i.id === itemid);
+    const { data: { selectedItem }, match: { params: { itemid } } } = this.props;
+    if (!selectedItem || !itemid) return <div />;
+    const item = selectedItem.find(i => i.id === itemid);
 
     return item ? (
       <Pane defaultWidth={this.props.paneWidth} paneTitle={item.title} lastMenu={detailMenu} dismissible onClose={this.props.onClose}>
