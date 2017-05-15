@@ -93,6 +93,20 @@ class ViewItem extends Component {
 
     return id;
   }
+  
+  // TODO: this function is a hack to get around the fact that the item-storage
+  // schema currently only supports a material type ID, not an object containing
+  // ID and name. Once the full object is supported, this function should be
+  // eliminated.
+  materialTypeNameForId(id) {
+    if (!id) {
+      return '';
+    } else if (this.props.data.materialTypes.length > 0) {
+      return _.find(this.props.data.materialTypes, { id }).name;
+    }
+
+    return id;
+  }
 
   render() {
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
@@ -111,7 +125,7 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Material Type" value={_.get(item, ['materialType', 'name'], '')} />
+            <KeyValue label="Material Type" value={this.materialTypeNameForId(_.get(item, ['materialType', 'id'], ''))} />
           </Col>
         </Row>
         <br />

@@ -38,10 +38,10 @@ function ItemForm(props) {
   const materialTypeOptions = initialValues.available_material_types ?
         initialValues.available_material_types.map((t) => {
           let selectedValue;
-          if (initialValues.materialType) { selectedValue = initialValues.materialType.name === t.name; }
+          if (initialValues.materialType) { selectedValue = initialValues.materialType.id === t.id; }
           return {
             label: t.name,
-            value: t.name,
+            value: t.id,
             selected: selectedValue,
           };
         }) : [];
@@ -68,7 +68,7 @@ function ItemForm(props) {
               {/* <Field label="Material Type" name="materialType.name" id="additem_materialType" component={TextField} fullWidth /> */}
               <Field
                 label="Material Type"
-                name="materialType.name"
+                name="materialType.id"
                 id="additem_materialType"
                 component={Select}
                 fullWidth
