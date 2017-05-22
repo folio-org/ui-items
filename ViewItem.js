@@ -149,7 +149,7 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (temporary)" value={this.loanTypeNameForId(_.get(item, ['temporaryLoanType', 'id'], ''))} />
+            <KeyValue label="Loan type (temporary)" value={_.get(item, ['temporaryLoanType', 'name'], '')} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
