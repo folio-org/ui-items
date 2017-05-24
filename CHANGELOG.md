@@ -1,5 +1,9 @@
 # Change history for ui-items
 
+## IN PROGRESS
+
+* Settings panes are sorted alphabetically. Fixes ui-items bit of STRIPES-358.
+
 ## [1.3.0](https://github.com/folio-org/ui-items/tree/v1.3.0) (2017-05-08)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.2.0...v1.3.0)
 
