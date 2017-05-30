@@ -49,6 +49,21 @@ class ViewItem extends Component {
     },
   });
 
+  /*
+   * Helper function for displaying property names in the item view. Given
+   * a 'property' array of { id: x, name: y } entries, returns the name
+   * corresponding to the specified id.
+  */
+  static propNameForId(id, property) {
+    if (!id || !property) {
+      return '';
+    } else if (property.length > 0) {
+      return _.find(property, { id }).name;
+    }
+
+    return id;
+  }
+
   constructor(props) {
     super(props);
 
@@ -80,21 +95,6 @@ class ViewItem extends Component {
     });
   }
 
-  /* 
-   * Helper function for displaying property names in the item view. Given
-   * a 'property' array of { id: x, name: y } entries, returns the name
-   * corresponding to the specified id.
-  */
-  propNameForId(id, property) {
-    if (!id || !property) {
-      return '';
-    } else if (property.length > 0) {
-      return _.find(property, { id }).name;
-    }
-    
-    return id;
-  }
-
   render() {
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
@@ -112,7 +112,7 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Material Type" value={this.propNameForId(_.get(item, ['materialType', 'id'], ''), materialTypes)} />
+            <KeyValue label="Material Type" value={ViewItem.propNameForId(_.get(item, ['materialType', 'id'], ''), materialTypes)} />
           </Col>
         </Row>
         <br />
@@ -130,13 +130,13 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (permanent)" value={this.propNameForId(_.get(item, ['permanentLoanType', 'id'], ''), loanTypes)} />
+            <KeyValue label="Loan type (permanent)" value={ViewItem.propNameForId(_.get(item, ['permanentLoanType', 'id'], ''), loanTypes)} />
           </Col>
         </Row>
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (temporary)" value={this.propNameForId(_.get(item, ['temporaryLoanType', 'id'], ''), loanTypes)} />
+            <KeyValue label="Loan type (temporary)" value={ViewItem.propNameForId(_.get(item, ['temporaryLoanType', 'id'], ''), loanTypes)} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
