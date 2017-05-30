@@ -80,38 +80,25 @@ class ViewItem extends Component {
     });
   }
 
-  // TODO: this function is a hack to get around the fact that the item-storage
-  // schema currently only supports a loan type ID, not an object containing
-  // ID and name. Once the full object is supported, this function should be
-  // eliminated.
-  loanTypeNameForId(id) {
-    if (!id) {
+  /* 
+   * Helper function for displaying property names in the item view. Given
+   * a 'property' array of { id: x, name: y } entries, returns the name
+   * corresponding to the specified id.
+  */
+  propNameForId(id, property) {
+    if (!id || !property) {
       return '';
-    } else if (this.props.data.loanTypes.length > 0) {
-      return _.find(this.props.data.loanTypes, { id }).name;
+    } else if (property.length > 0) {
+      return _.find(property, { id }).name;
     }
-
-    return id;
-  }
-  
-  // TODO: this function is a hack to get around the fact that the item-storage
-  // schema currently only supports a material type ID, not an object containing
-  // ID and name. Once the full object is supported, this function should be
-  // eliminated.
-  materialTypeNameForId(id) {
-    if (!id) {
-      return '';
-    } else if (this.props.data.materialTypes.length > 0) {
-      return _.find(this.props.data.materialTypes, { id }).name;
-    }
-
+    
     return id;
   }
 
   render() {
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
-    const { data: { selectedItem }, match: { params: { itemid } } } = this.props;
+    const { data: { selectedItem, loanTypes, materialTypes }, match: { params: { itemid } } } = this.props;
     if (!selectedItem || !itemid) return <div />;
     const item = selectedItem.find(i => i.id === itemid);
 
@@ -125,7 +112,7 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Material Type" value={this.materialTypeNameForId(_.get(item, ['materialType', 'id'], ''))} />
+            <KeyValue label="Material Type" value={this.propNameForId(_.get(item, ['materialType', 'id'], ''), materialTypes)} />
           </Col>
         </Row>
         <br />
@@ -143,13 +130,13 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (permanent)" value={this.loanTypeNameForId(_.get(item, ['permanentLoanType', 'id'], ''))} />
+            <KeyValue label="Loan type (permanent)" value={this.propNameForId(_.get(item, ['permanentLoanType', 'id'], ''), loanTypes)} />
           </Col>
         </Row>
         <br />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Loan type (temporary)" value={_.get(item, ['temporaryLoanType', 'name'], '')} />
+            <KeyValue label="Loan type (temporary)" value={this.propNameForId(_.get(item, ['temporaryLoanType', 'id'], ''), loanTypes)} />
           </Col>
         </Row>
         <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
