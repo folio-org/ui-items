@@ -1,7 +1,8 @@
 # Change history for ui-items
 
-## IN PROGRESS
+## In progress
 
+* Loan & material types are now displayed/saved correctly when viewing/editing an item. Fixes STRIPES-355.
 * Settings panes are sorted alphabetically. Fixes ui-items bit of STRIPES-358.
 * Include item status in full-record display, and (disabled) in the edit page. Fixes UIIT-14.
 
