@@ -5,6 +5,7 @@
 * Loan & material types are now displayed/saved correctly when viewing/editing an item. Fixes STRIPES-355.
 * Settings panes are sorted alphabetically. Fixes ui-items bit of STRIPES-358.
 * Include item status in full-record display, and (disabled) in the edit page. Fixes UIIT-14.
+* Initial status for new records set to "Available". Fixes UIIT-13.
 
 ## [1.3.0](https://github.com/folio-org/ui-items/tree/v1.3.0) (2017-05-08)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.2.0...v1.3.0)
