@@ -63,7 +63,6 @@ function ItemForm(props) {
           <Row>
             <Col sm={5} smOffset={1}>
               <h2>Item Record</h2>
-              <Field label="Instance ID" name="instanceId" id="additem_instanceId" component={TextField} required fullWidth />
               <Field label="Title" name="title" id="additem_title" component={TextField} fullWidth />
               {/* <Field label="Material Type" name="materialType.name" id="additem_materialType" component={TextField} fullWidth /> */}
               <Field

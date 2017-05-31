@@ -6,6 +6,7 @@
 * Settings panes are sorted alphabetically. Fixes ui-items bit of STRIPES-358.
 * Include item status in full-record display, and (disabled) in the edit page. Fixes UIIT-14.
 * Initial status for new records set to "Available". Fixes UIIT-13.
+* No instaceId required for new items (or displayed for old ones). At this stage, a dummy instanceId `'dummy'` is provided as part of each new item, but this will be removed in a subsequent version when the back-end no longer requires this field. Fixes UIIT-15.
 
 ## [1.3.0](https://github.com/folio-org/ui-items/tree/v1.3.0) (2017-05-08)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.2.0...v1.3.0)
