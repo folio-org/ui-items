@@ -241,7 +241,7 @@ class Items extends React.Component {
         />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
-            initialValues={{ available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes }}
+            initialValues={{ available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes, status: { name: "Available" } }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
           />
