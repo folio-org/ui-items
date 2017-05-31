@@ -129,6 +129,12 @@ class ViewItem extends Component {
         <br />
         <Row>
           <Col xs={12}>
+            <KeyValue label="Status" value={_.get(item, ['status', 'name'], '')} />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col xs={12}>
             <KeyValue label="Loan type (permanent)" value={this.loanTypeNameForId(_.get(item, ['permanentLoanType', 'id'], ''))} />
           </Col>
         </Row>
