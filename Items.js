@@ -186,7 +186,7 @@ class Items extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, stripes } = this.props;
     const items = data.items || [];
 
     /* searchHeader is a 'custom pane header'*/
@@ -237,7 +237,7 @@ class Items extends React.Component {
         {/* Details Pane */}
         <Route
           path={`${this.props.match.path}/view/:itemid`}
-          render={props => <this.connectedViewItem paneWidth="44%" onClose={this.collapseDetails} {...props} />}
+          render={props => <this.connectedViewItem stripes={stripes} paneWidth="44%" onClose={this.collapseDetails} {...props} />}
         />
         <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
