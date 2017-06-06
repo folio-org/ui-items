@@ -2,6 +2,7 @@
 
 ## In progress
 * The editMode boolean is now in a stripes-core local resource instead of a piece of React component state. This makes edit-mode persistent because it's in the Redux store -- so navigating away from an edit-item page to another app, then returning to the Items app, will remain in edit mode. Fixes the ui-items half of scenario 3 of STRIPES-362.
+* Require stripes-components v0.10.1 and stripes-core v1.8.0.
 
 ## [1.4.0](https://github.com/folio-org/ui-items/tree/v1.4.0) (2017-06-06)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.3.0...v1.4.0)
