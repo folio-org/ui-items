@@ -26,12 +26,16 @@ class ViewItem extends Component {
       selectedItem: React.PropTypes.shape({
         PUT: React.PropTypes.func.isRequired,
       }),
+      editMode: PropTypes.shape({
+        replace: PropTypes.func,
+      }),
     }),
     onClose: PropTypes.func,
     paneWidth: PropTypes.string.isRequired,
   };
 
   static manifest = Object.freeze({
+    editMode: {},
     selectedItem: {
       type: 'okapi',
       path: 'inventory/items/:{itemid}',
@@ -67,26 +71,25 @@ class ViewItem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      editItemMode: false,
-    };
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
+  }
+
+  componentWillMount() {
+    if (_.isEmpty(this.props.data.editMode)) this.props.mutator.editMode.replace({ mode: false });
   }
 
   // Edit Item Handlers
   onClickEditItem(e) {
     if (e) e.preventDefault();
-    this.setState({
-      editItemMode: true,
-    });
+    this.props.stripes.logger.log('action', 'clicked "edit item"');
+    this.props.mutator.editMode.replace({ mode: true });
   }
 
   onClickCloseEditItem(e) {
     if (e) e.preventDefault();
-    this.setState({
-      editItemMode: false,
-    });
+    this.props.stripes.logger.log('action', 'clicked "close edit item"');
+    this.props.mutator.editMode.replace({ mode: false });
   }
 
   update(data) {
@@ -145,7 +148,7 @@ class ViewItem extends Component {
             <KeyValue label="Loan type (temporary)" value={ViewItem.propNameForId(_.get(item, ['temporaryLoanType', 'id'], ''), loanTypes)} />
           </Col>
         </Row>
-        <Layer isOpen={this.state.editItemMode} label="Edit Item Dialog">
+        <Layer isOpen={this.props.data.editMode ? this.props.data.editMode.mode : false} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}
             initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes })}
