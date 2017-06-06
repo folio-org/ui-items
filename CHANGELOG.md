@@ -7,6 +7,7 @@
 * Include item status in full-record display, and (disabled) in the edit page. Fixes UIIT-14.
 * Initial status for new records set to "Available". Fixes UIIT-13.
 * No instanceId required for new items (or displayed for old ones). At this stage, a dummy instanceId `'dummy'` is provided as part of each new item, but this will be removed in a subsequent version when the back-end no longer requires this field. Fixes UIIT-15.
+* The editMode boolean is now in a stripes-core local resource instead of a piece of React component state. This makes edit-mode persistent because it's in the Redux store -- so navigating away from an edit-item page to another app, then returning to the Items app, will remain in edit mode. Fixes the ui-items half of scenario 3 of STRIPES-362.
 
 ## [1.3.0](https://github.com/folio-org/ui-items/tree/v1.3.0) (2017-05-08)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.2.0...v1.3.0)
