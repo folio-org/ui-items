@@ -18,6 +18,9 @@ class ViewItem extends Component {
       item: PropTypes.arrayOf(PropTypes.object),
       materialTypes: PropTypes.arrayOf(PropTypes.object),
       loanTypes: PropTypes.arrayOf(PropTypes.object),
+      editMode: PropTypes.shape({
+        mode: PropTypes.bool,
+      }),
     }),
     match: PropTypes.shape({
       params: PropTypes.object,
@@ -32,6 +35,11 @@ class ViewItem extends Component {
     }),
     onClose: PropTypes.func,
     paneWidth: PropTypes.string.isRequired,
+    stripes: PropTypes.shape({
+      logger: PropTypes.shape({
+        log: PropTypes.func.isRequired,
+      }).isRequired,
+    }).isRequired,
   };
 
   static manifest = Object.freeze({
