@@ -231,6 +231,9 @@ class Items extends React.Component {
             visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
             sortOrder={this.state.sortOrder}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
+            loading={this.props.resources.items ? this.props.resources.items.isPending : false}
+            autosize
+            virtualize
           />
         </Pane>
 

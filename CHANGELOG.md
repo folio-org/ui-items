@@ -1,7 +1,8 @@
 # Change history for ui-items
 
-## In progress
-
+## In Progress
+* Updated dependency on stripes-components to 0.12.0
+* Added appropriate props for infinite-scroll functionality of results list. (STRIPES-361)
 * The editMode boolean is now in a stripes-core local resource instead of a piece of React component state. This makes edit-mode persistent because it's in the Redux store -- so navigating away from an edit-item page to another app, then returning to the Items app, will remain in edit mode. Fixes UIIT-22.
 * Use `props.resources` (from stripes-connect v2.2.0) to determine actual hit count. Fixes UIIT-21.
 * Require stripes-components v0.11.2, stripes-core v1.9.0 and stripes-connect v2.2.0.
