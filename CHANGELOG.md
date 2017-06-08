@@ -1,7 +1,9 @@
 # Change history for ui-items
 
 ## In progress
-* The editMode boolean is now in a stripes-core local resource instead of a piece of React component state. This makes edit-mode persistent because it's in the Redux store -- so navigating away from an edit-item page to another app, then returning to the Items app, will remain in edit mode. Fixes the ui-items half of scenario 3 of STRIPES-362.
+
+* The editMode boolean is now in a stripes-core local resource instead of a piece of React component state. This makes edit-mode persistent because it's in the Redux store -- so navigating away from an edit-item page to another app, then returning to the Items app, will remain in edit mode. Fixes UIIT-22.
+* Use `props.resources` (from stripes-connect v2.2.0) to determine actual hit count. Fixes UIIT-21.
 * Require stripes-components v0.11.2, stripes-core v1.9.0 and stripes-connect v2.2.0.
 
 ## [1.4.0](https://github.com/folio-org/ui-items/tree/v1.4.0) (2017-06-06)
