@@ -215,7 +215,7 @@ class Items extends React.Component {
             <div style={{ textAlign: 'center' }}>
               <strong>Results</strong>
               <div>
-                <em>{items.length} Result{items.length === 1 ? '' : 's'} Found</em>
+                <em>{this.props.resources.items && this.props.resources.items.hasLoaded ? this.props.resources.items.other.totalRecords : ''} Result{items.length === 1 ? '' : 's'} Found</em>
               </div>
             </div>
           }
