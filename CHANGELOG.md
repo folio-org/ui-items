@@ -1,5 +1,10 @@
 # Change history for ui-items
 
+## 1.6.0 IN PROGRESS
+
+* Port from old `makePathFunction` to `makeQueryFunction`.
+* Support reverse sorting. Fixes UIIT-25.
+
 ## [1.5.0](https://github.com/folio-org/ui-items/tree/v1.5.0) (2017-06-08)
 * Updated dependency on stripes-components to 0.12.0
 * Added appropriate props for infinite-scroll functionality of results list. (STRIPES-361)
