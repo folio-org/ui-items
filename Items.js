@@ -139,7 +139,8 @@ class Items extends React.Component {
   }
 
   onSort(e, meta) {
-    const sortOrder = meta.name;
+    let sortOrder = meta.name;
+    if (sortOrder === this.state.sortOrder) sortOrder = `-${sortOrder}`;
     this.log('action', `sorted by ${sortOrder}`);
     this.setState({ sortOrder });
     this.transitionToParams({ sort: sortOrder });
@@ -233,7 +234,8 @@ class Items extends React.Component {
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
             visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
-            sortOrder={this.state.sortOrder}
+            sortOrder={this.state.sortOrder.replace(/^-/, '')}
+            sortDirection={this.state.sortOrder.startsWith('-') ? 'descending' : 'ascending'}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
             loading={this.props.resources.items ? this.props.resources.items.isPending : false}
             autosize
