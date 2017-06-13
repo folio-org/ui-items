@@ -16,7 +16,7 @@ import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup
 import Layer from '@folio/stripes-components/lib/Layer';
 import FilterGroups, { initialFilterState, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
-import makePathFunction from '@folio/stripes-components/util/makePathFunction';
+import makeQueryFunction from '@folio/stripes-components/util/makeQueryFunction';
 
 import ItemForm from './ItemForm';
 import ViewItem from './ViewItem';
@@ -69,14 +69,18 @@ class Items extends React.Component {
     items: {
       type: 'okapi',
       records: 'items',
-      path: makePathFunction(
-        'inventory/items',
-        'cql.allRecords=1',
-        'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
-        { 'Material Type': 'materialType' },
-        filterConfig,
-      ),
-      staticFallback: { path: 'inventory/items' },
+      path: 'inventory/items',
+      GET: {
+        params: {
+          query: makeQueryFunction(
+            'cql.allRecords=1',
+            'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
+            { 'Material Type': 'materialType' },
+            filterConfig,
+          ),
+        },
+        staticFallback: { params: {} },
+      },
     },
     materialTypes: {
       type: 'okapi',
