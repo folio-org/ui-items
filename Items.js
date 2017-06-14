@@ -177,9 +177,14 @@ class Items extends React.Component {
   onChangeSearch(e) {
     const query = e.target.value;
     this.setState({ searchTerm: query });
+    this.log('action', `will search for '${query}'`);
+    this.performSearch(query);
+  }
+
+  performSearch = _.debounce((query) => {
     this.log('action', `searched for '${query}'`);
     this.transitionToParams({ query });
-  }
+  }, 250);
 
   updateFilters(filters) { // provided for onChangeFilter
     this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
