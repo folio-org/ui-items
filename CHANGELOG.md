@@ -4,8 +4,9 @@
 
 * Port from old `makePathFunction` to `makeQueryFunction`.
 * Support reverse sorting. Fixes UIIT-25.
-* onSort now keeps two most recent sort criteria. Fixes UIIT-26.
+* Stable sorting: when moving from one sort criterion to another, the old one is retained as the secondary key. Fixes UIIT-26.
 * Debounce search requests by 250 ms. Fixes UIIT-27.
+* Upgrade stripes-components dependency to v0.15.0, needed for stable sorting.
 
 ## [1.5.0](https://github.com/folio-org/ui-items/tree/v1.5.0) (2017-06-08)
 * Updated dependency on stripes-components to 0.12.0
