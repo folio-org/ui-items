@@ -1,6 +1,7 @@
 # Change history for ui-items
 
-## 1.6.0 IN PROGRESS
+## [1.6.0](https://github.com/folio-org/ui-items/tree/v1.6.0) (2017-06-14)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.5.0...v1.6.0)
 
 * Port from old `makePathFunction` to `makeQueryFunction`.
 * Support reverse sorting. Fixes UIIT-25.
