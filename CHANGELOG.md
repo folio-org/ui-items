@@ -9,6 +9,8 @@
 * Upgrade stripes-components dependency to v0.15.0, needed for stable sorting.
 
 ## [1.5.0](https://github.com/folio-org/ui-items/tree/v1.5.0) (2017-06-08)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.4.0...v1.5.0)
+
 * Updated dependency on stripes-components to 0.12.0
 * Added appropriate props for infinite-scroll functionality of results list. (STRIPES-361)
 * The editMode boolean is now in a stripes-core local resource instead of a piece of React component state. This makes edit-mode persistent because it's in the Redux store -- so navigating away from an edit-item page to another app, then returning to the Items app, will remain in edit mode. Fixes UIIT-22.
