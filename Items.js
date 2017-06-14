@@ -139,8 +139,17 @@ class Items extends React.Component {
   }
 
   onSort(e, meta) {
-    let sortOrder = meta.name;
-    if (sortOrder === this.state.sortOrder) sortOrder = `-${sortOrder}`;
+    let newOrder = meta.alias;
+    const oldOrder = this.state.sortOrder
+
+    const orders = oldOrder ? oldOrder.split(',') : [];
+    if (newOrder === orders[0].replace(/^-/, '')) {
+      orders[0] = `-${orders[0]}`.replace(/^--/, '');
+    } else {
+      orders.unshift(newOrder);
+    }
+
+    const sortOrder = orders.slice(0, 2).join(',');
     this.log('action', `sorted by ${sortOrder}`);
     this.setState({ sortOrder });
     this.transitionToParams({ sort: sortOrder });
@@ -234,7 +243,7 @@ class Items extends React.Component {
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
             visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
-            sortOrder={this.state.sortOrder.replace(/^-/, '')}
+            sortOrder={this.state.sortOrder.replace(/^-/, '').replace(/,.*/, '')}
             sortDirection={this.state.sortOrder.startsWith('-') ? 'descending' : 'ascending'}
             isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
             loading={this.props.resources.items ? this.props.resources.items.isPending : false}
