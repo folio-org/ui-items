@@ -75,7 +75,7 @@ class Items extends React.Component {
           query: makeQueryFunction(
             'cql.allRecords=1',
             'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
-            { 'Material Type': 'materialType' },
+            { 'Material Type': 'materialType.name' },
             filterConfig,
           ),
         },
