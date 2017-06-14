@@ -4,6 +4,7 @@
 
 * Port from old `makePathFunction` to `makeQueryFunction`.
 * Support reverse sorting. Fixes UIIT-25.
+* onSort now keeps two most recent sort criteria. Fixes UIIT-26.
 
 ## [1.5.0](https://github.com/folio-org/ui-items/tree/v1.5.0) (2017-06-08)
 * Updated dependency on stripes-components to 0.12.0
