@@ -36,7 +36,7 @@ class ItemsRouting extends Component {
 
   render() {
     if (this.props.showSettings) {
-      return <Settings {...this.props} />;
+      return <Settings {...this.props} paneTitle='Items' />;
     }
 
     return (
