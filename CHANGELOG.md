@@ -7,6 +7,7 @@
 * Support reverse sorting. Fixes UIIT-25.
 * Stable sorting: when moving from one sort criterion to another, the old one is retained as the secondary key. Fixes UIIT-26.
 * Debounce search requests by 250 ms. Fixes UIIT-27.
+* Sort-of-reinstate sorting by material-type. For deep reasons (see FOLIO-677) this can't work properly, but at least now each set of same-MT items are grouped together, even if the order of the groupings is apparently random. Fixes UIIT-28.
 * Upgrade stripes-components dependency to v0.15.0, needed for stable sorting.
 
 ## [1.5.0](https://github.com/folio-org/ui-items/tree/v1.5.0) (2017-06-08)
