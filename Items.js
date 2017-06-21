@@ -140,7 +140,7 @@ class Items extends React.Component {
 
   onSort(e, meta) {
     const newOrder = meta.alias;
-    const oldOrder = this.state.sortOrder
+    const oldOrder = this.state.sortOrder;
 
     const orders = oldOrder ? oldOrder.split(',') : [];
     if (newOrder === orders[0].replace(/^-/, '')) {
