@@ -44,6 +44,23 @@ class Items extends React.Component {
       }).isRequired,
     }).isRequired,
     data: PropTypes.object.isRequired,
+    resources: PropTypes.shape({
+      items: PropTypes.shape({
+        hasLoaded: PropTypes.bool.isRequired,
+        other: PropTypes.shape({
+          totalRecords: PropTypes.number,
+          total_records: PropTypes.number,
+        }),
+        isPending: PropTypes.bool.isPending,
+        successfulMutations: PropTypes.arrayOf(
+          PropTypes.shape({
+            record: PropTypes.shape({
+              id: PropTypes.string.isRequired,
+            }).isRequired,
+          }),
+        ),
+      }),
+    }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
@@ -123,6 +140,16 @@ class Items extends React.Component {
 
   componentWillMount() {
     if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const resource = this.props.resources.items;
+    if (resource) {
+      const sm = nextProps.resources.items.successfulMutations;
+      if (sm.length > resource.successfulMutations.length) {
+        this.onSelectRow(undefined, { id: sm[0].record.id });
+      }
+    }
   }
 
   componentWillUpdate() {
