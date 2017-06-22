@@ -10,17 +10,6 @@ import Select from '@folio/stripes-components/lib/Select';
 import TextField from '@folio/stripes-components/lib/TextField';
 import { Field, reduxForm } from 'redux-form';
 
-const propTypes = {
-  onClose: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
-  newItem: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func,
-  pristine: PropTypes.bool,
-  submitting: PropTypes.bool,
-  onCancel: PropTypes.func,
-  initialValues: PropTypes.object,
-};
-
 function ItemForm(props) {
   const {
     handleSubmit,
@@ -100,7 +89,16 @@ function ItemForm(props) {
   );
 }
 
-ItemForm.propTypes = propTypes;
+ItemForm.propTypes = {
+  onClose: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  newItem: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func,
+  pristine: PropTypes.bool,
+  submitting: PropTypes.bool,
+  onCancel: PropTypes.func,
+  initialValues: PropTypes.object,
+};
 
 export default reduxForm({
   form: 'itemForm',
