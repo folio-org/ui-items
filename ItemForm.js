@@ -10,6 +10,26 @@ import Select from '@folio/stripes-components/lib/Select';
 import TextField from '@folio/stripes-components/lib/TextField';
 import { Field, reduxForm } from 'redux-form';
 
+
+function validate(values) {
+  const errors = {};
+
+  if (!values.title) {
+    errors.title = 'Please provide the title of the item';
+  }
+
+  if (!values.materialType || !values.materialType.id) {
+    errors.materialType = { id: 'Please specify the material-type' };
+  }
+
+  if (!values.barcode) {
+    errors.barcode = 'Please specify the bar-code';
+  }
+
+  return errors;
+}
+
+
 function ItemForm(props) {
   const {
     handleSubmit,
@@ -102,4 +122,5 @@ ItemForm.propTypes = {
 
 export default reduxForm({
   form: 'itemForm',
+  validate,
 })(ItemForm);
