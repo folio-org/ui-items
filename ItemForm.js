@@ -23,7 +23,7 @@ function validate(values) {
   }
 
   if (!values.barcode) {
-    errors.barcode = 'Please specify the bar-code';
+    errors.barcode = 'Please specify the barcode';
   }
 
   if (!values.permanentLoanType || !values.permanentLoanType.id) {
