@@ -3,6 +3,7 @@
 # 1.7.0 IN PROGRESS
 
 * Sort-of-reinstate sorting by material-type. For deep reasons (see FOLIO-677) this can't work properly, but at least now each set of same-MT items are grouped together, even if the order of the groupings is apparently random. Fixes UIIT-28.
+* When a new record is created, navigate to it. Fixes UIIT-29.
 
 ## [1.6.0](https://github.com/folio-org/ui-items/tree/v1.6.0) (2017-06-14)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.5.0...v1.6.0)
