@@ -26,6 +26,14 @@ function validate(values) {
     errors.barcode = 'Please specify the bar-code';
   }
 
+  if (!values.permanentLoanType || !values.permanentLoanType.id) {
+    errors.permanentLoanType = { id: 'Please specify the permanent loan type' };
+  }
+
+  if (!values.temporaryLoanType || !values.temporaryLoanType.id) {
+    errors.temporaryLoanType = { id: 'Please specify the temporary loan type' };
+  }
+
   return errors;
 }
 
@@ -54,16 +62,13 @@ function ItemForm(props) {
             selected: selectedValue,
           };
         }) : [];
-  const loanTypeOptions = initialValues.available_loan_types ?
-        initialValues.available_loan_types.map((t) => {
-          let selectedValue;
-          if (initialValues.loanType) { selectedValue = initialValues.loanType.id === t.id; }
-          return {
-            label: t.name,
-            value: t.id,
-            selected: selectedValue,
-          };
-        }) : [];
+  const loanTypeOptions = (initialValues.available_loan_types || []).map((t) => {
+    return {
+      label: t.name,
+      value: t.id,
+      selected: initialValues.loanType ? initialValues.loanType.id === t.id : false,
+    };
+  });
 
   return (
     <form>
@@ -80,7 +85,7 @@ function ItemForm(props) {
                 id="additem_materialType"
                 component={Select}
                 fullWidth
-                dataOptions={[{ label: 'Select material type', value: null }, ...materialTypeOptions]}
+                dataOptions={[{ label: 'Select material type', value: '' }, ...materialTypeOptions]}
               />
               <Field label="Barcode" name="barcode" id="additem_barcode" component={TextField} required fullWidth />
               <Field label="Location" name="location.name" id="additem_location" component={TextField} fullWidth />
@@ -91,7 +96,7 @@ function ItemForm(props) {
                 id="additem_loanTypePerm"
                 component={Select}
                 fullWidth
-                dataOptions={[{ label: 'Select loan type', value: null }, ...loanTypeOptions]}
+                dataOptions={[{ label: 'Select loan type', value: '' }, ...loanTypeOptions]}
               />
               <Field
                 label="Loan Type (Temporary)"
@@ -99,7 +104,7 @@ function ItemForm(props) {
                 id="additem_loanTypeTemp"
                 component={Select}
                 fullWidth
-                dataOptions={[{ label: 'Select loan type', value: null }, ...loanTypeOptions]}
+                dataOptions={[{ label: 'Select loan type', value: '' }, ...loanTypeOptions]}
               />
             </Col>
           </Row>
