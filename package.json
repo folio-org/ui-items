@@ -24,6 +24,10 @@
     },
     "permissionSets": [
       {
+        "permissionName": "module.items.enabled",
+        "displayName": "UI: Items module is enabled"
+      },
+      {
         "permissionName": "inventory.all",
         "displayName": "Inventory - all permissions",
         "description": "Entire set of permissions needed to use the inventory module",
