@@ -16,7 +16,35 @@
     "displayName": "Items",
     "route": "/items",
     "home": "/items?sort=title",
-    "hasSettings": true
+    "hasSettings": true,
+    "okapiInterfaces": {
+      "inventory": "2.0",
+      "loan-types": "2.0",
+      "material-types": "2.0"
+    },
+    "permissionSets": [
+      {
+        "permissionName": "inventory.all",
+        "displayName": "Inventory - all permissions",
+        "description": "Entire set of permissions needed to use the inventory module",
+        "subPermissions": [
+          "inventory.items.collection.get",
+          "inventory.items.item.get",
+          "inventory.items.item.post",
+          "inventory.items.item.put",
+          "inventory.items.item.delete",
+          "inventory.items.collection.delete",
+          "inventory.instances.collection.get",
+          "inventory.instances.item.get",
+          "inventory.instances.item.post",
+          "inventory.instances.item.put",
+          "inventory.instances.item.delete",
+          "inventory.instances.collection.delete",
+          "inventory.ingest.mods.post",
+          "inventory.ingest.mods.status.get"
+        ]
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint *.js || true"
