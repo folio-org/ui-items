@@ -14,12 +14,15 @@ import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import Layer from '@folio/stripes-components/lib/Layer';
-import FilterGroups, { initialFilterState, onChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
+import FilterGroups, { initialFilterState, onChangeFilter as commonChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 import makeQueryFunction from '@folio/stripes-components/util/makeQueryFunction';
 
 import ItemForm from './ItemForm';
 import ViewItem from './ViewItem';
+
+const INITIAL_RESULT_COUNT = 30;
+const RESULT_COUNT_INCREMENT = 30;
 
 const filterConfig = [
   {
@@ -82,11 +85,14 @@ class Items extends React.Component {
   };
 
   static manifest = Object.freeze({
+    itemCount: {initialValue: INITIAL_RESULT_COUNT },
     addItemMode: {},
     items: {
       type: 'okapi',
       records: 'items',
       path: 'inventory/items',
+      recordsRequired: '${itemCount}',
+      perRequest: RESULT_COUNT_INCREMENT,
       GET: {
         params: {
           query: makeQueryFunction(
@@ -129,7 +135,7 @@ class Items extends React.Component {
     this.onClickCloseNewItem = this.onClickCloseNewItem.bind(this);
     this.onChangeSearch = this.onChangeSearch.bind(this);
 
-    this.onChangeFilter = onChangeFilter.bind(this);
+    this.onChangeFilter = commonChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
 
     this.collapseDetails = this.collapseDetails.bind(this);
@@ -201,11 +207,21 @@ class Items extends React.Component {
     this.props.mutator.addItemMode.replace({ mode: false });
   }
 
+  onChangeFilter = (e) => {
+    this.props.mutator.itemCount.replace(INITIAL_RESULT_COUNT);
+    this.commonChangeFilter(e);
+  }
+
   onChangeSearch(e) {
+    this.props.mutator.itemCount.replace(INITIAL_RESULT_COUNT);
     const query = e.target.value;
     this.setState({ searchTerm: query });
     this.log('action', `will search for '${query}'`);
     this.performSearch(query);
+  }
+
+  onNeedMore = () => {
+    this.props.mutator.itemCount.replace(this.props.data.itemCount + RESULT_COUNT_INCREMENT);
   }
 
   performSearch = _.debounce((query) => {
@@ -274,6 +290,7 @@ class Items extends React.Component {
             formatter={resultsFormatter}
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
+            onNeedMoreData={this.onNeedMore}
             visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
             sortOrder={this.state.sortOrder.replace(/^-/, '').replace(/,.*/, '')}
             sortDirection={this.state.sortOrder.startsWith('-') ? 'descending' : 'ascending'}
