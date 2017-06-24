@@ -37,6 +37,37 @@ function validate(values) {
   return errors;
 }
 
+function checkUniqueBarcode(okapi, barcode) {
+  return fetch(`${okapi.url}/inventory/items?query=(barcode="${barcode}")`,
+    { headers: Object.assign({}, {
+      'X-Okapi-Tenant': okapi.tenant,
+      'X-Okapi-Token': okapi.token,
+      'Content-Type': 'application/json' }),
+    },
+  );
+}
+
+function asyncValidate(values, dispatch, props, blurredField) {
+  if (blurredField === 'barcode' && values.barcode !== props.initialValues.barcode) {
+    return new Promise((resolve, reject) => {
+      // TODO: Should use stripes-connect (dispatching an action and update state)
+      checkUniqueBarcode(props.okapi, values.barcode).then((response) => {
+        if (response.status >= 400) {
+          console.log('Error fetching barcode');
+        } else {
+          response.json().then((json) => {
+            if (json.totalRecords > 0) {
+              reject({ barcode: 'This barcode has already been taken' });
+            } else {
+              resolve();
+            }
+          });
+        }
+      });
+    });
+  }
+  return new Promise(resolve => resolve());
+}
 
 function ItemForm(props) {
   const {
@@ -128,4 +159,6 @@ ItemForm.propTypes = {
 export default reduxForm({
   form: 'itemForm',
   validate,
+  asyncValidate,
+  asyncBlurFields: ['barcode'],
 })(ItemForm);
