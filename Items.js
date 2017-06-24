@@ -294,6 +294,7 @@ class Items extends React.Component {
             initialValues={{ available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes, status: { name: 'Available' }, instanceId: 'dummy' }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
+            okapi={this.props.okapi}
           />
         </Layer>
       </Paneset>
