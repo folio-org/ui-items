@@ -7,6 +7,7 @@
 * Add rudimentary validation: require title, materialType and barcode. Fixes UIIT-30.
 * All three dropdown fields are now mandatory in new records: material-type and permanent and temporary loan-types. Fixes UIIT-31.
 * Add okapiInterfaces and permissionSets in `package.json`. Fixes UIIT-35.
+* Asynchronous uniqueness-check for barcode. Fixes UIIT-32.
 
 ## [1.6.0](https://github.com/folio-org/ui-items/tree/v1.6.0) (2017-06-14)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.5.0...v1.6.0)
