@@ -15,23 +15,15 @@ function validate(values) {
   const errors = {};
 
   if (!values.title) {
-    errors.title = 'Please provide the title of the item';
+    errors.title = 'Please fill this in to continue';
   }
 
   if (!values.materialType || !values.materialType.id) {
-    errors.materialType = { id: 'Please specify the material-type' };
-  }
-
-  if (!values.barcode) {
-    errors.barcode = 'Please specify the barcode';
+    errors.materialType = { id: 'Please select to continue' };
   }
 
   if (!values.permanentLoanType || !values.permanentLoanType.id) {
-    errors.permanentLoanType = { id: 'Please specify the permanent loan type' };
-  }
-
-  if (!values.temporaryLoanType || !values.temporaryLoanType.id) {
-    errors.temporaryLoanType = { id: 'Please specify the temporary loan type' };
+    errors.permanentLoanType = { id: 'Please select to continue' };
   }
 
   return errors;
@@ -108,10 +100,10 @@ function ItemForm(props) {
           <Row>
             <Col sm={5} smOffset={1}>
               <h2>Item Record</h2>
-              <Field label="Title" name="title" id="additem_title" component={TextField} fullWidth />
+              <Field label="Title *" name="title" id="additem_title" component={TextField} fullWidth />
               {/* <Field label="Material Type" name="materialType.name" id="additem_materialType" component={TextField} fullWidth /> */}
               <Field
-                label="Material Type"
+                label="Material Type *"
                 name="materialType.id"
                 id="additem_materialType"
                 component={Select}
@@ -122,7 +114,7 @@ function ItemForm(props) {
               <Field label="Location" name="location.name" id="additem_location" component={TextField} fullWidth />
               <Field label="Status" name="status.name" id="additem_status" component={TextField} disabled fullWidth />
               <Field
-                label="Loan Type (Permanent)"
+                label="Loan Type (Permanent) *"
                 name="permanentLoanType.id"
                 id="additem_loanTypePerm"
                 component={Select}
