@@ -85,13 +85,11 @@ function ItemForm(props) {
             selected: selectedValue,
           };
         }) : [];
-  const loanTypeOptions = (initialValues.available_loan_types || []).map((t) => {
-    return {
-      label: t.name,
-      value: t.id,
-      selected: initialValues.loanType ? initialValues.loanType.id === t.id : false,
-    };
-  });
+  const loanTypeOptions = (initialValues.available_loan_types || []).map(t => ({
+    label: t.name,
+    value: t.id,
+    selected: initialValues.loanType ? initialValues.loanType.id === t.id : false,
+  }));
 
   return (
     <form>

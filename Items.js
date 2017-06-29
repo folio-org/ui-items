@@ -1,7 +1,8 @@
 import _ from 'lodash';
 // We have to remove node_modules/react to avoid having multiple copies loaded.
 // eslint-disable-next-line import/no-unresolved
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Route from 'react-router-dom/Route';
 import queryString from 'query-string';
 
@@ -81,11 +82,15 @@ class Items extends React.Component {
       items: PropTypes.shape({
         POST: PropTypes.func,
       }),
+      itemCount: PropTypes.shape({
+        replace: PropTypes.func,
+      }),
     }).isRequired,
+    okapi: PropTypes.object,
   };
 
   static manifest = Object.freeze({
-    itemCount: {initialValue: INITIAL_RESULT_COUNT },
+    itemCount: { initialValue: INITIAL_RESULT_COUNT },
     addItemMode: {},
     items: {
       type: 'okapi',

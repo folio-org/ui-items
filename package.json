@@ -51,7 +51,7 @@
     ]
   },
   "scripts": {
-    "lint": "eslint *.js || true"
+    "lint": "eslint *.js lib settings || true"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
@@ -73,6 +73,7 @@
     "@folio/stripes-components": "^0.15.0",
     "@folio/stripes-logger": "^0.0.2",
     "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
     "query-string": "^4.3.2",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
