@@ -96,7 +96,7 @@ class Items extends React.Component {
       type: 'okapi',
       records: 'items',
       path: 'inventory/items',
-      recordsRequired: '${itemCount}',
+      recordsRequired: '%{itemCount}',
       perRequest: RESULT_COUNT_INCREMENT,
       GET: {
         params: {
