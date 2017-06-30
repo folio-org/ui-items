@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import AuthorityList from './AuthorityList';
+import AuthorityList from '@folio/stripes-components/lib/AuthorityList';
 
 class LoanTypesSettings extends React.Component {
   constructor(props) {
