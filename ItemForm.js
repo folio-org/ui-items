@@ -9,8 +9,8 @@ import { Row, Col } from 'react-flexbox-grid';
 import Button from '@folio/stripes-components/lib/Button';
 import Select from '@folio/stripes-components/lib/Select';
 import TextField from '@folio/stripes-components/lib/TextField';
-import { Field, reduxForm } from 'redux-form';
-
+import { Field } from 'redux-form';
+import stripesForm from '@folio/stripes-form';
 
 function validate(values) {
   const errors = {};
@@ -147,9 +147,10 @@ ItemForm.propTypes = {
   initialValues: PropTypes.object,
 };
 
-export default reduxForm({
+export default stripesForm({
   form: 'itemForm',
   validate,
   asyncValidate,
   asyncBlurFields: ['barcode'],
+  navigationCheck: true,
 })(ItemForm);
