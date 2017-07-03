@@ -1,7 +1,5 @@
 import _ from 'lodash';
-// We have to remove node_modules/react to avoid having multiple copies loaded.
-// eslint-disable-next-line import/no-unresolved
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Pane from '@folio/stripes-components/lib/Pane';
 import PaneMenu from '@folio/stripes-components/lib/PaneMenu';
@@ -12,7 +10,7 @@ import Layer from '@folio/stripes-components/lib/Layer';
 
 import ItemForm from './ItemForm';
 
-class ViewItem extends Component {
+class ViewItem extends React.Component {
 
   static propTypes = {
     data: PropTypes.shape({
