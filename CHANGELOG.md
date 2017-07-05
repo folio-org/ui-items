@@ -8,7 +8,8 @@
 * All three dropdown fields are now mandatory in new records: material-type and permanent and temporary loan-types. Fixes UIIT-31.
 * Add okapiInterfaces and permissionSets in `package.json`. Fixes UIIT-35.
 * Asynchronous uniqueness-check for barcode. Fixes UIIT-32.
-* Prompt on navigation away from dirty Item form. Refs UIIT-36. 
+* Prompt on navigation away from dirty Item form. Refs UIIT-36.
+* Eliminate use of `componentWillMount` to provide initial value to local resource. Part of STRIPES-433.
 
 ## [1.6.0](https://github.com/folio-org/ui-items/tree/v1.6.0) (2017-06-14)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.5.0...v1.6.0)

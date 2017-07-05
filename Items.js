@@ -89,7 +89,7 @@ class Items extends React.Component {
 
   static manifest = Object.freeze({
     itemCount: { initialValue: INITIAL_RESULT_COUNT },
-    addItemMode: {},
+    addItemMode: { initialValue: { mode: false } },
     items: {
       type: 'okapi',
       records: 'items',
@@ -145,10 +145,6 @@ class Items extends React.Component {
     this.connectedViewItem = props.stripes.connect(ViewItem);
     const logger = props.stripes.logger;
     this.log = logger.log.bind(logger);
-  }
-
-  componentWillMount() {
-    if (_.isEmpty(this.props.data.addItemMode)) this.props.mutator.addItemMode.replace({ mode: false });
   }
 
   componentWillReceiveProps(nextProps) {
