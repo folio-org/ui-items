@@ -42,7 +42,7 @@ class ViewItem extends React.Component {
   };
 
   static manifest = Object.freeze({
-    editMode: {},
+    editMode: { initialValue: { mode: false } },
     selectedItem: {
       type: 'okapi',
       path: 'inventory/items/:{itemid}',
@@ -80,10 +80,6 @@ class ViewItem extends React.Component {
 
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
-  }
-
-  componentWillMount() {
-    if (_.isEmpty(this.props.data.editMode)) this.props.mutator.editMode.replace({ mode: false });
   }
 
   // Edit Item Handlers
