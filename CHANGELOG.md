@@ -1,6 +1,7 @@
 # Change history for ui-items
 
-# 1.7.0 IN PROGRESS
+## [1.7.0](https://github.com/folio-org/ui-items/tree/v1.7.0) (2017-07-11)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.6.0...v1.7.0)
 
 * Upgrade stripes-components dependency to 1.3.0, needed for import of AuthorityList
 * Sort-of-reinstate sorting by material-type. For deep reasons (see FOLIO-677) this can't work properly, but at least now each set of same-MT items are grouped together, even if the order of the groupings is apparently random. Fixes UIIT-28.
