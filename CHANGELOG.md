@@ -2,6 +2,7 @@
 
 # 1.7.0 IN PROGRESS
 
+* Upgrade stripes-components dependency to 1.3.0, needed for import of AuthorityList
 * Sort-of-reinstate sorting by material-type. For deep reasons (see FOLIO-677) this can't work properly, but at least now each set of same-MT items are grouped together, even if the order of the groupings is apparently random. Fixes UIIT-28.
 * When a new record is created, navigate to it. Fixes UIIT-29.
 * Validation of item records. UIIT-9
