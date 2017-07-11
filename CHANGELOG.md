@@ -4,8 +4,7 @@
 
 * Sort-of-reinstate sorting by material-type. For deep reasons (see FOLIO-677) this can't work properly, but at least now each set of same-MT items are grouped together, even if the order of the groupings is apparently random. Fixes UIIT-28.
 * When a new record is created, navigate to it. Fixes UIIT-29.
-* Add rudimentary validation: require title, materialType and barcode. Fixes UIIT-30.
-* All three dropdown fields are now mandatory in new records: material-type and permanent and temporary loan-types. Fixes UIIT-31.
+* Validation of item records. UIIT-9
 * Add okapiInterfaces and permissionSets in `package.json`. Fixes UIIT-35.
 * Asynchronous uniqueness-check for barcode. Fixes UIIT-32.
 * Prompt on navigation away from dirty Item form. Refs UIIT-36.
