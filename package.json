@@ -29,7 +29,7 @@
       },
       {
         "permissionName": "inventory.all",
-        "displayName": "Inventory - all permissions",
+        "displayName": "Inventory: All permissions",
         "description": "Entire set of permissions needed to use the inventory module",
         "subPermissions": [
           "inventory.items.collection.get",
