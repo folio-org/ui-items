@@ -14,6 +14,7 @@ import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
 import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import Layer from '@folio/stripes-components/lib/Layer';
 import FilterGroups, { initialFilterState, onChangeFilter as commonChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
+import SRStatus from '@folio/stripes-components/lib/SRStatus';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 import makeQueryFunction from '@folio/stripes-components/util/makeQueryFunction';
 
@@ -145,6 +146,9 @@ class Items extends React.Component {
     this.connectedViewItem = props.stripes.connect(ViewItem);
     const logger = props.stripes.logger;
     this.log = logger.log.bind(logger);
+
+    this.resultsList = null;
+    this.SRStatus = null;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -154,6 +158,12 @@ class Items extends React.Component {
       if (sm.length > resource.successfulMutations.length) {
         this.onSelectRow(undefined, { id: sm[0].record.id });
       }
+    }
+
+    if (resource && resource.isPending && !nextProps.resources.items.isPending) {
+      this.log('event', 'new search-result');
+      const resultAmount = nextProps.resources.items.other.totalRecords;
+      this.SRStatus.sendMessage(`Search returned ${resultAmount} result${resultAmount !== 1 ? 's' : ''}`);
     }
   }
 
@@ -251,7 +261,7 @@ class Items extends React.Component {
     const items = data.items || [];
 
     /* searchHeader is a 'custom pane header'*/
-    const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} value={this.state.searchTerm} />;
+    const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} resultsList={this.resultsList} value={this.state.searchTerm} />;
     const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
 
     const resultsFormatter = {
@@ -262,6 +272,7 @@ class Items extends React.Component {
 
     return (
       <Paneset>
+        <SRStatus ref={(ref) => { this.SRStatus = ref; }} />
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterGroups config={filterConfig} filters={this.state.filters} onChangeFilter={this.onChangeFilter} />
@@ -297,6 +308,8 @@ class Items extends React.Component {
             loading={this.props.resources.items ? this.props.resources.items.isPending : false}
             autosize
             virtualize
+            ariaLabel={'Item search results'}
+            containerRef={(ref) => { this.resultsList = ref; }}
           />
         </Pane>
 
