@@ -47,6 +47,18 @@
           "inventory.ingest.mods.post",
           "inventory.ingest.mods.status.get"
         ]
+      },
+      {
+        "permissionName": "settings.material-types.all",
+        "displayName": "Settings (Items): Can create, edit and remove material types",
+        "subPermissions": [
+          "inventory-storage.material-types.collection.get",
+          "inventory-storage.material-types.item.get",
+          "inventory-storage.material-types.item.post",
+          "inventory-storage.material-types.item.put",
+          "inventory-storage.material-types.item.delete",
+          "settings.enabled"
+        ]
       }
     ]
   },
