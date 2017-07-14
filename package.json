@@ -59,6 +59,18 @@
           "inventory-storage.material-types.item.delete",
           "settings.enabled"
         ]
+      },
+      {
+        "permissionName": "settings.loan-types.all",
+        "displayName": "Settings (Items): Can create, edit and remove loan types",
+        "subPermissions": [
+          "inventory-storage.loan-types.collection.get",
+          "inventory-storage.loan-types.item.get",
+          "inventory-storage.loan-types.item.post",
+          "inventory-storage.loan-types.item.put",
+          "inventory-storage.loan-types.item.delete",
+          "settings.enabled"
+        ]
       }
     ]
   },

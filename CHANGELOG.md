@@ -3,7 +3,8 @@
 ## 1.8.0 (In Progress)
 
 * Move "New Item" button from filter pane to results pane. Fixes UIIT-37.
-* New permission "settings.material-types.all". Fixes UIIT-39.
+* New permission `settings.material-types.all`. Fixes UIIT-39.
+* New permission `settings.loan-types.all`. Fixes UIIT-38.
 
 ## [1.7.0](https://github.com/folio-org/ui-items/tree/v1.7.0) (2017-07-11)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.6.0...v1.7.0)
