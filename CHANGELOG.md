@@ -1,6 +1,10 @@
 # Change history for ui-items
 
-## 1.8.0 In Progress
+## 1.8.0 (In Progress)
+
+* Move "New Item" button from filter pane to results pane. Fixes UIIT-37.
+* New permission `settings.material-types.all`. Fixes UIIT-39.
+* New permission `settings.loan-types.all`. Fixes UIIT-38.
 * Add [`<SRStatus>`](https://github.com/folio-org/stripes-components/tree/master/lib/SRStatus) component to main module page. After search is performed, screen readers will announce the number of results. Integrates STCOM-3.
 * Add "Skip to Results" [`<FocusLink>`](https://github.com/folio-org/stripes-components/tree/master/lib/FocusLink) component to search input (accessibility feature - tab twice on input to see it appear after 'clear search' button. When it is focused, pressing the 'enter' key will focus the results list). Integrates STCOM-7.
 
@@ -72,4 +76,3 @@
 ## [1.0.0](https://github.com/folio-org/ui-items/tree/v1.0.0) (2017-04-07)
 
 * First formal release.
-

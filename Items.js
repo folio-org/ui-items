@@ -8,10 +8,8 @@ import Pane from '@folio/stripes-components/lib/Pane';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import PaneMenu from '@folio/stripes-components/lib/PaneMenu';
 import Button from '@folio/stripes-components/lib/Button';
-import Icon from '@folio/stripes-components/lib/Icon';
 import MultiColumnList from '@folio/stripes-components/lib/MultiColumnList';
 import FilterPaneSearch from '@folio/stripes-components/lib/FilterPaneSearch';
-import FilterControlGroup from '@folio/stripes-components/lib/FilterControlGroup';
 import Layer from '@folio/stripes-components/lib/Layer';
 import FilterGroups, { initialFilterState, onChangeFilter as commonChangeFilter } from '@folio/stripes-components/lib/FilterGroups';
 import SRStatus from '@folio/stripes-components/lib/SRStatus';
@@ -262,7 +260,7 @@ class Items extends React.Component {
 
     /* searchHeader is a 'custom pane header'*/
     const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} resultsList={this.resultsList} value={this.state.searchTerm} />;
-    const resultMenu = <PaneMenu><button><Icon icon="bookmark" /></button></PaneMenu>;
+    const newItemButton = <PaneMenu><Button onClick={this.onClickAddNewItem}>+ New</Button></PaneMenu>;
 
     const resultsFormatter = {
       'Material Type': x => _.get(x, ['materialType', 'name']),
@@ -276,9 +274,6 @@ class Items extends React.Component {
         {/* Filter Pane */}
         <Pane defaultWidth="16%" header={searchHeader}>
           <FilterGroups config={filterConfig} filters={this.state.filters} onChangeFilter={this.onChangeFilter} />
-          <FilterControlGroup label="Actions">
-            <Button fullWidth onClick={this.onClickAddNewItem}>New item</Button>
-          </FilterControlGroup>
         </Pane>
         {/* Results Pane */}
         <Pane
@@ -291,7 +286,7 @@ class Items extends React.Component {
               </div>
             </div>
           }
-          lastMenu={resultMenu}
+          lastMenu={newItemButton}
         >
           <MultiColumnList
             contentData={items}

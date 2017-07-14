@@ -29,7 +29,7 @@
       },
       {
         "permissionName": "inventory.all",
-        "displayName": "Inventory - all permissions",
+        "displayName": "Inventory: All permissions",
         "description": "Entire set of permissions needed to use the inventory module",
         "subPermissions": [
           "inventory.items.collection.get",
@@ -46,6 +46,30 @@
           "inventory.instances.collection.delete",
           "inventory.ingest.mods.post",
           "inventory.ingest.mods.status.get"
+        ]
+      },
+      {
+        "permissionName": "settings.material-types.all",
+        "displayName": "Settings (Items): Can create, edit and remove material types",
+        "subPermissions": [
+          "inventory-storage.material-types.collection.get",
+          "inventory-storage.material-types.item.get",
+          "inventory-storage.material-types.item.post",
+          "inventory-storage.material-types.item.put",
+          "inventory-storage.material-types.item.delete",
+          "settings.enabled"
+        ]
+      },
+      {
+        "permissionName": "settings.loan-types.all",
+        "displayName": "Settings (Items): Can create, edit and remove loan types",
+        "subPermissions": [
+          "inventory-storage.loan-types.collection.get",
+          "inventory-storage.loan-types.item.get",
+          "inventory-storage.loan-types.item.post",
+          "inventory-storage.loan-types.item.put",
+          "inventory-storage.loan-types.item.delete",
+          "settings.enabled"
         ]
       }
     ]
