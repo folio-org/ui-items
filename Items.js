@@ -280,7 +280,7 @@ class Items extends React.Component {
           defaultWidth="fill"
           paneTitle={
             <div style={{ textAlign: 'center' }}>
-              <strong>Results</strong>
+              <strong>Items</strong>
               <div>
                 <em>{this.props.resources.items && this.props.resources.items.hasLoaded ? this.props.resources.items.other.totalRecords : ''} Result{items.length === 1 ? '' : 's'} Found</em>
               </div>

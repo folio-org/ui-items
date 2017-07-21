@@ -7,6 +7,7 @@
 * New permission `settings.loan-types.all`. Fixes UIIT-38.
 * Add [`<SRStatus>`](https://github.com/folio-org/stripes-components/tree/master/lib/SRStatus) component to main module page. After search is performed, screen readers will announce the number of results. Integrates STCOM-3.
 * Add "Skip to Results" [`<FocusLink>`](https://github.com/folio-org/stripes-components/tree/master/lib/FocusLink) component to search input (accessibility feature - tab twice on input to see it appear after 'clear search' button. When it is focused, pressing the 'enter' key will focus the results list). Integrates STCOM-7.
+* Change title in results pane. See comments in UIU-125. 
 
 ## [1.7.0](https://github.com/folio-org/ui-items/tree/v1.7.0) (2017-07-11)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.6.0...v1.7.0)
