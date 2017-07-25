@@ -10,6 +10,7 @@
 * Change title in results pane. See comments in UIU-125.
 * Do not mention search-term in "No Results Found" message if there is none. Fixes UIIT-51.
 * Avoid "no serverChoiceIndexes defined" error when running against recent mod-inventory-storage. Fixes UIIT-50.
+* Material-type sorting is now by MT name, not ID. Fixes UIIT-33.
 
 ## [1.7.0](https://github.com/folio-org/ui-items/tree/v1.7.0) (2017-07-11)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.6.0...v1.7.0)
