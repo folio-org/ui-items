@@ -26,7 +26,7 @@ const filterConfig = [
   {
     label: 'Material Types',
     name: 'item',
-    cql: 'materialTypeId',
+    cql: 'materialType.id',
     values: [], // will be filled in by componentWillUpdate
   }, {
     label: 'Location',
@@ -99,7 +99,7 @@ class Items extends React.Component {
         params: {
           query: makeQueryFunction(
             'cql.allRecords=1',
-            'materialType="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
+            'materialType.name="$QUERY" or barcode="$QUERY*" or title="$QUERY*"',
             { 'Material Type': 'materialTypeId' },
             filterConfig,
           ),
