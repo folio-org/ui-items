@@ -268,6 +268,7 @@ class Items extends React.Component {
       status: x => _.get(x, ['status', 'name']) || '--',
     };
 
+    const maybeTerm = this.state.searchTerm ? ` for "${this.state.searchTerm}"` : '';
     return (
       <Paneset>
         <SRStatus ref={(ref) => { this.SRStatus = ref; }} />
@@ -299,7 +300,7 @@ class Items extends React.Component {
             visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
             sortOrder={this.state.sortOrder.replace(/^-/, '').replace(/,.*/, '')}
             sortDirection={this.state.sortOrder.startsWith('-') ? 'descending' : 'ascending'}
-            isEmptyMessage={`No results found for "${this.state.searchTerm}". Please check your spelling and filters.`}
+            isEmptyMessage={`No results found${maybeTerm}. Please check your spelling and filters.`}
             loading={this.props.resources.items ? this.props.resources.items.isPending : false}
             autosize
             virtualize
