@@ -13,6 +13,7 @@
 * Material-type sorting is now by MT name, not ID. Fixes UIIT-33.
 * The clear-search button goes back to Users starting state. Fixes UIIT-52.
 * Explicitly reset component state in onClearSearch. Fixes UIIT-53.
+* Update stripes-components to 1.4.0.
 
 ## [1.7.0](https://github.com/folio-org/ui-items/tree/v1.7.0) (2017-07-11)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.6.0...v1.7.0)
