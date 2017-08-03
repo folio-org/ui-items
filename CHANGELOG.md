@@ -2,6 +2,7 @@
 
 ## 1.8.0 (In Progress)
 
+* Added Right Click to open item in new tab. Fixes UIIT-55.
 * Move "New Item" button from filter pane to results pane. Fixes UIIT-37.
 * New permission `settings.material-types.all`. Fixes UIIT-39.
 * New permission `settings.loan-types.all`. Fixes UIIT-38.
