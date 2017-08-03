@@ -147,6 +147,8 @@ class Items extends React.Component {
     const logger = props.stripes.logger;
     this.log = logger.log.bind(logger);
 
+    this.anchoredRowFormatter = this.anchoredRowFormatter.bind(this);
+
     this.resultsList = null;
     this.SRStatus = null;
   }
@@ -239,6 +241,10 @@ class Items extends React.Component {
     this.props.mutator.itemCount.replace(this.props.data.itemCount + RESULT_COUNT_INCREMENT);
   }
 
+  getRowURL(rowData) {
+    return `/items/view/${rowData.id}${this.props.location.search}`;
+  }
+
   performSearch = _.debounce((query) => {
     this.log('action', `searched for '${query}'`);
     this.transitionToParams({ query });
@@ -260,6 +266,29 @@ class Items extends React.Component {
       selectedItem: {},
     });
     this.props.history.push(`${this.props.match.path}${this.props.location.search}`);
+  }
+
+  // custom row formatter to wrap rows in anchor tags.
+  anchoredRowFormatter(
+    { rowIndex,
+      rowClass,
+      rowData,
+      cells,
+      rowProps,
+      labelStrings,
+    },
+  ) {
+    return (
+      <a
+        href={this.getRowURL(rowData)} key={`row-${rowIndex}`}
+        aria-label={labelStrings && labelStrings.join('...')}
+        role="listitem"
+        className={rowClass}
+        {...rowProps}
+      >
+        {cells}
+      </a>
+    );
   }
 
   render() {
@@ -313,6 +342,7 @@ class Items extends React.Component {
             autosize
             virtualize
             ariaLabel={'Item search results'}
+            rowFormatter={this.anchoredRowFormatter}
             containerRef={(ref) => { this.resultsList = ref; }}
           />
         </Pane>
