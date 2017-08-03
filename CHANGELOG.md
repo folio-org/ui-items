@@ -1,6 +1,7 @@
 # Change history for ui-items
 
-## 1.8.0 (In Progress)
+## [1.8.0](https://github.com/folio-org/ui-items/tree/v1.8.0) (2017-08-03)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.7.0...v1.8.0)
 
 * Added Right Click to open item in new tab. Fixes UIIT-55.
 * Move "New Item" button from filter pane to results pane. Fixes UIIT-37.
