@@ -1,5 +1,7 @@
 # Change history for ui-items
 
+## 1.9.0 (IN PROGRESS)
+
 ## [1.8.0](https://github.com/folio-org/ui-items/tree/v1.8.0) (2017-08-03)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.7.0...v1.8.0)
 
