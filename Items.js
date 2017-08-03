@@ -268,7 +268,7 @@ class Items extends React.Component {
 
     /* searchHeader is a 'custom pane header'*/
     const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} resultsList={this.resultsList} value={this.state.searchTerm} />;
-    const newItemButton = <PaneMenu><Button onClick={this.onClickAddNewItem} title="+ Item" buttonStyle="primary paneHeaderNewButton">+ New</Button></PaneMenu>
+    const newItemButton = <PaneMenu><Button onClick={this.onClickAddNewItem} title="+ Item" buttonStyle="primary paneHeaderNewButton">+ New</Button></PaneMenu>;
 
     const resultsFormatter = {
       'Material Type': x => _.get(x, ['materialType', 'name']),
