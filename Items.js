@@ -268,7 +268,6 @@ class Items extends React.Component {
     this.props.history.push(`${this.props.match.path}${this.props.location.search}`);
   }
 
-  // custom row formatter to wrap rows in anchor tags.
   anchoredRowFormatter(
     { rowIndex,
       rowClass,
