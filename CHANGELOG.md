@@ -2,6 +2,8 @@
 
 ## 1.9.0 (IN PROGRESS)
 
+* Do not mention spelling in "No Results Found" message if there is no search-term. Fixes UIIT-54.
+
 ## [1.8.0](https://github.com/folio-org/ui-items/tree/v1.8.0) (2017-08-03)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.7.0...v1.8.0)
 
