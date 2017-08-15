@@ -46,8 +46,13 @@ class Items extends React.Component {
         log: PropTypes.func.isRequired,
       }).isRequired,
     }).isRequired,
-    data: PropTypes.object.isRequired,
     resources: PropTypes.shape({
+      materialTypes: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      }),
+      loanTypes: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      }),
       items: PropTypes.shape({
         hasLoaded: PropTypes.bool.isRequired,
         other: PropTypes.shape({
@@ -63,6 +68,7 @@ class Items extends React.Component {
           }),
         ),
       }),
+      userCount: PropTypes.number,
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -170,7 +176,7 @@ class Items extends React.Component {
   }
 
   componentWillUpdate() {
-    const mt = this.props.data.materialTypes;
+    const mt = (resources.materialTypes || {}).records || [];
     if (mt && mt.length) {
       filterConfig[0].values = mt.map(rec => ({ name: rec.name, cql: rec.id }));
     }
@@ -238,7 +244,7 @@ class Items extends React.Component {
   }
 
   onNeedMore = () => {
-    this.props.mutator.itemCount.replace(this.props.data.itemCount + RESULT_COUNT_INCREMENT);
+    this.props.mutator.itemCount.replace(this.props.resources.itemCount + RESULT_COUNT_INCREMENT);
   }
 
   getRowURL(rowData) {
@@ -254,10 +260,10 @@ class Items extends React.Component {
     this.transitionToParams({ filters: Object.keys(filters).filter(key => filters[key]).join(',') });
   }
 
-  create(data) {
+  create(item) {
     // POST item record
-    this.log('action', `Creating new item record: ${JSON.stringify(data)}`);
-    this.props.mutator.items.POST(data);
+    this.log('action', `Creating new item record: ${JSON.stringify(item)}`);
+    this.props.mutator.items.POST(item);
     this.onClickCloseNewItem();
   }
 
@@ -291,8 +297,10 @@ class Items extends React.Component {
   }
 
   render() {
-    const { data, stripes } = this.props;
-    const items = data.items || [];
+    const { resources, stripes } = this.props;
+    const items = (resources.items || {}).records || [];
+    const materialTypes = (resources.materialTypes || {}).records || [];
+    const loanTypes = (resources.loanTypes || {}).records || [];
 
     /* searchHeader is a 'custom pane header'*/
     const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} resultsList={this.resultsList} value={this.state.searchTerm} />;
@@ -352,9 +360,9 @@ class Items extends React.Component {
           path={`${this.props.match.path}/view/:itemid`}
           render={props => <this.connectedViewItem stripes={stripes} paneWidth="44%" onClose={this.collapseDetails} {...props} />}
         />
-        <Layer isOpen={data.addItemMode ? data.addItemMode.mode : false} label="Add New Item Dialog">
+        <Layer isOpen={resources.addItemMode ? resources.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
-            initialValues={{ available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes, status: { name: 'Available' }, instanceId: 'dummy' }}
+            initialValues={{ available_material_types: materialTypes, available_loan_types: loanTypes, status: { name: 'Available' }, instanceId: 'dummy' }}
             onSubmit={(record) => { this.create(record); }}
             onCancel={this.onClickCloseNewItem}
             okapi={this.props.okapi}
