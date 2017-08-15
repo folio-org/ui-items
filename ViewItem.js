@@ -13,14 +13,20 @@ import ItemForm from './ItemForm';
 class ViewItem extends React.Component {
 
   static propTypes = {
-    data: PropTypes.shape({
-      item: PropTypes.arrayOf(PropTypes.object),
-      materialTypes: PropTypes.arrayOf(PropTypes.object),
-      loanTypes: PropTypes.arrayOf(PropTypes.object),
+    resources: PropTypes.shape({
+      materialTypes: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      }),
+      loanTypes: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      }),
+      selectedItem: PropTypes.shape({
+        records: PropTypes.arrayOf(PropTypes.object),
+      }),
       editMode: PropTypes.shape({
         mode: PropTypes.bool,
       }),
-    }),
+    }).isRequired,
     match: PropTypes.shape({
       params: PropTypes.object,
     }),
@@ -95,8 +101,8 @@ class ViewItem extends React.Component {
     this.props.mutator.editMode.replace({ mode: false });
   }
 
-  update(data) {
-    this.props.mutator.selectedItem.PUT(data).then(() => {
+  update(item) {
+    this.props.mutator.selectedItem.PUT(item).then(() => {
       this.onClickCloseEditItem();
     });
   }
@@ -104,7 +110,12 @@ class ViewItem extends React.Component {
   render() {
     const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
-    const { data: { selectedItem, loanTypes, materialTypes }, match: { params: { itemid } } } = this.props;
+    const { resources, match: { params: { itemid } } } = this.props;
+    const selectedItem = (resources.selectedItem || {}).records || [];
+    const materialTypes = (resources.materialTypes || {}).records || [];
+    const loanTypes = (resources.loanTypes || {}).records || [];
+
+
     if (!selectedItem || !itemid) return <div />;
     const item = selectedItem.find(i => i.id === itemid);
 
@@ -151,10 +162,10 @@ class ViewItem extends React.Component {
             <KeyValue label="Loan type (temporary)" value={ViewItem.propNameForId(_.get(item, ['temporaryLoanType', 'id'], ''), loanTypes)} />
           </Col>
         </Row>
-        <Layer isOpen={this.props.data.editMode ? this.props.data.editMode.mode : false} label="Edit Item Dialog">
+        <Layer isOpen={this.props.resources.editMode ? this.props.resources.editMode.mode : false} label="Edit Item Dialog">
           <ItemForm
             onSubmit={(record) => { this.update(record); }}
-            initialValues={_.merge(item, { available_material_types: this.props.data.materialTypes, available_loan_types: this.props.data.loanTypes })}
+            initialValues={_.merge(item, { available_material_types: materialTypes, available_loan_types: loanTypes })}
             onCancel={this.onClickCloseEditItem}
           />
         </Layer>

@@ -68,7 +68,7 @@ class Items extends React.Component {
           }),
         ),
       }),
-      userCount: PropTypes.number,
+      itemCount: PropTypes.number,
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -176,7 +176,7 @@ class Items extends React.Component {
   }
 
   componentWillUpdate() {
-    const mt = (resources.materialTypes || {}).records || [];
+    const mt = (this.props.resources.materialTypes || {}).records || [];
     if (mt && mt.length) {
       filterConfig[0].values = mt.map(rec => ({ name: rec.name, cql: rec.id }));
     }
