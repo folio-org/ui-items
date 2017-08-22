@@ -108,7 +108,7 @@ class ViewItem extends React.Component {
   }
 
   render() {
-    const detailMenu = <PaneMenu><button onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
+    const detailMenu = <PaneMenu><button id="clickable-edit-item" onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
 
     const { resources, match: { params: { itemid } } } = this.props;
     const selectedItem = (resources.selectedItem || {}).records || [];

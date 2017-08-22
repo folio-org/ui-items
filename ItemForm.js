@@ -72,8 +72,8 @@ function ItemForm(props) {
 
   /* Menus for Add Item workflow */
   const addItemFirstMenu = <PaneMenu><button onClick={onCancel} title="close" aria-label="Close New Item Dialog"><span style={{ fontSize: '30px', color: '#999', lineHeight: '18px' }} >&times;</span></button></PaneMenu>;
-  const addItemLastMenu = <PaneMenu><Button type="submit" title="Create New Item" disabled={pristine || submitting} onClick={handleSubmit}>Create item</Button></PaneMenu>;
-  const editItemLastMenu = <PaneMenu><Button type="submit" title="Update Item" disabled={pristine || submitting} onClick={handleSubmit}>Update item</Button></PaneMenu>;
+  const addItemLastMenu = <PaneMenu><Button id="clickable-create-item" type="submit" title="Create New Item" disabled={pristine || submitting} onClick={handleSubmit}>Create item</Button></PaneMenu>;
+  const editItemLastMenu = <PaneMenu><Button id="clickable-update-item" type="submit" title="Update Item" disabled={pristine || submitting} onClick={handleSubmit}>Update item</Button></PaneMenu>;
   const materialTypeOptions = initialValues.available_material_types ?
         initialValues.available_material_types.map((t) => {
           let selectedValue;
