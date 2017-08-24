@@ -1,6 +1,6 @@
 module.exports.test = function(uiTestCtx) {
 
-  describe('Using the App FOLIO UI App /items ', function () {
+  describe('Module test: items:new_item', function () {
     const { config, utils: { auth, names } } = uiTestCtx;
     this.timeout(Number(config.test_timeout))
 
