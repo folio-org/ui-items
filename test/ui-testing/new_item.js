@@ -52,10 +52,11 @@ module.exports.test = function(uiTestCtx) {
         .type('#additem_title', 'Giant steps')
         .type('#additem_materialType', 'b')
         .type('#additem_barcode', barcode)
+        .wait(200)
         .type('#additem_location', 'Storage')
         .type('#additem_loanTypePerm', 'c')
         .type('#additem_loanTypeTemp', 'r')
-        .click('button[title="Create New Item"]')
+        .click('#clickable-create-item')
         .wait(200)
         .wait(parseInt(process.env.FOLIO_UI_DEBUG) ? parseInt(config.debug_sleep) : 0) // debugging
         .then(result => { done() })
@@ -65,9 +66,10 @@ module.exports.test = function(uiTestCtx) {
         nightmare
         .click('.brandingLabel---3A6hB')
         .wait('h3')
-        .wait('a[Title=Items]')
-        .click('a[Title=Items]')
+        .wait('#clickable-items-module')
+        .click('#clickable-items-module')
         .wait('input[placeholder=Search')
+        .wait(222)
         .type('input[placeholder=Search', barcode)
         .wait('div[title="' + barcode + '"]')
         .wait(parseInt(process.env.FOLIO_UI_DEBUG) ? parseInt(config.debug_sleep) : 555) // debugging
@@ -77,11 +79,12 @@ module.exports.test = function(uiTestCtx) {
       it('should edit item', done => {
         nightmare
         .click('div[title="' + barcode + '"]')
-        .wait('button[title="Edit Item"]')
-        .click('button[title="Edit Item"]')
+        .wait('#clickable-edit-item')
+        .click('#clickable-edit-item')
         .wait('#additem_title')
         .type('#additem_title', ' (revised edition)')
-        .click('button[title="Update Item"')
+        .wait(222)
+        .click('#clickable-update-item')
         .wait(parseInt(process.env.FOLIO_UI_DEBUG) ? parseInt(config.debug_sleep) : 555) // debugging
         .then(result => { done() })
         .catch(done)
