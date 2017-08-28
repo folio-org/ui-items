@@ -1,7 +1,7 @@
 module.exports.test = function(uiTestCtx) {
 
   describe('Module test: items:new_item', function () {
-    const { config, utils: { auth, names } } = uiTestCtx;
+    const { config, helpers: { openApp }, meta: { testVersion } } = uiTestCtx;
     this.timeout(Number(config.test_timeout))
 
     const nightmare = new Nightmare(config.nightmare);
@@ -40,11 +40,13 @@ module.exports.test = function(uiTestCtx) {
         })
       }
       flogin(config.username, config.password)
+      it('should open items app', done => {
+        nightmare
+        .use(openApp(nightmare, config, done, 'items', testVersion))
+        .then(result => result )
+      })
       it('should create item with barcode: ' + barcode, done => {
         nightmare
-        .wait('#clickable-items-module')
-        .wait(200)
-        .click('#clickable-items-module')
         .wait('.pane---CC1ap .button---2NsdC')
         .click('.pane---CC1ap .button---2NsdC')
         .wait('#additem_title')
@@ -64,10 +66,6 @@ module.exports.test = function(uiTestCtx) {
       })
       it('should find item with barcode: ' + barcode, done => {
         nightmare
-        .click('.brandingLabel---3A6hB')
-        .wait('h3')
-        .wait('#clickable-items-module')
-        .click('#clickable-items-module')
         .wait('input[placeholder=Search')
         .wait(222)
         .type('input[placeholder=Search', barcode)
