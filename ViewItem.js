@@ -118,7 +118,7 @@ class ViewItem extends React.Component {
     const item = selectedItem.find(i => i.id === itemid);
 
     const detailMenu = (<PaneMenu>
-      <button id="clickable-edituser" style={{ visibility: !item ? 'hidden' : 'visible' }} onClick={this.props.notesToggle} title="Show Notes"><Icon icon="comment" />Notes</button>
+      <button id="clickable-show-notes" style={{ visibility: !item ? 'hidden' : 'visible' }} onClick={this.props.notesToggle} title="Show Notes"><Icon icon="comment" />Notes</button>
       <button id="clickable-edit-item" onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button>
     </PaneMenu>);
 
