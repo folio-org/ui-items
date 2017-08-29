@@ -45,6 +45,7 @@ class ViewItem extends React.Component {
         log: PropTypes.func.isRequired,
       }).isRequired,
     }).isRequired,
+    notesToggle: PropTypes.func,
   };
 
   static manifest = Object.freeze({
@@ -108,16 +109,18 @@ class ViewItem extends React.Component {
   }
 
   render() {
-    const detailMenu = <PaneMenu><button id="clickable-edit-item" onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button></PaneMenu>;
-
     const { resources, match: { params: { itemid } } } = this.props;
     const selectedItem = (resources.selectedItem || {}).records || [];
     const materialTypes = (resources.materialTypes || {}).records || [];
     const loanTypes = (resources.loanTypes || {}).records || [];
 
-
     if (!selectedItem || !itemid) return <div />;
     const item = selectedItem.find(i => i.id === itemid);
+
+    const detailMenu = (<PaneMenu>
+      <button id="clickable-edituser" style={{ visibility: !item ? 'hidden' : 'visible' }} onClick={this.props.notesToggle} title="Show Notes"><Icon icon="comment" />Notes</button>
+      <button id="clickable-edit-item" onClick={this.onClickEditItem} title="Edit Item"><Icon icon="edit" />Edit</button>
+    </PaneMenu>);
 
     return item ? (
       <Pane defaultWidth={this.props.paneWidth} paneTitle={item.title} lastMenu={detailMenu} dismissible onClose={this.props.onClose}>

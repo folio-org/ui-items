@@ -15,7 +15,7 @@ import FilterGroups, { initialFilterState, onChangeFilter as commonChangeFilter 
 import SRStatus from '@folio/stripes-components/lib/SRStatus';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 import makeQueryFunction from '@folio/stripes-components/util/makeQueryFunction';
-
+import Notes from '@folio/stripes-components/lib/structures/Notes';
 import ItemForm from './ItemForm';
 import ViewItem from './ViewItem';
 
@@ -136,6 +136,7 @@ class Items extends React.Component {
       selectedItem: {},
       searchTerm: query.query || '',
       sortOrder: query.sort || '',
+      showNotesPane: false,
     };
 
     this.onClearSearch = this.onClearSearch.bind(this);
@@ -149,7 +150,9 @@ class Items extends React.Component {
     this.transitionToParams = transitionToParams.bind(this);
 
     this.collapseDetails = this.collapseDetails.bind(this);
+    this.toggleNotes = this.toggleNotes.bind(this);
     this.connectedViewItem = props.stripes.connect(ViewItem);
+    this.connectedNotes = props.stripes.connect(Notes);
     const logger = props.stripes.logger;
     this.log = logger.log.bind(logger);
 
@@ -274,6 +277,15 @@ class Items extends React.Component {
     this.props.history.push(`${this.props.match.path}${this.props.location.search}`);
   }
 
+  toggleNotes() {
+    this.setState((curState) => {
+      const show = !curState.showNotesPane;
+      return {
+        showNotesPane: show,
+      };
+    });
+  }
+
   anchoredRowFormatter(
     { rowIndex,
       rowClass,
@@ -358,7 +370,7 @@ class Items extends React.Component {
         {/* Details Pane */}
         <Route
           path={`${this.props.match.path}/view/:itemid`}
-          render={props => <this.connectedViewItem stripes={stripes} paneWidth="44%" onClose={this.collapseDetails} {...props} />}
+          render={props => <this.connectedViewItem stripes={stripes} paneWidth="44%" onClose={this.collapseDetails} notesToggle={this.toggleNotes} {...props} />}
         />
         <Layer isOpen={resources.addItemMode ? resources.addItemMode.mode : false} label="Add New Item Dialog">
           <ItemForm
@@ -368,6 +380,13 @@ class Items extends React.Component {
             okapi={this.props.okapi}
           />
         </Layer>
+        {
+          this.state.showNotesPane &&
+          <Route
+            path={`${this.props.match.path}/view/:id`}
+            render={props => <this.connectedNotes stripes={stripes} okapi={this.okapi} onToggle={this.toggleNotes} link="items" {...props} />}
+          />
+          }
       </Paneset>
     );
   }
