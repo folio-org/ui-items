@@ -28,25 +28,15 @@
         "displayName": "UI: Items module is enabled"
       },
       {
-        "permissionName": "inventory.all",
-        "displayName": "Inventory: All permissions",
-        "description": "Entire set of permissions needed to use the inventory module",
+        "permissionName": "ui-items.all",
+        "displayName": "Items: All permissions",
+        "description": "All permissions for the Items app",
         "subPermissions": [
-          "inventory.items.collection.get",
-          "inventory.items.item.get",
-          "inventory.items.item.post",
-          "inventory.items.item.put",
-          "inventory.items.item.delete",
-          "inventory.items.collection.delete",
-          "inventory.instances.collection.get",
-          "inventory.instances.item.get",
-          "inventory.instances.item.post",
-          "inventory.instances.item.put",
-          "inventory.instances.item.delete",
-          "inventory.instances.collection.delete",
-          "inventory.ingest.mods.post",
-          "inventory.ingest.mods.status.get"
-        ]
+          "inventory.all",
+          "inventory-storage.all",
+          "module.items.enabled"
+        ],
+        "visible": true
       },
       {
         "permissionName": "settings.material-types.all",
