@@ -58,7 +58,8 @@
           "inventory-storage.material-types.item.put",
           "inventory-storage.material-types.item.delete",
           "settings.enabled"
-        ]
+        ],
+        "visible": true
       },
       {
         "permissionName": "settings.loan-types.all",
@@ -70,7 +71,8 @@
           "inventory-storage.loan-types.item.put",
           "inventory-storage.loan-types.item.delete",
           "settings.enabled"
-        ]
+        ],
+        "visible": true
       }
     ]
   },
