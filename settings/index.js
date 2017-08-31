@@ -10,13 +10,13 @@ const pages = [
     route: 'loantypes',
     label: 'Loan types',
     component: LoanTypesSettings,
-    // No perm needed yet
+    // perm: 'settings.loan-types.all',
   },
   {
     route: 'mtypes',
     label: 'Material types',
     component: MaterialTypesSettings,
-    // No perm needed yet
+    // perm: 'settings.material-types.all',
   },
 ];
 
