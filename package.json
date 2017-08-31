@@ -1,6 +1,6 @@
 {
   "name": "@folio/items",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Items management",
   "repository": "folio-org/ui-items",
   "publishConfig": {

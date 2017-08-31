@@ -1,6 +1,9 @@
 # Change history for ui-items
 
-## 1.11.0 In progress ...
+## [1.10.1](https://github.com/folio-org/ui-items/tree/v1.10.1) (2017-08-31)
+[Full Changelog](https://github.com/folio-org/ui-items/compare/v1.10.0...v1.10.1)
+
+* Update permissions. Completes STRIPES-435 for ui-items.
 
 ## [1.10.0](https://github.com/folio-org/ui-items/tree/v1.10.0) (2017-08-30)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.9.0...v1.10.0)
