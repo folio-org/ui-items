@@ -54,8 +54,7 @@
       {
         "permissionName": "settings.material-types.all",
         "displayName": "Settings (Items): Can create, edit and remove material types [LEGACY]",
-        "subPermissions": [ "ui-items.settings.material-types" ],
-        "visible": true
+        "subPermissions": [ "ui-items.settings.material-types" ]
       },
       {
         "permissionName": "ui-items.settings.loan-types",
@@ -73,8 +72,7 @@
       {
         "permissionName": "settings.loan-types.all",
         "displayName": "Settings (Items): Can create, edit and remove loan types [LEGACY]",
-        "subPermissions": [ "ui-items.settings.loan-types" ],
-        "visible": true
+        "subPermissions": [ "ui-items.settings.loan-types" ]
       },
       {
         "permissionName": "settings.items.enabled",
