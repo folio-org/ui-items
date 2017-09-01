@@ -39,7 +39,7 @@
         "visible": true
       },
       {
-        "permissionName": "settings.material-types.all",
+        "permissionName": "ui-items.settings.material-types",
         "displayName": "Settings (Items): Can create, edit and remove material types",
         "subPermissions": [
           "inventory-storage.material-types.collection.get",
@@ -52,7 +52,13 @@
         "visible": true
       },
       {
-        "permissionName": "settings.loan-types.all",
+        "permissionName": "settings.material-types.all",
+        "displayName": "Settings (Items): Can create, edit and remove material types [LEGACY]",
+        "subPermissions": [ "ui-items.settings.material-types" ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-items.settings.loan-types",
         "displayName": "Settings (Items): Can create, edit and remove loan types",
         "subPermissions": [
           "inventory-storage.loan-types.collection.get",
@@ -62,6 +68,12 @@
           "inventory-storage.loan-types.item.delete",
           "settings.items.enabled"
         ],
+        "visible": true
+      },
+      {
+        "permissionName": "settings.loan-types.all",
+        "displayName": "Settings (Items): Can create, edit and remove loan types [LEGACY]",
+        "subPermissions": [ "ui-items.settings.loan-types" ],
         "visible": true
       },
       {
