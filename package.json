@@ -47,7 +47,7 @@
           "inventory-storage.material-types.item.post",
           "inventory-storage.material-types.item.put",
           "inventory-storage.material-types.item.delete",
-          "settings.enabled"
+          "settings.items.enabled"
         ],
         "visible": true
       },
@@ -60,6 +60,14 @@
           "inventory-storage.loan-types.item.post",
           "inventory-storage.loan-types.item.put",
           "inventory-storage.loan-types.item.delete",
+          "settings.items.enabled"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "settings.items.enabled",
+        "displayName": "Settings (Items): display list of settings pages",
+        "subPermissions": [
           "settings.enabled"
         ],
         "visible": true

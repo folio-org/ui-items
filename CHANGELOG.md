@@ -1,5 +1,9 @@
 # Change history for ui-items
 
+## 1.11.0 (IN PROGRESS)
+
+* Add permissions `settings.material-types.all`, `settings.loan-types.all` and `settings.items.enabled`. Part of UIIT-59.
+
 ## [1.10.1](https://github.com/folio-org/ui-items/tree/v1.10.1) (2017-08-31)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.10.0...v1.10.1)
 
