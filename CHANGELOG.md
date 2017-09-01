@@ -16,7 +16,7 @@
 
 * Do not mention spelling in "No Results Found" message if there is no search-term. Fixes UIIT-54.
 * Switch from props.data to props.resources. Fixes UIIT-58.
-* Assign IDs to more UI elements for automated testing. STRIPES-300. 
+* Assign IDs to more UI elements for automated testing. STRIPES-300.
 
 ## [1.8.0](https://github.com/folio-org/ui-items/tree/v1.8.0) (2017-08-03)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.7.0...v1.8.0)
