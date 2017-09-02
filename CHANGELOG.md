@@ -3,7 +3,7 @@
 ## [1.11.0](https://github.com/folio-org/ui-items/tree/v1.11.0) (2017-09-01)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.10.1...v1.11.0)
 
-* Add permissions `settings.material-types.all`, `settings.loan-types.all` and `settings.items.enabled`. Part of UIIT-59.
+* Add permissions `settings.material-types.all`, `settings.loan-types.all` and `settings.items.enabled`. Fixes UIIT-59.
 * Upgrade dependencies to stripes-components 1.7.0, stripes-connect 2.7.0 and stripes-core 2.7.0.
 
 ## [1.10.1](https://github.com/folio-org/ui-items/tree/v1.10.1) (2017-08-31)
