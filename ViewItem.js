@@ -9,6 +9,7 @@ import Icon from '@folio/stripes-components/lib/Icon';
 import Layer from '@folio/stripes-components/lib/Layer';
 
 import ItemForm from './ItemForm';
+import ItemInstance from './ItemInstance';
 
 class ViewItem extends React.Component {
 
@@ -41,6 +42,7 @@ class ViewItem extends React.Component {
     onClose: PropTypes.func,
     paneWidth: PropTypes.string.isRequired,
     stripes: PropTypes.shape({
+      connect: PropTypes.func.isRequired,
       logger: PropTypes.shape({
         log: PropTypes.func.isRequired,
       }).isRequired,
@@ -86,6 +88,7 @@ class ViewItem extends React.Component {
 
     this.onClickEditItem = this.onClickEditItem.bind(this);
     this.onClickCloseEditItem = this.onClickCloseEditItem.bind(this);
+    this.cItemInstance = this.props.stripes.connect(ItemInstance);
   }
 
   // Edit Item Handlers
@@ -121,9 +124,10 @@ class ViewItem extends React.Component {
 
     return item ? (
       <Pane defaultWidth={this.props.paneWidth} paneTitle={item.title} lastMenu={detailMenu} dismissible onClose={this.props.onClose}>
+        <this.cItemInstance instanceid={_.get(item, ['instanceId'], '')} />
         <Row>
           <Col xs={12}>
-            <KeyValue label="Title" value={_.get(item, ['title'], '')} />
+            <h3>Item</h3>
           </Col>
         </Row>
         <br />
