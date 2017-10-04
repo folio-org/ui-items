@@ -47,8 +47,8 @@ module.exports.test = function(uiTestCtx) {
       })
       it('should create item with barcode: ' + barcode, done => {
         nightmare
-        .wait('.pane---CC1ap .button---2NsdC')
-        .click('.pane---CC1ap .button---2NsdC')
+        .wait('#clickable-new-item')
+        .click('#clickable-new-item')
         .wait('#additem_title')
         .wait(200)
         .type('#additem_title', 'Giant steps')
@@ -80,7 +80,7 @@ module.exports.test = function(uiTestCtx) {
         .wait('#clickable-edit-item')
         .click('#clickable-edit-item')
         .wait('#additem_title')
-        .type('#additem_title', ' (revised edition)')
+        .type('#additem_title', ' (revised edition, test)')
         .wait(222)
         .click('#clickable-update-item')
         .wait(parseInt(process.env.FOLIO_UI_DEBUG) ? parseInt(config.debug_sleep) : 555) // debugging
@@ -90,7 +90,7 @@ module.exports.test = function(uiTestCtx) {
       it('should confirm changes', done => {
         nightmare
         .wait(function(bc) {
-          var xp = document.evaluate( '//div[@class="kvValue---1ImHP"][contains(.,"revised")]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+          var xp = document.evaluate( '//div[contains(.,"(revised edition, test)")]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
           try { 
             var val = xp.singleNodeValue.innerHTML
             return true
