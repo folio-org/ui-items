@@ -1,5 +1,9 @@
 # Change history for ui-items
 
+## 1.12.0 (IN PROGRESS)
+
+* Support permission for loan-type maintenance. Fixes UIIT-38.
+
 ## [1.11.0](https://github.com/folio-org/ui-items/tree/v1.11.0) (2017-09-01)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.10.1...v1.11.0)
 
@@ -14,7 +18,7 @@
 ## [1.10.0](https://github.com/folio-org/ui-items/tree/v1.10.0) (2017-08-30)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.9.0...v1.10.0)
 
-* Make settings.material-types.all and settings.loan-types.all visible. For UIIT-38 and -39.
+* Make settings.material-types.all and settings.loan-types.all visible. For UIIT-38 and UIIT-39.
 * Add test suites, carried over from ui-testing. FOLIO-800.
 
 ## [1.9.0](https://github.com/folio-org/ui-items/tree/v1.9.0) (2017-08-23)
