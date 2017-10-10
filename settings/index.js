@@ -16,7 +16,7 @@ const pages = [
     route: 'mtypes',
     label: 'Material types',
     component: MaterialTypesSettings,
-    perm: 'settings.material-types.all',
+    perm: 'ui-items.settings.material-types',
   },
 ];
 
