@@ -3,6 +3,7 @@
 ## 1.12.0 (IN PROGRESS)
 
 * Support permission for loan-type maintenance. Fixes UIIT-38.
+* Rely on new-style permission name to guard material-types settings.Fixes UIIT-39.
 
 ## [1.11.0](https://github.com/folio-org/ui-items/tree/v1.11.0) (2017-09-01)
 [Full Changelog](https://github.com/folio-org/ui-items/compare/v1.10.1...v1.11.0)
