@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import ControlledVocab from '@folio/util-notes/lib/ControlledVocab';
+import ControlledVocab from '@folio/stripes-smart-components/lib/ControlledVocab';
 
 class LoanTypesSettings extends React.Component {
   static propTypes = {
