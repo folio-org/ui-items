@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import AuthorityList from '@folio/stripes-components/lib/AuthorityList';
+import ControlledVocab from '@folio/util-notes/lib/ControlledVocab';
 
 class MaterialTypesSettings extends React.Component {
   static propTypes = {
@@ -10,12 +10,12 @@ class MaterialTypesSettings extends React.Component {
 
   constructor(props) {
     super(props);
-    this.connectedAuthorityList = props.stripes.connect(AuthorityList);
+    this.connectedControlledVocab = props.stripes.connect(ControlledVocab);
   }
 
   render() {
     return (
-      <this.connectedAuthorityList
+      <this.connectedControlledVocab
         {...this.props}
         baseUrl="material-types"
         records="mtypes"
