@@ -105,8 +105,9 @@
     "webpack": "1.11.0"
   },
   "dependencies": {
-    "@folio/stripes-components": "^1.7.0",
+    "@folio/stripes-components": "^1.8.0",
     "@folio/stripes-form": "^0.8.0",
+    "@folio/util-notes": "^0.3.0",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
