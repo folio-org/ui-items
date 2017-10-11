@@ -30,9 +30,9 @@ class ViewItem extends React.Component {
     match: PropTypes.shape({
       params: PropTypes.object,
     }),
-    mutator: React.PropTypes.shape({
-      selectedItem: React.PropTypes.shape({
-        PUT: React.PropTypes.func.isRequired,
+    mutator: PropTypes.shape({
+      selectedItem: PropTypes.shape({
+        PUT: PropTypes.func.isRequired,
       }),
       editMode: PropTypes.shape({
         replace: PropTypes.func,
