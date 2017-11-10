@@ -18,7 +18,7 @@
     "home": "/items?sort=title",
     "hasSettings": true,
     "okapiInterfaces": {
-      "inventory": "3.0",
+      "inventory": "4.0",
       "loan-types": "2.0",
       "material-types": "2.0"
     },
