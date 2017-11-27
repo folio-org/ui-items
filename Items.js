@@ -30,11 +30,6 @@ const filterConfig = [
     name: 'item',
     cql: 'materialType.id',
     values: [], // will be filled in by componentWillUpdate
-  }, {
-    label: 'Location',
-    name: 'location',
-    cql: 'location.name',
-    values: ['Main Library', 'Annex Library'],
   },
 ];
 
@@ -308,7 +303,6 @@ class Items extends React.Component {
 
     const resultsFormatter = {
       'Material Type': x => _.get(x, ['materialType', 'name']),
-      location: x => _.get(x, ['location', 'name']),
       status: x => _.get(x, ['status', 'name']) || '--',
     };
 
@@ -342,7 +336,7 @@ class Items extends React.Component {
             onRowClick={this.onSelectRow}
             onHeaderClick={this.onSort}
             onNeedMoreData={this.onNeedMore}
-            visibleColumns={['Material Type', 'location', 'barcode', 'title', 'status']}
+            visibleColumns={['Material Type', 'barcode', 'title', 'status']}
             sortOrder={this.state.sortOrder.replace(/^-/, '').replace(/,.*/, '')}
             sortDirection={this.state.sortOrder.startsWith('-') ? 'descending' : 'ascending'}
             isEmptyMessage={`No results found${maybeTerm}. Please check your ${maybeSpelling}filters.`}
