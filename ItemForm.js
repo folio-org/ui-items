@@ -108,7 +108,6 @@ function ItemForm(props) {
                 dataOptions={[{ label: 'Select material type', value: '' }, ...materialTypeOptions]}
               />
               <Field label="Barcode" name="barcode" id="additem_barcode" component={TextField} required fullWidth />
-              <Field label="Location" name="location.name" id="additem_location" component={TextField} fullWidth />
               <Field label="Status" name="status.name" id="additem_status" component={TextField} disabled fullWidth />
               <Field
                 label="Loan Type (Permanent) *"

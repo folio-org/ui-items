@@ -55,7 +55,6 @@ module.exports.test = function(uiTestCtx) {
         .type('#additem_materialType', 'b')
         .type('#additem_barcode', barcode)
         .wait(200)
-        .type('#additem_location', 'Storage')
         .type('#additem_loanTypePerm', 'c')
         .type('#additem_loanTypeTemp', 'r')
         .click('#clickable-create-item')
@@ -90,7 +89,7 @@ module.exports.test = function(uiTestCtx) {
       it('should confirm changes', done => {
         nightmare
         .wait(function(bc) {
-          var xp = document.evaluate( '//div[starts-with(@class,"kvValue")][contains(.,"revised")]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+          var xp = document.evaluate( '//div[starts-with(@class,"cell")][contains(.,"revised")]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
           try { 
             var val = xp.singleNodeValue.innerHTML
             return true
