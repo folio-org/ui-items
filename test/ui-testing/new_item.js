@@ -55,7 +55,6 @@ module.exports.test = function(uiTestCtx) {
         .type('#additem_materialType', 'b')
         .type('#additem_barcode', barcode)
         .wait(200)
-        .type('#additem_location', 'Storage')
         .type('#additem_loanTypePerm', 'c')
         .type('#additem_loanTypeTemp', 'r')
         .click('#clickable-create-item')
