@@ -67,7 +67,7 @@ module.exports.test = function(uiTestCtx) {
         nightmare
         .wait('input[placeholder=Search')
         .wait(222)
-        .type('input[placeholder=Search', barcode)
+        .insert('input[placeholder=Search', barcode)
         .wait('div[title="' + barcode + '"]')
         .wait(parseInt(process.env.FOLIO_UI_DEBUG) ? parseInt(config.debug_sleep) : 555) // debugging
         .then(result => { done() })
@@ -75,6 +75,7 @@ module.exports.test = function(uiTestCtx) {
       })
       it('should edit item', done => {
         nightmare
+	.wait(999)
         .click('div[title="' + barcode + '"]')
         .wait('#clickable-edit-item')
         .click('#clickable-edit-item')
