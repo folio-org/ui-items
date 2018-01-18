@@ -15,6 +15,8 @@ import FilterGroups, { initialFilterState, onChangeFilter as commonChangeFilter 
 import SRStatus from '@folio/stripes-components/lib/SRStatus';
 import transitionToParams from '@folio/stripes-components/util/transitionToParams';
 import makeQueryFunction from '@folio/stripes-components/util/makeQueryFunction';
+import removeQueryParam from '@folio/stripes-components/util/removeQueryParam';
+import craftLayerUrl from '@folio/stripes-components/util/craftLayerUrl';
 
 import ItemForm from './ItemForm';
 import ViewItem from './ViewItem';
@@ -76,9 +78,6 @@ class Items extends React.Component {
       path: PropTypes.string.isRequired,
     }).isRequired,
     mutator: PropTypes.shape({
-      addItemMode: PropTypes.shape({
-        replace: PropTypes.func,
-      }),
       items: PropTypes.shape({
         POST: PropTypes.func,
       }),
@@ -91,7 +90,6 @@ class Items extends React.Component {
 
   static manifest = Object.freeze({
     itemCount: { initialValue: INITIAL_RESULT_COUNT },
-    addItemMode: { initialValue: { mode: false } },
     items: {
       type: 'okapi',
       records: 'items',
@@ -142,6 +140,8 @@ class Items extends React.Component {
 
     this.onChangeFilter = commonChangeFilter.bind(this);
     this.transitionToParams = transitionToParams.bind(this);
+    this.removeQueryParam = removeQueryParam.bind(this);
+    this.craftLayerUrl = craftLayerUrl.bind(this);
 
     this.collapseDetails = this.collapseDetails.bind(this);
     this.connectedViewItem = props.stripes.connect(ViewItem);
@@ -216,13 +216,13 @@ class Items extends React.Component {
   onClickAddNewItem(e) {
     if (e) e.preventDefault();
     this.log('action', 'clicked "add new item"');
-    this.props.mutator.addItemMode.replace({ mode: true });
+    this.transitionToParams({ layer: 'create' });
   }
 
   onClickCloseNewItem(e) {
     if (e) e.preventDefault();
     this.log('action', 'clicked "close new item"');
-    this.props.mutator.addItemMode.replace({ mode: false });
+    this.removeQueryParam('layer');
   }
 
   onChangeFilter = (e) => {
@@ -292,14 +292,25 @@ class Items extends React.Component {
   }
 
   render() {
-    const { resources, stripes } = this.props;
+    const { resources, stripes, location } = this.props;
+    const query = location.search ? queryString.parse(location.search) : {};
     const items = (resources.items || {}).records || [];
     const materialTypes = (resources.materialTypes || {}).records || [];
     const loanTypes = (resources.loanTypes || {}).records || [];
 
     /* searchHeader is a 'custom pane header'*/
     const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} resultsList={this.resultsList} value={this.state.searchTerm} />;
-    const newItemButton = <PaneMenu><Button id="clickable-new-item" onClick={this.onClickAddNewItem} title="+ Item" buttonStyle="primary paneHeaderNewButton">+ New</Button></PaneMenu>;
+    const newItemButton = (
+      <PaneMenu>
+        <Button
+          id="clickable-new-item"
+          href={this.craftLayerUrl('create')}
+          onClick={this.onClickAddNewItem}
+          title="+ Item"
+          buttonStyle="primary paneHeaderNewButton"
+        >+ New</Button>
+      </PaneMenu>
+    );
 
     const resultsFormatter = {
       'Material Type': x => _.get(x, ['materialType', 'name']),
@@ -354,7 +365,7 @@ class Items extends React.Component {
           path={`${this.props.match.path}/view/:itemid`}
           render={props => <this.connectedViewItem stripes={stripes} paneWidth="44%" onClose={this.collapseDetails} {...props} />}
         />
-        <Layer isOpen={resources.addItemMode ? resources.addItemMode.mode : false} label="Add New Item Dialog">
+        <Layer isOpen={query.layer ? query.layer === 'create' : false} label="Add New Item Dialog">
           <ItemForm
             initialValues={{ available_material_types: materialTypes, available_loan_types: loanTypes, status: { name: 'Available' }, instanceId: 'dummy' }}
             onSubmit={(record) => { this.create(record); }}
