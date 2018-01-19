@@ -302,7 +302,9 @@ class Items extends React.Component {
     const newItemButton = <PaneMenu><Button id="clickable-new-item" onClick={this.onClickAddNewItem} title="+ Item" buttonStyle="primary paneHeaderNewButton">+ New</Button></PaneMenu>;
 
     const resultsFormatter = {
-      'Material Type': x => _.get(x, ['materialType', 'name']),
+      'Material Type': x => _.get(x, ['materialType', 'name'], ''),
+      title: x => _.get(x, ['title'], ''),
+      barcode: x => _.get(x, ['barcode'], ''),
       status: x => _.get(x, ['status', 'name']) || '--',
     };
 
