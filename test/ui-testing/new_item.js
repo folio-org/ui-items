@@ -26,7 +26,7 @@ module.exports.test = function(uiTestCtx) {
           .wait(555)
           .then(result => { done() })
           .catch(done)
-        }) 
+        })
       }
       flogout = function() {
         it('should logout', done => {
@@ -75,7 +75,7 @@ module.exports.test = function(uiTestCtx) {
       })
       it('should edit item', done => {
         nightmare
-	.wait(999)
+        .wait(999)
         .click('div[title="' + barcode + '"]')
         .wait('#clickable-edit-item')
         .click('#clickable-edit-item')
@@ -91,12 +91,12 @@ module.exports.test = function(uiTestCtx) {
         nightmare
         .wait(function(bc) {
           var xp = document.evaluate( '//div[starts-with(@class,"cell")][contains(.,"revised")]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
-          try { 
+          try {
             var val = xp.singleNodeValue.innerHTML
             return true
           } catch(e) {
             return false
-          } 
+          }
         }, barcode)
         .wait(parseInt(process.env.FOLIO_UI_DEBUG) ? parseInt(config.debug_sleep) : 0) // debugging
         .then(result => { done() })
