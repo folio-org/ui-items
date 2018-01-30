@@ -54,7 +54,9 @@
       {
         "permissionName": "settings.material-types.all",
         "displayName": "Settings (Items): Can create, edit and remove material types [LEGACY]",
-        "subPermissions": [ "ui-items.settings.material-types" ]
+        "subPermissions": [
+          "ui-items.settings.material-types"
+        ]
       },
       {
         "permissionName": "ui-items.settings.loan-types",
@@ -72,7 +74,9 @@
       {
         "permissionName": "settings.loan-types.all",
         "displayName": "Settings (Items): Can create, edit and remove loan types [LEGACY]",
-        "subPermissions": [ "ui-items.settings.loan-types" ]
+        "subPermissions": [
+          "ui-items.settings.loan-types"
+        ]
       },
       {
         "permissionName": "settings.items.enabled",
@@ -105,7 +109,7 @@
     "webpack": "1.11.0"
   },
   "dependencies": {
-    "@folio/stripes-components": "^1.8.0",
+    "@folio/stripes-components": "^2.0.0",
     "@folio/stripes-form": "^0.8.0",
     "@folio/stripes-smart-components": "^1.0.1",
     "lodash": "^4.17.4",
@@ -117,7 +121,7 @@
     "redux-form": "^7.0.3"
   },
   "peerDependencies": {
-    "@folio/stripes-connect": "^2.7.0",
+    "@folio/stripes-connect": "^3.1.0",
     "@folio/stripes-core": "^2.7.0",
     "@folio/stripes-logger": "^0.0.2"
   }
