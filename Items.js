@@ -275,12 +275,12 @@ class Items extends React.Component {
       rowData,
       cells,
       rowProps,
-      labelStrings,
-    },
+      labelStrings },
   ) {
     return (
       <a
-        href={this.getRowURL(rowData)} key={`row-${rowIndex}`}
+        href={this.getRowURL(rowData)}
+        key={`row-${rowIndex}`}
         aria-label={labelStrings && labelStrings.join('...')}
         role="listitem"
         className={rowClass}
@@ -298,7 +298,7 @@ class Items extends React.Component {
     const materialTypes = (resources.materialTypes || {}).records || [];
     const loanTypes = (resources.loanTypes || {}).records || [];
 
-    /* searchHeader is a 'custom pane header'*/
+    /* searchHeader is a 'custom pane header' */
     const searchHeader = <FilterPaneSearch id="SearchField" onChange={this.onChangeSearch} onClear={this.onClearSearch} resultsList={this.resultsList} value={this.state.searchTerm} />;
     const newItemButton = (
       <PaneMenu>
@@ -308,7 +308,8 @@ class Items extends React.Component {
           onClick={this.onClickAddNewItem}
           title="+ Item"
           buttonStyle="primary paneHeaderNewButton"
-        >+ New</Button>
+        >+ New
+        </Button>
       </PaneMenu>
     );
 
@@ -356,7 +357,7 @@ class Items extends React.Component {
             loading={this.props.resources.items ? this.props.resources.items.isPending : false}
             autosize
             virtualize
-            ariaLabel={'Item search results'}
+            ariaLabel="Item search results"
             rowFormatter={this.anchoredRowFormatter}
             containerRef={(ref) => { this.resultsList = ref; }}
           />
