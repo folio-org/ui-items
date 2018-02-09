@@ -15,7 +15,6 @@ import craftLayerUrl from '@folio/stripes-components/util/craftLayerUrl';
 import ItemForm from './ItemForm';
 
 class ViewItem extends React.Component {
-
   static propTypes = {
     resources: PropTypes.shape({
       materialTypes: PropTypes.shape({
@@ -186,7 +185,6 @@ class ViewItem extends React.Component {
       </Pane>
     ) : null;
   }
-
 }
 
 export default ViewItem;
