@@ -1,5 +1,7 @@
 # Change history for ui-items
 
+## DEPRECATED. See ui-inventory.
+
 ## 1.12.0 (IN PROGRESS)
 
 * Dependency on inventory: 5.0
